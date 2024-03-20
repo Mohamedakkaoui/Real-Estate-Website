@@ -1,0 +1,1 @@
+Our final project for the bootcamp is a comprehensive real estate marketplace, designed to provide users with a seamless experience for renting, selling, and buying homes, apartments, villas, and superficies. Inspired by popular platforms like Airbnb, our project aims to revolutionize the way people interact with the real estate market. 
