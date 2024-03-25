@@ -10,16 +10,16 @@ exports.connection = () => {
             },
             (err) => {
                 // Connection error
-                console.info(color.red, 'Mongodb error', err);
+                console.info(database.color.red, 'Mongodb error', err);
             }
         ).catch((err) => {
-            console.log(color.red, 'ERROR:', err);
+            console.log(database.color.red, 'ERROR:', err);
         });
     }
 
     mongoose.connection.on('connected', () => {
         // Event: Connected to MongoDB
-        console.info(color.green, 'Connected to MongoDB ✓');
+        console.info(database.color.green, 'Connected to MongoDB ✓');
 
     });
 
@@ -30,13 +30,13 @@ exports.connection = () => {
 
     mongoose.connection.on('error', (error) => {
         // Event: Error in MongoDB connection
-        console.error(color.red, `Error in MongoDB connection: ${error}`);
+        console.error(database.color.red, `Error in MongoDB connection: ${error}`);
         mongoose.disconnect();
     });
 
     mongoose.connection.on('disconnected', () => {
         // Event: MongoDB disconnected
-        console.error(color.red, `MongoDB disconnected! Reconnecting in ${2000 / 1000}s...`);
+        console.error(database.color.red, `MongoDB disconnected! Reconnecting in ${2000 / 1000}s...`);
         setTimeout(() => connectToMongo(), 2000);
     });
 
