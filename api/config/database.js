@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 exports.connection = () => {
     function connectToMongo() {
         // Attempt to connect to the MongoDB database
-        mongoose.connect(database.uri).then(
+        mongoose.connect(database.url).then(
             () => {
                 // Connection successful
             },
