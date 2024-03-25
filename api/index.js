@@ -32,7 +32,7 @@ const database = connection();
 database.connectToMongo();
 
 
-//listening on port
+//listening on chosen port
 const port = process.env.PORT;
 
 server.listen(port, () => {
