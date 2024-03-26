@@ -1,7 +1,7 @@
 const UserSchema = require('../models/schemas/user.Model.js');
-const {hashPassword } = require('../helpers/hashing');
+const {hashPassword } = require('../helpers/hashing.js');
 const {generateToken} = require('../helpers/jwt');
-// const { comparePassword } = require("./hashing.js");
+const { comparePassword } = require("../helpers/hashing.js");
 const {checkExitingMail} = require('../models/methods/user.Methods.js')
 
 
