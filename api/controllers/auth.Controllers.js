@@ -9,7 +9,6 @@ exports.getRegister = async(req,res) => {
     try{
         
         const {username, email, password} = req.body;
-        console.log('entered')
         const hashedPassword = await hashPassword(password);
         const verifyEmail =  await checkExitingMail(email)
         if(verifyEmail){
