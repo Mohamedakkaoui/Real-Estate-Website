@@ -1,6 +1,14 @@
 const Userschema = require('../schemas/user.Model')
 
-
+exports.checkExitingMail = async (email) => {
+  try {
+      const user = await Userschema.findOne({ email })   
+      return user
+  }
+  catch (error) {
+      throw new Error(error)
+  }
+}
 
 exports.DeleteUserDB = async (id) => {
   try {
