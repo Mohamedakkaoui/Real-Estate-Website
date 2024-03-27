@@ -16,12 +16,12 @@ server.use(express.urlencoded({ extended: true }))
 
 //importing routes
 
-// const UsersRoute = require('./controllers/user.Controllers')
+// const UsersRoute = require('./routes/user.Routes')
 // server.use('/users', UsersRoute)
 const AuthRoutes = require('./routes/auth.Routes')
 
 //using routes
-server.use('/', AuthRoutes)
+server.use('/users', AuthRoutes)
 
 
 
