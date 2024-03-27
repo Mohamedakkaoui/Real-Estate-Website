@@ -3,13 +3,13 @@ const {getAllUsersDB}= require('../models/methods/user.Methods')
 
 
 
+
 exports.getAllUsers = async (req,res) => {
   try {
     const users = await getAllUsersDB();
     res.status(200).json(users);
   } catch (error) {
     console.log(error)
-
   }
 };
 
