@@ -10,6 +10,16 @@ exports.checkExitingMail = async (email) => {
   }
 }
 
+exports.getAllUsersDB = async () => {
+  try {
+    const users = await UserSchema.find();
+    return users
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to fetch users from the database');
+  }
+};
+
 exports.DeleteUserDB = async (id) => {
   try {
     if (mongoose.Types.ObjectId.isValid(id))
