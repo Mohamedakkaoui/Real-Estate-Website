@@ -1,8 +1,8 @@
-const Userschema = require('../schemas/user.Model')
+const UserSchema = require('../schemas/user.Model')
 
 exports.checkExitingMail = async (email) => {
   try {
-      const user = await Userschema.findOne({ email })   
+      const user = await UserSchema.findOne({ Email : email })
       return user
   }
   catch (error) {
