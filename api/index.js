@@ -16,10 +16,12 @@ server.use(express.urlencoded({ extended: true }))
 
 //importing routes
 
-
+// const UsersRoute = require('./controllers/user.Controllers')
+// server.use('/users', UsersRoute)
+const AuthRoutes = require('./routes/auth.Routes')
 
 //using routes
-
+server.use('/', AuthRoutes)
 
 
 
@@ -34,6 +36,7 @@ database.connectToMongo();
 
 //listening on chosen port
 const port = process.env.PORT;
+
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)

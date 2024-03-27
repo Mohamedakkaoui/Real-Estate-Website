@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 
 const UserSchema = new Schema ({
-   FirstName: {
+  FirstName: {
     type : String,
     required : true
   },
@@ -11,30 +11,36 @@ const UserSchema = new Schema ({
     type : String,
     required : true
   },
-  email : {
+  Username : {
+    type : String,
+    required : true
+  },
+  Email : {
     type : String,
     required : true,
     unique : true
   },
-  password : {
+  Password : {
     type : String,
     required : true,
     unique : true
   },
   PhoneNumber : {
     required : true,
-    type : Number
+    type : Number,
+    min : 500000000,
+    max : 800000000
   },
-  role : {
+  Role : {
      type : String,
      default : 'guest'
   },
   ProfilePic : {
     type : String
   },
-  listings : [],
-  bookings : [],
-  isactive : {
+  Listings : [String],
+  Bookings : [String],
+  isActive : {
     type : Boolean,
     default : true
   }
