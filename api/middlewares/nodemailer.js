@@ -14,11 +14,11 @@ exports.mailsender = (email, Name) => {
   async function main() {
     // send mail with defined transport object
     const info = await transporter.sendMail({
-      from: '"RYMZ👻" <akkaouimohamed00@gmail.com>', // sender address
+      from: '"RYMZ👻"', // sender address
       to: email, // list of receivers
       subject: "Welcome to RYMZ", // Subject line
       text: EmailFormat(Name), // plain text body
-      html: "<b>Thanks for signing in</b>", // html body
+      html: EmailFormat(Name), // html body
     });
     console.log("Message sent: %s", info.messageId);
   }
@@ -27,7 +27,7 @@ exports.mailsender = (email, Name) => {
 }
 
 const EmailFormat = (UserName) => {
-const MailText = `Dear ${UserName},
+const MailText = `Dear ${UserName},<br/>
 
 Welcome to RYMZ! We're thrilled to have you join our community of real estate enthusiasts and home seekers.
 
@@ -37,7 +37,7 @@ Start your journey with RYMZ today by browsing our listings, saving your favorit
 
 Thank you for choosing US as your trusted resource for all things real estate. We look forward to helping you find your perfect property!
 
-Warm regards,
+Warm regards,<br/>
 
 RYMZ`
  return MailText
