@@ -17,7 +17,7 @@ exports.getRegister = async(req,res) => {
         const newUser = new UserSchema({FirstName, LastName,Username,Email,Password : hashedPassword, PhoneNumber})
         const result = await newUser.save()
         // mailsender(req.body.Email, LastName)
-        return res.status(200).send({message:'signing up successfully', result : result})
+        return res.status(201).send({message:'signing up successfully', result : result})
     }catch(err){
         return res.status(404).send(err)
     }
@@ -36,8 +36,8 @@ exports.getLogin= async(req, res) => {
         const checked =await VerifyPassword(Password,user.Password)
         if(!checked) return res.status(400).json({message:"Incorrect Password"})
         const userObject = user.toObject();
-        const token = await generateToken(userObject);
-        res.cookie('tokenUser',token).json({ message: "Login successful", token : token});
+        const token =  generateToken({Email : userObject.Email, FirstName : userObject.FirstName, LastName : userObject.LastName, id : userObject._id});
+        res.status(200).json({ message: "Login successful", token : token});
 
     }catch(err){
         console.error(err);
