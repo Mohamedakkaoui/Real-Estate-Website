@@ -5,7 +5,7 @@ require('dotenv').config()
 const { default: mongoose } = require('mongoose');
 
 
-//functions import
+//necessary functions import
 
 
 
@@ -15,13 +15,13 @@ server.use(express.urlencoded({ extended: true }))
 
 
 //importing routes
-const AuthRoutes = require('./routes/auth.Routes')
+const AuthRoute = require('./routes/auth.Routes')
 const UserRoute = require('./routes/user.Routes')
 
 
 //using routes
-server.use('/users', AuthRoutes)
-server.use('/users',UserRoute)
+server.use('/users', AuthRoute)
+server.use('/users', UserRoute)
 
 
 
@@ -36,8 +36,6 @@ database.connectToMongo();
 
 //listening on chosen port
 const port = process.env.PORT;
-
-
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })

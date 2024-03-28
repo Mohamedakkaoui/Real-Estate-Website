@@ -1,13 +1,14 @@
+//import midllewares and packs
 const express = require('express');
-const { getRegister , getLogin} = require('../controllers/auth.Controllers');
-const AuthRouter = express.Router();
-const {AvoidAuth } = require ('../middlewares/avoidAuth')
+const { getRegister, getLogin } = require('../controllers/auth.Controllers');
+const AuthRoute = express.Router();
+const { AvoidAuth } = require('../middlewares/avoidAuth')
 
 
 //Authentication
 
-AuthRouter.post('/auth/register', AvoidAuth ,getRegister)
-AuthRouter.get('/auth/login',AvoidAuth , getLogin)
+AuthRoute.post('/auth/register', AvoidAuth, getRegister)
+AuthRoute.get('/auth/login', AvoidAuth, getLogin)
 
-
-module.exports = AuthRouter
+//export route
+module.exports = AuthRoute
