@@ -1,9 +1,8 @@
 //import necessary functions 
 const UserSchema = require('../models/schemas/user.Model.js');
 const { mailsender } = require('../middlewares/nodemailer.js')
-const { HashPassword } = require('../helpers/hashing.js');
+const { HashPassword, VerifyPassword } = require('../helpers/hashing.js');
 const { generateToken } = require('../helpers/jwt');
-const { VerifyPassword } = require("../helpers/hashing.js");
 const { checkExitingMail } = require('../models/methods/user.Methods.js')
 
 
@@ -22,7 +21,7 @@ exports.getRegister = async (req, res) => {
         // mailsender(req.body.Email, LastName)
         return res.status(201).send({ message: 'signing up successfully', result: result })
     } catch (err) {
-        return res.status(404).send(err)
+        return res.status(404).send('Unable to Register user : ' + err)
     }
 }
 
@@ -31,19 +30,17 @@ exports.getRegister = async (req, res) => {
 // login user
 exports.getLogin = async (req, res) => {
     try {
-        const { Email, Password } = req.body;
-        const user = await UserSchema.findOne({ Email: Email });
+        const { Email, Password } = req.body
+        const user = await UserSchema.findOne({ Email })
         if (!user) {
             return res.status(400).json({ message: "User not founds" })
         }
         const checked = await VerifyPassword(Password, user.Password)
         if (!checked) return res.status(400).json({ message: "Incorrect Password" })
-        const userObject = user.toObject();
-        const token = generateToken({ Email: userObject.Email, FirstName: userObject.FirstName, LastName: userObject.LastName, id: userObject._id });
-        res.status(200).json({ message: "Login successful", token: token, key: process.env.jwtKey });
+        const token = generateToken({ Email: user.Email, FirstName: user.FirstName, LastName: user.LastName, id: user._id })
+        res.status(200).json({ message: "Login successful", token: token });
 
     } catch (err) {
-        console.error(err);
-        return res.status(501).send('server error')
+        return res.status(501).send('Unsuccessful attempt to login :' + err)
     }
 }

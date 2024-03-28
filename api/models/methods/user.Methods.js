@@ -10,7 +10,7 @@ exports.checkExitingMail = async (email) => {
     return user
   }
   catch (error) {
-    throw new Error(error)
+    throw new Error('Email not found : ' + error)
   }
 }
 
@@ -18,24 +18,25 @@ exports.checkExitingMail = async (email) => {
 // get all users
 exports.getAllUsersDB = async () => {
   try {
-    const users = await UserSchema.find();
+    const users = await UserSchema.find()
     return users
   } catch (error) {
-    throw new Error('Failed to fetch users from the database');
+    throw new Error('Failed to fetch users from the database : ' + error)
   }
 };
 
 
 //method to get user by Id 
-exports.getUsersBId = async (id) => {
+exports.GetUserbyIdDB = async (id) => {
   try {
-    const user = await UserSchema.findById({ _id: id });
-    return user;
+    if (mongoose.Types.ObjectId.isValid(id)) {
+    const user = await UserSchema.findById({ _id: id })
+    return user
+    }
   } catch (error) {
-    console.log(error);
-    throw new Error('error');
+    throw new Error('Couldnt Find User : ' + error);
   }
-};
+}
 
 //method to delete user
 exports.DeleteUserDB = async (id) => {
@@ -45,29 +46,20 @@ exports.DeleteUserDB = async (id) => {
       return deltedUser
     }
   } catch (error) {
-    console.log(error)
-  }
-}
-
-//find user 
-exports.findUser = async (id) => {
-  try {
-    const user = await UserSchema.findOne({ _id: id })
-    return user
-  }
-  catch (error) {
-    throw new Error(error)
+    throw new Error('Failed to delete user : ' + error)
   }
 }
 
 //find user and update
-exports.updateProfile = async (id, data) => {
+exports.updateProfileDB = async (id, data) => {
   try {
+    if (mongoose.Types.ObjectId.isValid(id)) {
     const user = await UserSchema.findByIdAndUpdate(id, data, { new: true })
     return user
+    }
   }
   catch (error) {
-    throw new Error(error)
+    throw new Error("Failed to update User'Profile : " + error)
   }
 }
 
