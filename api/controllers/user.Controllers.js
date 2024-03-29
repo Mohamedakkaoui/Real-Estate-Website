@@ -1,5 +1,5 @@
 //importing necessary methods and functions
-const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB } = require('../models/methods/user.Methods.js')
+const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB, GetuserByUsernameDB } = require('../models/methods/user.Methods.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
 const jwt = require('jsonwebtoken')
 
@@ -109,8 +109,22 @@ exports.DeleteUser = async (req, res) => {
 }
 
 
-
-
+//Get User by Username
+exports.GetUserByUsername = async (req, res) => {
+  try {
+    const Username = req.params.username
+    if (!Username) {
+      res.status(404).json({message : 'User doesnt exist'})
+    }
+    const user = await GetuserByUsernameDB(Username)
+    if (user.length == 0){
+      return res.status(404).json({message : 'User doesnt exist'})
+    }
+    return res.status(200).send(user)
+  } catch (error) {
+    res.send('NO user was Found ')
+  }
+}
 
 
 

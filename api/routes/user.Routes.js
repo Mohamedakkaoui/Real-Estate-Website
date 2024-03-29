@@ -4,7 +4,7 @@ const { isAuthenticated } = require('../middlewares/authMiddlewares');
 const UserRoute = express.Router()
 
 //importing controllers & Middlewares
-const { updateUserProfile, getUserById, getAllUsers, updateUserPassword, DeleteUser } = require('../controllers/user.Controllers.js')
+const { updateUserProfile, getUserById, getAllUsers, updateUserPassword, DeleteUser, GetUserByUsername } = require('../controllers/user.Controllers.js')
 
 
 //defining routes
@@ -16,7 +16,7 @@ UserRoute.get('/', getAllUsers)
 // UserRoute.get('/:id', isAuthenticated, getUserById)
 UserRoute.put('/profile/change-password', isAuthenticated, updateUserPassword)
 UserRoute.delete('/profile/delete', isAuthenticated, DeleteUser)
-
+UserRoute.get('/profile/:username', GetUserByUsername)
 
 // exporting the route
 module.exports = UserRoute

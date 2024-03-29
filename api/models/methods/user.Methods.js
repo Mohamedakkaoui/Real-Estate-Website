@@ -64,4 +64,12 @@ exports.updateProfileDB = async (id, data) => {
 }
 
 
-
+//fid user by username
+exports.GetuserByUsernameDB = async (Username) => {
+  try {
+    const user = await UserSchema.findOne({Username})
+    return user
+  } catch (error) {
+    throw new error ('No user was Found : ' + error)
+  }
+}
