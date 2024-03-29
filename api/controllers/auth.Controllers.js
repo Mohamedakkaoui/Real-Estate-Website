@@ -18,7 +18,7 @@ exports.getRegister = async (req, res) => {
         }
         const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber })
         const result = await newUser.save()
-        // mailsender(req.body.Email, LastName)
+        mailsender(req.body.Email, LastName)
         return res.status(201).send({ message: 'signing up successfully', result: result })
     } catch (err) {
         return res.status(404).send('Unable to Register user : ' + err)
