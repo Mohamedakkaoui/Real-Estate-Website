@@ -12,3 +12,17 @@ exports.addReviewDB = async (data)=> {
     throw new Error (err) 
   }
 }
+
+
+//Get review by ID
+exports.GetReviewByIdDB = async (id) => {
+  try {
+    if (mongoose.Types.ObjectId.isValid(id))
+    {
+      const Review = await ReviewSchema.findOne({_id : id})
+      return Review
+    }
+  } catch (err) {
+    throw new Error (err)
+  }
+}
