@@ -30,21 +30,7 @@ const ListingsSchema = new Schema({
     size: {
       type: Number
     },
-    reviews: [
-      {
-        userId: {
-          type: Schema.Types.ObjectId,
-          ref: 'User'
-        },
-        rating: {
-          type: Number,
-          
-        },
-        comment: {
-          type: String
-        }
-      }
-    ],
+    reviews: [String],
     images: [String],
     owner: {
       type: Schema.Types.ObjectId,
