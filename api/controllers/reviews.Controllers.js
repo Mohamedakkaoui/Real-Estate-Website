@@ -1,4 +1,4 @@
-const {addReviewDB} = require('../models/methods/reviews.Methods')
+const {addReviewDB, GetReviewByIdDB} = require('../models/methods/reviews.Methods')
 
 //Create Review
 exports.CreateReview = async (req, res) => {
@@ -15,5 +15,23 @@ exports.CreateReview = async (req, res) => {
     return res.status(200).json({message : 'Review created successfully', review : Review})
   } catch (error) {
     return res.status(404).json({error : "Error creating review. Please try again later.", details : error.message})
+  }
+}
+
+
+//Get review By Id
+exports.GetReviewById = async (req, res) => {
+  try {
+    const { id }= req.params
+    if (!id)  {
+      return res.status(404).json({message : 'No review ID was provided.'})
+    }
+    const review = await GetReviewByIdDB(id)
+    if (!review) {
+      return res.status(404).json({message : 'No review was found fro the provided ID'})
+    }
+    return res.status(200).json({message :'Review retrieved successfully', Review : review })
+  } catch (error) {
+    return res.status(404).json({message : 'Unable to retrieve review. Please try again later.', error : error.messaeg})
   }
 }
