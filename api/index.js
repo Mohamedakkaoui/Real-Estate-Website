@@ -21,7 +21,7 @@ const ReviewRoute = require('./routes/Review.Routes')
 const LinstingRoute=require('./routes/listing.Routes')
 
 //using routes
-server.use('/users', AuthRoute)
+server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
 server.use('/listings',LinstingRoute);

@@ -27,6 +27,7 @@ exports.GetReviewByIdDB = async (id) => {
   }
 }
 
+
 //update review 
 exports.Updatereview = async (id, data) => {
   try {
@@ -34,5 +35,19 @@ exports.Updatereview = async (id, data) => {
     return review;
   } catch (error) {
     throw new Error(error);
+  }
+};
+
+// Delete review by ID 
+
+exports.deleteReviewDB = async (id) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error('Invalid review ID');
+    }
+    const deletedReview = await ReviewSchema.deleteOne({ _id: id });
+    return deletedReview;
+  } catch (error) {
+    throw new Error('Failed to delete review: ' + error.message);
   }
 };

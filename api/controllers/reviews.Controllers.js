@@ -1,4 +1,5 @@
-const {addReviewDB, GetReviewByIdDB,Updatereview} = require('../models/methods/reviews.Methods')
+
+const {addReviewDB, GetReviewByIdDB,Updatereview,deleteReviewDB} = require('../models/methods/reviews.Methods')
 
 //Create Review
 exports.CreateReview = async (req, res) => {
@@ -35,6 +36,7 @@ exports.GetReviewById = async (req, res) => {
     return res.status(404).json({message : 'Unable to retrieve review. Please try again later.', error : error.messaeg})
   }
 }
+
 //update review
 exports.updateReview =async (req, res) =>{
   try{
@@ -51,3 +53,25 @@ res.status(200).json(update);
       res.status(500).json({message:error.message}) 
   }
 }
+
+
+// delete review by ID 
+
+exports.deleteReview = async (req, res) => {
+  try {
+    const reviewId = req.params.id;
+    if (!reviewId) {
+      return res.status(400).send('Review ID is required');
+    }
+    const deletedReview = await deleteReviewDB(reviewId);
+    if (!deletedReview){
+      res.status(400).json({message : 'unable to Delete'})
+    }
+      if(deletedReview.deletedCount == 0) {
+      return res.status(404).send('Review not found');
+    }
+    return res.status(200).json({ message: 'Review deleted successfully' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Error deleting review. Please try again later.', details: error.message });
+  }
+};

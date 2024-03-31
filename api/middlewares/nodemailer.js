@@ -1,7 +1,10 @@
 const nodemailer = require ('nodemailer')
 require('dotenv').config()
+const EmailService = require('../Utils/Emails')
 
-exports.mailsender = (email, Name) => {
+const emailService = new EmailService()
+
+exports.mailsender = (email, Function, ...args) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',  // Use `true` for port 465, `false` for all other ports
     auth: {
@@ -12,13 +15,14 @@ exports.mailsender = (email, Name) => {
   
   // async..await is not allowed in global scope, must use a wrapper
   async function main() {
+    const emailText = emailService[Function](...args)
     // send mail with defined transport object
     const info = await transporter.sendMail({
       from: '"RYMZ👻"', // sender address
       to: email, // list of receivers
       subject: "Welcome to RYMZ", // Subject line
-      text: EmailFormat(Name), // plain text body
-      html: EmailFormat(Name), // html body
+      text: emailText, // plain text body
+      html: emailText, // html body
     });
     console.log("Message sent: %s", info.messageId);
   }
@@ -26,19 +30,3 @@ exports.mailsender = (email, Name) => {
   main().catch(console.error)
 }
 
-const EmailFormat = (UserName) => {
-const MailText = `Dear ${UserName},<br/>
-
-Welcome to RYMZ! We're thrilled to have you join our community of real estate enthusiasts and home seekers.
-
-At RMYZ, we understand that finding the perfect property can be an exciting journey, and we're here to support you every step of the way. Whether you're searching for your dream home, exploring investment opportunities, or simply curious about the real estate market, our platform offers a wealth of resources to help you achieve your goals.
-
-Start your journey with RYMZ today by browsing our listings, saving your favorite properties, and connecting with real estate agents in your area.
-
-Thank you for choosing US as your trusted resource for all things real estate. We look forward to helping you find your perfect property!
-
-Warm regards,<br/>
-
-RYMZ`
- return MailText
-}

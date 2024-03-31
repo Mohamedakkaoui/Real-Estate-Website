@@ -44,6 +44,10 @@ const UserSchema = new Schema ({
   isActive : {
     type : Boolean,
     default : true
+  },
+  OwnerId: {
+    type: String,
+    unique: true
   }
 })
 
