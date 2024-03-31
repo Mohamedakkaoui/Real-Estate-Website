@@ -26,3 +26,13 @@ exports.GetReviewByIdDB = async (id) => {
     throw new Error (err)
   }
 }
+
+//update review 
+exports.Updatereview = async (id, data) => {
+  try {
+    const review = await ReviewSchema.findByIdAndUpdate(id, data, { new: true });
+    return review;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

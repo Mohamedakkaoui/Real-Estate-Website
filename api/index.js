@@ -18,11 +18,13 @@ server.use(express.urlencoded({ extended: true }))
 const AuthRoute = require('./routes/auth.Routes')
 const UserRoute = require('./routes/user.Routes')
 const ReviewRoute = require('./routes/Review.Routes')
+const LinstingRoute=require('./routes/listing.Routes')
 
 //using routes
 server.use('/users', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
+server.use('/listings',LinstingRoute);
 
 
 
