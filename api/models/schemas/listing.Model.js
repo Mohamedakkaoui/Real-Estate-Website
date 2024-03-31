@@ -38,8 +38,9 @@ const ListingsSchema = new mongoose.Schema({
   },
   images: [],
   owner: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: String
+    // type: Schema.Types.ObjectId,
+    // ref: 'User',
     // required: true
   }
 });

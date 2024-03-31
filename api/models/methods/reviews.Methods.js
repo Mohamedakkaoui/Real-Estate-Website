@@ -16,10 +16,11 @@ exports.addReviewDB = async (data) => {
 // get all reviews
 exports.getAllReviewsDB = async () => {
   try {
-    const reviews = await ReviewSchema.find()
-    return reviews
-  } catch (error) {
-    throw new Error('Failed to fetch reviews from the database : ' + error)
+    const Reviews = await ReviewSchema.find();
+    return Reviews;
+
+  } catch (err) {
+    throw new Error(err)
   }
-};
+}
 

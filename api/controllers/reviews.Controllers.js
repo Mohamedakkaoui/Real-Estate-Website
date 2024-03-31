@@ -1,4 +1,8 @@
-const { addReviewDB } = require('../models/methods/reviews.Methods')
+const { addReviewDB, getAllReviewsDB } = require('../models/methods/reviews.Methods')
+const { Review } = require('../models/schemas/reviews.Model')
+const mongoose = require('mongoose');
+
+
 
 //Create Review
 exports.CreateReview = async (req, res) => {
@@ -24,7 +28,7 @@ exports.CreateReview = async (req, res) => {
 exports.getAllReviews = async (req, res) => {
   try {
     const reviews = await getAllReviewsDB();
-    res.status(200).json(reviews);
+    return res.status(200).json(reviews);
   } catch (error) {
     console.log(error)
   }

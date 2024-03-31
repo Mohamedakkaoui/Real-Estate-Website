@@ -1,5 +1,6 @@
 const { uploadFunction } = require("../helpers/cloudinary");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
+const { deleteListingFromDB } = require("../models/methods/listing.Methods");
 
 
 const ListingsSchema = require("../models/schemas/listing.Model");
@@ -10,13 +11,10 @@ const ListingsSchema = require("../models/schemas/listing.Model");
 exports.addNewProperty = async (req, res) => {
   try {
     const { title, description, category, listingType, price, size, options, location } = req.body;
-    // const owner = req.user.id
-    console.log(title)
-    // if (req.files) {
-    // }
+    // const { id } = req.user
+    const owner = req.user.id
     const images = await bufferAndUploadMultiple(req);
-
-    const newProperty = new ListingsSchema({ title, description, category, listingType, price, size, options, images, location })
+    const newProperty = new ListingsSchema({ title, description, category, listingType, price, size, options, images, location, owner })
     const savedNewProperty = await newProperty.save()
     return res.status(201).send({ message: 'New property added!', result: savedNewProperty })
   } catch (err) {
@@ -27,20 +25,21 @@ exports.addNewProperty = async (req, res) => {
 
 //Delete listing
 exports.deleteProperty = async (req, res) => {
-  const { id } = req.user.id
-
-  const listing = await Listing.findById(req.params.id);
-
+  const { id } = req.user
+  const { propertyId } = req.params
+  const listing = await ListingsSchema.findById(propertyId);
   if (!listing) {
     return res.status(404).json('listing unfound!');
   }
+  console.log(id)
+  console.log(listing.owner)
 
   if (id !== listing.owner) {
     return res.status(401).json('You can only delete your own listings!');
   }
   try {
-    const deleteUser = await DeleteUserDB(id)
+    await deleteListingFromDB(propertyId)
   } catch (error) {
-    throw error
+    return res.send(error)
   }
 }

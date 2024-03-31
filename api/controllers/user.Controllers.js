@@ -1,7 +1,8 @@
 //importing necessary methods and functions
-const { DeleteUserDB, getAllUsersDB, getUsersBId, findUser, updateProfile } = require('../models/methods/user.Methods.js')
+const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB } = require('../models/methods/user.Methods.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { bufferAndUpload } = require('../helpers/datauri.js');
 
 //all users
 exports.getAllUsers = async (req, res) => {
@@ -44,7 +45,7 @@ exports.updateUserProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'no user found' });
     }
-    const updatedUser = await updateProfile(id, { FirstName, LastName, Username, Email, PhoneNumber }, { new: true })
+    const updatedUser = await updateProfileDB(id, { FirstName, LastName, Username, Email, PhoneNumber }, { new: true })
     return res.status(202).json({ message: 'user updated successfully' })
   }
   catch (error) {
@@ -91,6 +92,32 @@ exports.DeleteUser = async (req, res) => {
     return res.status(202).send('deleted Succesfully')
   } catch (error) {
     console.log(error)
+  }
+}
+
+//add profile Pic
+exports.updateProfilePic = async (req, res) => {
+  try {
+
+    const { id } = req.user
+    if (!id) {
+      return res.status(404).json({ message: 'no user identified!' })
+    }
+    const user = await GetUserbyIdDB(id)
+    if (!user) {
+      return res.status(404).json({ message: 'no user found' });
+    }
+    const localImage = req.file
+    if (!localImage) {
+      return res.status(404).json({ message: 'no image provided' });
+    }
+    console.log(localImage)
+    const uploadedImage = await bufferAndUpload(localImage)
+    const updatedUser = await updateProfileDB(id, { ProfilePic: uploadedImage }, { new: true })
+    return res.status(202).json({ message: 'image added successfully' })
+  }
+  catch (error) {
+    console.log(error.message)
   }
 }
 

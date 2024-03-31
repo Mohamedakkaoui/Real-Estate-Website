@@ -1,10 +1,11 @@
 const { cloudinaryUpload } = require("./cloudinary")
 
-exports.bufferAndUpload = async () => {
-    const b64 = Buffer.from(req.file.buffer).toString("base64");
-    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+exports.bufferAndUpload = async (req) => {
+    console.log(req)
+    const b64 = Buffer.from(req.buffer).toString("base64");
+    let dataURI = "data:" + req.mimetype + ";base64," + b64;
     const cldRes = await cloudinaryUpload(dataURI);
-    return res.json(cldRes);
+    return cldRes;
 }
 
 exports.bufferAndUploadMultiple = async (req) => {
