@@ -4,7 +4,7 @@ const { mailsender } = require('../middlewares/nodemailer.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js');
 const { generateToken , verifyToken } = require('../helpers/jwt');
 const { GetUserbyIdDB, updateProfileDB , checkExitingMail } = require('../models/methods/user.Methods.js')
-
+const {v4: uuid} = require('uuid')
 
 
 //register new user
@@ -16,7 +16,8 @@ exports.getRegister = async (req, res) => {
         if (verifyEmail) {
             return res.status(400).json({ message: "email already used" })
         }
-        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber })
+        const OwnerId = uuid()
+        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber , OwnerId : OwnerId});
         const result = await newUser.save()
         // mailsender(req.body.Email,'welcomingEmail', LastName)
         return res.status(201).send({ message: 'signing up successfully', result: result })
@@ -87,5 +88,16 @@ exports.ResetPassword = async (req, res) => {
         return res.status(202).json({message : 'password reset successfuly!'})
     } catch (error) {
         return res.status(500).json({message : 'Unable to reset password due to :' , Error : error.message} )
+    }
+}
+
+
+exports.logout = async (req, res) => {
+    try {
+        res.clearCookie('token');
+        
+        res.status(200).json({ message: "Logout successful" });
+    } catch (err) {
+        return res.status(500).send('Error logging out: ' + err);
     }
 }
