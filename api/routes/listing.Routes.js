@@ -7,10 +7,11 @@ const { addNewProperty, deleteProperty } = require('../controllers/listing.Contr
 const { ListingPicsUpload } = require('../middlewares/multer');
 const { isAuthenticated } = require('../middlewares/authMiddlewares');
 
-
+//setting limit for upload
+const maxFiles = 8;
 //defining routes
 
-ListingRoute.post('/add', ListingPicsUpload.array('image'), isAuthenticated, addNewProperty)
+ListingRoute.post('/add', ListingPicsUpload.array('image', maxFiles), isAuthenticated, addNewProperty)
 ListingRoute.delete('/:propertyId', isAuthenticated, deleteProperty)
 
 // exporting the route

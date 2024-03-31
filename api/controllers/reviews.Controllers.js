@@ -30,7 +30,7 @@ exports.getAllReviews = async (req, res) => {
     const reviews = await getAllReviewsDB();
     return res.status(200).json(reviews);
   } catch (error) {
-    console.log(error)
+    throw error
   }
 };
 

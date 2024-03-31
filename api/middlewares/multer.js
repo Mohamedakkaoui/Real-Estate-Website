@@ -1,3 +1,4 @@
+//require multer
 const multer = require('multer')
 
 
@@ -8,19 +9,7 @@ const imageStorage = multer.memoryStorage({
   }
 })
 
-
-//Multer configuration for listings 
-// const ListingStorage = multer.diskStorage ({
-//   destination : (req, file, cb) => {
-//    cb(null, './Public/Images') // needs refactoring
-//   },
-//   filename : (req, file , cb) => {
-//    cb(null, Date.now() + '-' + file.originalname)
-//   }
-//  })
-
-
-
+//define filter to upload images only
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
     cb(null, true)
@@ -33,7 +22,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 
-
+//profile pic multer middleware
 exports.profilePicUpload = multer({
   storage: imageStorage,
   limits: {
@@ -43,6 +32,7 @@ exports.profilePicUpload = multer({
 
 })
 
+//property pics multer middleware
 exports.ListingPicsUpload = multer({
   storage: imageStorage,
   limits: {
