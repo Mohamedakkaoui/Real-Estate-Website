@@ -30,7 +30,6 @@ const ListingRoute = require('./routes/listing.Routes')
 server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
-
 server.use('/property', ListingRoute)
 
 

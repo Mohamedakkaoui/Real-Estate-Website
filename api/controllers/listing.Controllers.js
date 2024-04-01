@@ -1,5 +1,5 @@
 
-const {getAllLinsting}=require('../models/methods/listing.Methods');
+const {getAllListing, getPropertyByIdDB}=require('../models/methods/listing.Methods');
 const { uploadFunction } = require("../helpers/cloudinary");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const { deleteListingFromDB } = require("../models/methods/listing.Methods");
@@ -8,9 +8,9 @@ const { deleteListingFromDB } = require("../models/methods/listing.Methods");
 const ListingsSchema = require("../models/schemas/listing.Model");
 
 //All listing
-exports.getLinstings = async (req, res) => {
+exports.getListings = async (req, res) => {
   try {
-    const listings = await getAllLinsting(); 
+    const listings = await getAllListing(); 
     if (listings.length === 0) { 
       return res.status(404).json({ message: 'Listings not found' });
     }
@@ -56,3 +56,23 @@ exports.deleteProperty = async (req, res) => {
     return res.send(error)
   }
 }
+
+
+
+// get property by Id 
+
+exports.getPropertyById = async (req, res) => {
+  try {
+    const { property_id} = req.params;
+    if (!property_id) {
+      return res.status(404).json({ message: 'No property ID was provided.' });
+    }
+    const property = await getPropertyByIdDB(property_id);
+    if (!property) {
+      return res.status(404).json({ message: 'No property was found for the provided ID' });
+    }
+    return res.status(200).json({ message: 'Property retrieved successfully', property });
+  } catch (error) {
+    return res.status(500).json({ message: 'Unable to retrieve property. Please try again later.', error: error.message });
+  }
+};
