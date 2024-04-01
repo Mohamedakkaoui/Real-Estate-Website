@@ -3,6 +3,7 @@ const express = require('express')
 const server = express()
 require('dotenv').config()
 const { default: mongoose } = require('mongoose');
+const bodyParser = require('body-parser');
 
 
 //necessary functions import
@@ -12,20 +13,25 @@ const { default: mongoose } = require('mongoose');
 //use of packs
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
-
+server.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 //importing routes
 const AuthRoute = require('./routes/auth.Routes')
 const UserRoute = require('./routes/user.Routes')
 const ReviewRoute = require('./routes/Review.Routes')
-const LinstingRoute=require('./routes/listing.Routes')
+
+
+const ListingRoute = require('./routes/listing.Routes')
+
 
 //using routes
 server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
-server.use('/listings',LinstingRoute);
 
+server.use('/property', ListingRoute)
 
 
 // Import the database connection function and execute it

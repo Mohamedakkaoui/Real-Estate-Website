@@ -4,14 +4,15 @@ const mongoose = require('mongoose')
 
 
 //add a review
-exports.addReviewDB = async (data)=> {
+exports.addReviewDB = async (data) => {
   try {
     const Review = new ReviewSchema(data)
     return await Review.save()
   } catch (err) {
-    throw new Error (err) 
+    throw new Error(err)
   }
 }
+
 
 
 //Get review by ID
@@ -51,3 +52,14 @@ exports.deleteReviewDB = async (id) => {
     throw new Error('Failed to delete review: ' + error.message);
   }
 };
+
+// get all reviews
+exports.getAllReviewsDB = async () => {
+  try {
+    const Reviews = await ReviewSchema.find();
+    return Reviews;
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}

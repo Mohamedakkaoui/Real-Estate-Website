@@ -2,43 +2,44 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-const UserSchema = new Schema ({
+const UserSchema = new Schema({
   FirstName: {
-    type : String,
-    required : true
+    type: String,
+    required: true
   },
-  LastName : {
-    type : String,
-    required : true
+  LastName: {
+    type: String,
+    required: true
   },
-  Username : {
-    type : String,
-    required : true,
-    unique : true
+  Username: {
+    type: String,
+    required: true,
+    unique: true
   },
-  Email : {
-    type : String,
-    required : true,
-    unique : true
+  Email: {
+    type: String,
+    required: true,
+    unique: true
   },
-  Password : {
-    type : String,
-    required : true,
-    unique : true
+  Password: {
+    type: String,
+    required: true,
+    unique: true
   },
-  PhoneNumber : {
-    required : true,
-    type : Number,
-    min : 500000000,
-    max : 800000000
+  PhoneNumber: {
+    required: true,
+    type: Number,
+    min: 500000000,
+    max: 800000000
   },
-  Role : {
-     type : String,
-     default : 'guest'
+  Role: {
+    type: String,
+    default: 'guest'
   },
-  ProfilePic : {
-    type : String
+  ProfilePic: {
+    type: Object
   },
+
   Listings : [String],
   Bookings : [String],
   isActive : {
@@ -48,6 +49,7 @@ const UserSchema = new Schema ({
   OwnerId: {
     type: String,
     unique: true
+
   }
 })
 
