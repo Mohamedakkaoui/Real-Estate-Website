@@ -24,7 +24,7 @@ const LinstingRoute=require('./routes/listing.Routes')
 server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
-server.use('/listings',LinstingRoute);
+server.use('/proprety',LinstingRoute);
 
 
 
