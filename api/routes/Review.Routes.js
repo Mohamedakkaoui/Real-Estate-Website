@@ -1,7 +1,5 @@
 
-const {CreateReview, GetReviewById,updateReview,deleteReview, getAllReviews} = require('../controllers/reviews.Controllers')
-
-
+const {CreateReview , GetReviewById , updateReview , deleteReview, getAllReviews} = require('../controllers/reviews.Controllers')
 const express = require('express')
 const ReviewRoute = express.Router()
 const { isAuthenticated } = require('../middlewares/authMiddlewares')

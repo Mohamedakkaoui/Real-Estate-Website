@@ -9,20 +9,20 @@ exports.getListingByIdDB = async (id) => {
   try {
     if (mongoose.Types.ObjectId.isValid(id)) 
     {
-      const property = await ListingsSchema.findById(id);
-      return property;
+      const Listing = await ListingsSchema.findOne({_id : id})
+      return Listing
     }
   } catch (error) {
-    throw new Error('Failed to get property by ID: ' + error);
+    throw new Error('Failed to get property by ID: ' + error)
   }
 };
 
 
 //method to delete property
-exports.deleteListingFromDB = async (id) => {
+exports.deleteListingDB = async (id) => {
   try {
-    await ListingsSchema.findByIdAndDelete(id);
-    res.status(200).json('Listing has been deleted!');
+    const ListingtoDelete = await ListingsSchema.findByIdAndDelete(id);
+    return ListingtoDelete
   } catch (error) {
     throw new Error('Failed to delete user : ' + error)
   }
@@ -30,11 +30,26 @@ exports.deleteListingFromDB = async (id) => {
 
 
 //get all listed properties
-exports.getAllListing = async () => {
+exports.getAllListingDB = async () => {
     try {
-      const listing = await ListingsSchema.find();
-      return listing ;
+      const listings = await ListingsSchema.find()
+      return listings 
     } catch (error) {
       throw new Error('Failed to fetch listing from the database : ' + error)
     }
 }
+
+
+
+//Add new listed properties
+exports.AddnewListingDB = async (data) => {
+  try {
+    const Listing = new ListingsSchema(data)
+    return await Listing.save()
+  } catch (error) {
+    throw new error (error)
+  }
+}
+
+
+

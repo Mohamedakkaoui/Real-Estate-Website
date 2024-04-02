@@ -30,35 +30,38 @@ exports.GetReviewByIdDB = async (id) => {
 
 
 //update review 
-exports.Updatereview = async (id, data) => {
+exports.UpdateReviewDB = async (id, data) => {
   try {
-    const review = await ReviewSchema.findByIdAndUpdate(id, data, { new: true });
-    return review;
-  } catch (error) {
-    throw new Error(error);
+    if (mongoose.Types.ObjectId.isValid(id))
+    {
+    const review = await ReviewSchema.findByIdAndUpdate(id, data, { new: true })
+    return review
+    }
+  } catch (err) {
+    throw new Error(err)
   }
-};
+}
 
 // Delete review by ID 
 
 exports.deleteReviewDB = async (id) => {
   try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new Error('Invalid review ID');
+    if (!mongoose.Types.ObjectId.isValid(id))
+    {
+      throw new Error('Invalid review ID')
     }
     const deletedReview = await ReviewSchema.deleteOne({ _id: id });
-    return deletedReview;
-  } catch (error) {
-    throw new Error('Failed to delete review: ' + error.message);
+    return deletedReview
+  } catch (err) {
+    throw new Error('Failed to delete review: ' + err.message);
   }
-};
+}
 
 // get all reviews
 exports.getAllReviewsDB = async () => {
   try {
-    const Reviews = await ReviewSchema.find();
-    return Reviews;
-
+    const Reviews = await ReviewSchema.find()
+    return Reviews
   } catch (err) {
     throw new Error(err)
   }

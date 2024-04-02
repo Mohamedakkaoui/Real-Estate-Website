@@ -94,10 +94,10 @@ exports.ResetPassword = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
-        res.clearCookie('token');
+        res.clearCookie('token')
         
-        res.status(200).json({ message: "Logout successful" });
+        res.status(200).json({ message: "Logout successful" })
     } catch (err) {
-        return res.status(500).send('Error logging out: ' + err);
+        return res.status(500).send('Error logging out: ' + err)
     }
 }

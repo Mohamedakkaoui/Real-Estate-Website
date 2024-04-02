@@ -2,19 +2,28 @@
 const express = require('express')
 const ListingRoute = express.Router()
 
+
+
+
 //importing controllers & Middlewares
-const { addNewProperty, deleteProperty, getListings, getPropertyById } = require('../controllers/listing.Controllers');
-const { ListingPicsUpload } = require('../middlewares/multer');
-const { isAuthenticated } = require('../middlewares/authMiddlewares');
-const { getPropertyByIdDB } = require('../models/methods/listing.Methods');
+const { addNewListing, deleteListing, getListings, getListingById } = require('../controllers/listing.Controllers')
+const { ListingPicsUpload } = require('../middlewares/multer')
+const { isAuthenticated } = require('../middlewares/authMiddlewares')
+
+
 
 //setting limit for upload
-const maxFiles = 8;
+const ImagesInfo = require('../config/constants')
+
+
 //defining routes
 ListingRoute.get('/',getListings)
-ListingRoute.get('/:property_id',getPropertyById)
-ListingRoute.post('/add', ListingPicsUpload.array('image', maxFiles), isAuthenticated, addNewProperty)
-ListingRoute.delete('/:propertyId', isAuthenticated, deleteProperty)
+ListingRoute.get('/:id',getListingById)
+ListingRoute.post('/add', ListingPicsUpload.array('image', ImagesInfo.Max_file_to_Upload), isAuthenticated, addNewListing)
+ListingRoute.delete('/:id', isAuthenticated, deleteListing)
+
+
+
 
 // exporting the route
 module.exports = ListingRoute
