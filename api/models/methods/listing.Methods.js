@@ -53,3 +53,12 @@ exports.AddnewListingDB = async (data) => {
 
 
 
+//update Listing from DB
+exports.UpdateListingDB = async (id,data) => {
+  try{
+      return await ListingsSchema.findByIdAndUpdate(id,data,{new:true})
+  }
+  catch(error){
+      return error
+  }
+}

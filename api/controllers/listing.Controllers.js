@@ -1,4 +1,4 @@
-const {getAllListingDB , getListingByIdDB , deleteListingDB , AddnewListingDB}=require('../models/methods/listing.Methods')
+const {getAllListingDB , getListingByIdDB , deleteListingDB , AddnewListingDB , UpdateListingDB}=require('../models/methods/listing.Methods')
 const { bufferAndUploadMultiple } = require("../helpers/datauri")
 
 
@@ -65,5 +65,34 @@ exports.getListingById = async (req, res) => {
     return res.status(200).json({ message: 'Property retrieved successfully', property : property })
   } catch (err) {
     return res.status(500).json({ message: 'Unable to retrieve property. Please try again later.', Error: err.message })
+  }
+}
+
+
+
+//Updaate property
+
+exports.updateListing = async (req,res) => {
+  try{
+      const { id } = req.params
+      if (!id) {
+        return res.status(400).json({ message: 'No property ID was provided.' })
+      }
+      const { title, description, category, listingType, price, size, options, location } = req.body
+      const data = { title, description, category, listingType, price, size, options, location }
+      if(!data){
+          return res.status(400).json({ message: 'No Data was provided' })
+      }
+      const Listing = await getListingByIdDB(id)
+      if(!Listing){
+          return res.status(404).json({ message: 'No Listing exists with this ID' })
+      }
+      const updatedListing = await UpdateListingDB(id,data)
+      if(!updatedListing){
+          return res.status(500).json({ message: 'Failed to update Listing in database' })
+      }
+      return res.status(200).json({ message: 'Listing updated successfully' })
+  }catch(error){
+      return res.status(500).json({ message: 'Failed to updaet Listing', Error : error.message })
   }
 }
