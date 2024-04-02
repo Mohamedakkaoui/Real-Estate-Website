@@ -78,8 +78,9 @@ exports.updateListing = async (req,res) => {
       if (!id) {
         return res.status(400).json({ message: 'No property ID was provided.' })
       }
-      const { title, description, category, listingType, price, size, options, location } = req.body
-      const data = { title, description, category, listingType, price, size, options, location }
+      const images = await bufferAndUploadMultiple(req)
+      const { title, description, category, listingType, price, size,  options, location } = req.body
+      const data = { title, description, category, listingType, price, size, images, options, location }
       if(!data){
           return res.status(400).json({ message: 'No Data was provided' })
       }
