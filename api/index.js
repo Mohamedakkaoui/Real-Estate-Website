@@ -4,10 +4,12 @@ const server = express()
 require('dotenv').config()
 const { default: mongoose } = require('mongoose')
 const bodyParser = require('body-parser')
+const helmet = require('helmet');
+const compression = require('compression');
 
 
 //necessary functions import
-
+const limiter = require('./middlewares/rateLimit')
 
 
 //use of packs
@@ -16,6 +18,15 @@ server.use(express.urlencoded({ extended: true }))
 server.use(bodyParser.urlencoded({
     extended: true
 }))
+
+// Helmet middleware for securing HTTP headers
+app.use(helmet());
+
+// Compression middleware to compress responses
+app.use(compression());
+
+// Apply rate limiter to all requests
+app.use(limiter);
 
 
 //importing routes
@@ -51,3 +62,8 @@ const port = process.env.PORT
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
+
+
+
+
+
