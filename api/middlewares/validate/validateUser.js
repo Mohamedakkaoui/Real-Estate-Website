@@ -36,7 +36,7 @@ const validateUser = [
   body('PhoneNumber')
     .exists()
     .withMessage('Phone number is required')
-    .matches(/^0[5-9]\d{8}$/)
+    .matches(/^0[5-7]\d{8}$/)
     .withMessage('Invalid phone number format'),
   
   
