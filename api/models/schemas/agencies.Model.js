@@ -25,15 +25,13 @@ const AgencySchema = new mongoose.Schema({
     facebook: {
       type: String
     },
-    twitter: {
+    X: {
       type: String
     },
     instagram: {
       type: String
     },
-    linkedin: {
-      type: String
-    }, 
+    
 },
   website: {
     type: String
