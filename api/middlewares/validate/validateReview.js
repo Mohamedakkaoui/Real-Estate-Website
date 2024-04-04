@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 
 // Middleware to validate the review 
 
-const validateReview = [
+exports.validateReview = [
 //validate rating 
 
   body('rating')
@@ -30,4 +30,4 @@ const validateReview = [
   }
 ];
 
-module.exports = validateReview;
+
