@@ -9,7 +9,7 @@ const compression = require('compression');
 
 
 //necessary functions import
-const limiter = require('./middlewares/rateLimit')
+const {limiter} = require('./middlewares/rateLimit')
 
 
 //use of packs
@@ -20,13 +20,13 @@ server.use(bodyParser.urlencoded({
 }))
 
 // Helmet middleware for securing HTTP headers
-app.use(helmet());
+server.use(helmet());
 
 // Compression middleware to compress responses
-app.use(compression());
+server.use(compression());
 
 // Apply rate limiter to all requests
-app.use(limiter);
+server.use(limiter);
 
 
 //importing routes
