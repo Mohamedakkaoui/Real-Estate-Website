@@ -4,11 +4,11 @@ const ListingRoute = express.Router()
 
 
 
-
 //importing controllers & Middlewares
 const { addNewListing, deleteListing, getListings, getListingById } = require('../controllers/listing.Controllers')
 const { ListingPicsUpload } = require('../middlewares/multer')
 const { isAuthenticated } = require('../middlewares/authMiddlewares')
+const {validateListing} = require('../middlewares/validate/validateListing')
 
 
 
@@ -19,7 +19,7 @@ const ImagesInfo = require('../config/constants')
 //defining routes
 ListingRoute.get('/',getListings)
 ListingRoute.get('/:id',getListingById)
-ListingRoute.post('/add', ListingPicsUpload.array('image', ImagesInfo.Max_file_to_Upload), isAuthenticated, addNewListing)
+ListingRoute.post('/add', ListingPicsUpload.array('image', ImagesInfo.Max_file_to_Upload), isAuthenticated,validateListing ,addNewListing)
 ListingRoute.delete('/:id', isAuthenticated, deleteListing)
 
 
