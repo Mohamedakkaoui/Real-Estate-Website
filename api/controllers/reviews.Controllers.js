@@ -1,16 +1,18 @@
 const {addReviewDB , GetReviewByIdDB , UpdateReviewDB , deleteReviewDB} = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
+const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
 
 
 //Create Review
 exports.CreateReview = async (req, res) => {
   try {
     const { rating, comment, property_id } = req.body
-    const user_id = req.user.id
-    if (!user_id) {
+    const owner = req.user.id
+    if (!owner) {
       return res.status(404).send('No user identified')
     }
-    const Review = await addReviewDB({ rating, comment, user_id, property_id })
+    const Object_id = generateCustomUUID()
+    const Review = await addReviewDB({ rating, comment, owner, property_id, Object_id })
     if (!Review) {
       return res.status(404).send('Failed to create review. Please try again later.')
     }

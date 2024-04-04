@@ -3,6 +3,9 @@ const Schema = mongoose.Schema
 
 
 const ListingsSchema = new mongoose.Schema({
+  Object_id : {
+    type : String,
+  },
   title: {
     type: String,
     required: true
@@ -38,12 +41,10 @@ const ListingsSchema = new mongoose.Schema({
   },
   images: [],
   owner: {
-    type: String
-    // type: Schema.Types.ObjectId,
-    // ref: 'User',
-    // required: true
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 });
 
 module.exports = mongoose.model('Listing', ListingsSchema)
-

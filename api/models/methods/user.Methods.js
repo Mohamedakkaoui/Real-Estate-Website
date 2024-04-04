@@ -23,18 +23,16 @@ exports.getAllUsersDB = async () => {
   } catch (error) {
     throw new Error('Failed to fetch users from the database : ' + error)
   }
-};
+}
 
 
 //method to get user by Id 
 exports.GetUserbyIdDB = async (id) => {
   try {
-    if (mongoose.Types.ObjectId.isValid(id)) {
-    const user = await UserSchema.findById({ _id: id })
+    const user = await UserSchema.findById({ _id : id })
     return user
-    }
   } catch (error) {
-    throw new Error('Couldnt Find User : ' + error);
+    throw new Error('Couldnt Find User : ' + error)
   }
 }
 

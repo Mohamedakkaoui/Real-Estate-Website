@@ -4,7 +4,7 @@ const { mailsender } = require('../middlewares/nodemailer.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js');
 const { generateToken , verifyToken } = require('../helpers/jwt');
 const { GetUserbyIdDB, updateProfileDB , checkExitingMail } = require('../models/methods/user.Methods.js')
-const {v4: uuid} = require('uuid')
+const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
 
 
 //register new user
@@ -16,13 +16,13 @@ exports.getRegister = async (req, res) => {
         if (verifyEmail) {
             return res.status(400).json({ message: "email already used" })
         }
-        const OwnerId = uuid()
-        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber , OwnerId : OwnerId});
+        const OwnerId = generateCustomUUID()
+        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber , OwnerId})
         const result = await newUser.save()
         // mailsender(req.body.Email,'welcomingEmail', LastName)
         return res.status(201).send({ message: 'signing up successfully', result: result })
     } catch (err) {
-        return res.status(404).send('Unable to Register user : ' + err)
+        return res.status(404).json({ Message : 'Unable to Register user : ' , Error : err.message})
     }
 }
 
@@ -38,9 +38,8 @@ exports.getLogin = async (req, res) => {
         }
         const checked = await VerifyPassword(Password, user.Password)
         if (!checked) return res.status(400).json({ message: "Incorrect Password" })
-        const token = generateToken({ Email: user.Email, FirstName: user.FirstName, LastName: user.LastName, id: user._id }, '10h')
-        res.status(200).json({ message: "Login successful", token: token });
-
+        const token = generateToken({ Email: user.Email, FirstName: user.FirstName, LastName: user.LastName, id: user._id , role : user.Role}, '10h')
+        return res.status(200).json({ message: "Login successful", token: token })
     } catch (err) {
         return res.status(501).send('Unsuccessful attempt to login :' + err)
     }
@@ -96,7 +95,7 @@ exports.logout = async (req, res) => {
     try {
         res.clearCookie('token')
         
-        res.status(200).json({ message: "Logout successful" })
+        return res.status(200).json({ message: "Logout successful" })
     } catch (err) {
         return res.status(500).send('Error logging out: ' + err)
     }
