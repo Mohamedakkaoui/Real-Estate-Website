@@ -3,11 +3,11 @@ const express = require('express');
 const { getRegister, getLogin, ResetPassword ,  GenrateTempToken, logout} = require('../controllers/auth.Controllers');
 const AuthRoute = express.Router();
 const { AvoidAuth } = require('../middlewares/avoidAuth')
-
+const {validateUser} = require('../middlewares/validate/validateUser')
 
 //Authentication
 
-AuthRoute.post('/register', AvoidAuth, getRegister)
+AuthRoute.post('/register', AvoidAuth,validateUser,getRegister)
 AuthRoute.get('/login', AvoidAuth, getLogin)
 AuthRoute.get('/reset-password', GenrateTempToken)
 AuthRoute.post('/reset-password/:id/:token', ResetPassword)
