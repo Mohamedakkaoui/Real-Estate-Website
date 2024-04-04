@@ -92,12 +92,26 @@ exports.ResetPassword = async (req, res) => {
 }
 
 
+
 exports.logout = async (req, res) => {
-    try {
-        res.clearCookie('token')
-        
-        res.status(200).json({ message: "Logout successful" })
-    } catch (err) {
-        return res.status(500).send('Error logging out: ' + err)
+    if (req.headers && req.headers.authorization) {
+        const token = req.headers.authorization.split(' ')[1];
+        if (!token) {
+            return res.status(400).json({ success: false, message: 'Authorization failed' });
+        }
+        try {
+            const decodedToken = await verifyToken(token);
+
+            await UserSchema.findByIdAndUpdate(decodedToken.id, {isActive: false });
+            
+            return res.status(200).json({ success: true, message: 'Logged out successfully' });
+        } catch (error) {
+            
+            return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token' });
+        }
+    } else {
+        return res.status(400).json({ success: false, message: 'Authorization header missing' });
     }
-}
+};
+
+
