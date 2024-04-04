@@ -1,7 +1,7 @@
 const { body, validationResult } = require('express-validator');
 
 // Middleware to validate the user information
-const validateUser = [
+exports.validateUser = [
 
    //validate firstName
   body('FirstName')
@@ -48,5 +48,3 @@ const validateUser = [
     next();
   }
 ];
-
-module.exports = validateUser;

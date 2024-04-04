@@ -8,7 +8,7 @@ const { profilePicUpload } = require('../middlewares/multer.js')
 const { isAuthenticated } = require('../middlewares/authMiddlewares')
 const ROLES_LIST = require('../config/Roles_Lists.js')
 const verifyRoles = require('../middlewares/roles.js')
-
+const validateUser = require 
 
 //defining routes
 UserRoute.route('/profile')
