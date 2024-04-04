@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const AgencySchema = new mongoose.Schema({
+  Object_id : {
+    type : String,
+  },
   name: {
     type: String,
     required: true
@@ -40,8 +43,9 @@ const AgencySchema = new mongoose.Schema({
   listings: [String],
   Bookings : [String],
   images: [],
-  ownerId: {
-    type: String,
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   }
 });
