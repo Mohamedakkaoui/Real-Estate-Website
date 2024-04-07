@@ -21,4 +21,6 @@ class BcryptHash {
     }
 }
 
+
 module.exports = new BcryptHash();
+

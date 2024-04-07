@@ -24,15 +24,13 @@ class EmailService {
     
     Thank you for choosing US as your trusted resource for all things real estate. We look forward to helping you find your perfect property!
     
-    Warm regards,<br/>
-    
-    RYMZ`;
+    Warm regards,<br/>`;
 
     return MailText;
   }
 
   resetPasswordEmail(id, token) {
-    const MailText = `Password link  to reset ur password : <br/><br/>http://localhost:3500/users/auth/reset-password/${id}/${token}`
+    const MailText = `Password link  to reset your password : <br/><br/>http://localhost:3500/users/auth/reset-password/${id}/${token}`;
     return MailText;
   }
 

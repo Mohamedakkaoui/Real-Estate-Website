@@ -15,9 +15,18 @@ exports.isAuthenticated = async (req, res, next) => {
         if (!verify) {
             return res.status(401).json({ message: 'Unauthorized: Invalid token' })
         }
+
         req.user = verify
         next()
     } catch (err) {
         return res.status(500).json({ message: 'Internal Server Error' })
     }
 }
+
+
+        req.user = verify
+        next()
+    } catch (err) {
+        return res.status(500).json({ message: 'Not Authorized' , Error : err.message})
+    }
+
