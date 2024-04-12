@@ -6,7 +6,6 @@ const { verifyToken } = require("../helpers/jwt")
 exports.isAuthenticated = async (req, res, next) => {
     try {
         const bearerHeader = req.headers['authorization']
-
         if (!bearerHeader) {
             return res.status(401).json({ message: 'Unauthorized: Token missing' })
         }
@@ -21,12 +20,8 @@ exports.isAuthenticated = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json({ message: 'Internal Server Error' })
     }
+
+
+
 }
-
-
-        req.user = verify
-        next()
-    } catch (err) {
-        return res.status(500).json({ message: 'Not Authorized' , Error : err.message})
-    }
 

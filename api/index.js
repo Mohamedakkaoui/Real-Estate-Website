@@ -29,7 +29,7 @@ server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
 server.use('/listings', ListingRoute)
-server.use('/agency', AgencyRoute)
+// server.use('/agency', AgencyRoute)
 
 // Import the database connection function and execute it
 const { connection } = require('./config/database')

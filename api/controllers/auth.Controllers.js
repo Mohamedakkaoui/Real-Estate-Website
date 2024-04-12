@@ -3,8 +3,7 @@ const UserSchema = require('../models/schemas/user.Model.js');
 const { HashPassword,VerifyPassword} = require('../helpers/hashing.js');
 const EmailService = require('../Utils/Emails.js');
 const emailService = new EmailService(); 
-const { mailsender } = require('../middlewares/nodemailer.js')
-const { HashPassword, VerifyPassword } = require('../helpers/hashing.js');
+// const { mailsender } = require('../middlewares/nodemailer.js')
 const { generateToken , verifyToken } = require('../helpers/jwt');
 const { GetUserbyIdDB, updateProfileDB , checkExitingMail } = require('../models/methods/user.Methods.js')
 const {v4: uuid} = require('uuid')
@@ -20,8 +19,8 @@ exports.getRegister = async (req, res) => {
             return res.status(400).json({ message: "email already used" })
         }
 
-        // const OwnerId = uuid()
-        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber });
+         const OwnerId = uuid()
+        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber,OwnerId : OwnerId });
         const verificationToken = emailService.generateVerificationToken();
         // await verifyemail(req, res);
         const verificationLink = `http://localhost:3500/users/auth/verify?email=${encodeURIComponent(Email)}&token=${verificationToken}`;

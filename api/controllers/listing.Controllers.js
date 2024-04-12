@@ -1,6 +1,9 @@
-// controllers/listingController.js
-const { saveListingForUser } = require('../models/methods/user.Methods');
+const {getAllListingDB , getListingByIdDB , deleteListingDB , AddnewListingDB , UpdateListingDB}=require('../models/methods/listing.Methods')
+const { bufferAndUploadMultiple } = require("../helpers/datauri")
+const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
+const {saveListingForUser}=require('../models/methods/user.Methods.js')
 
+//save listing for user
 exports.saveListingUser = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -13,10 +16,6 @@ exports.saveListingUser = async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 };
-
-const {getAllListingDB , getListingByIdDB , deleteListingDB , AddnewListingDB , UpdateListingDB}=require('../models/methods/listing.Methods')
-const { bufferAndUploadMultiple } = require("../helpers/datauri")
-const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
 
 
 //All listing

@@ -1,9 +1,6 @@
 const UserSchema = require('../schemas/user.Model')
 const ListingsSchema=require('../schemas/listing.Model');
 
-//import schema & mongoose
-const UserSchema = require('../schemas/user.Model')
-
 const mongoose = require('mongoose')
 
 

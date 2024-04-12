@@ -55,3 +55,20 @@ exports.getAllReviewsDB = async () => {
     throw new Error(err)
   }
 }
+
+//get the user's Review at the top of reviews
+
+exports.ReviewsForUser = async(userID)=> {
+    try {
+        const allReviews = await ReviewSchema.find({}).sort({ _id: -1 });
+        const userReviewIndex = allReviews.findIndex(review => review.user === userID);
+        if (userReviewIndex !== -1) {
+            const userReview = allReviews.splice(userReviewIndex, 1)[0];
+            allReviews.unshift(userReview);
+        }
+        return allReviews;
+    } catch (error) {
+        throw error;
+    }
+}
+

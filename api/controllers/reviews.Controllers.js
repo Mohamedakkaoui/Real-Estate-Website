@@ -1,4 +1,4 @@
-const {addReviewDB , GetReviewByIdDB , UpdateReviewDB , deleteReviewDB} = require('../models/methods/reviews.Methods')
+const {addReviewDB , GetReviewByIdDB ,getAllReviewsDB, UpdateReviewDB , deleteReviewDB, ReviewsForUser} = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
 const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
 
@@ -21,6 +21,7 @@ exports.CreateReview = async (req, res) => {
     return res.status(404).json({ error: "Error creating review. Please try again later.", Error : error.message })
   }
 }
+
 
 
 
@@ -93,3 +94,14 @@ exports.getAllReviews = async (req, res) => {
 }
 
 
+//get the user's Review at the top of reviews
+exports.getReviewUserAddTop =async(req,res)=>{
+  try {
+    const userID=req.user.id;
+    const reviewUser= await ReviewsForUser(userID);
+    res.send(reviewUser);
+
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
