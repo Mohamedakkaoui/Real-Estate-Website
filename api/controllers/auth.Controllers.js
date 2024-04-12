@@ -5,7 +5,8 @@ const { HashPassword, VerifyPassword } = require('../helpers/hashing.js');
 const { generateToken , verifyToken } = require('../helpers/jwt');
 const { GetUserbyIdDB, updateProfileDB , checkExitingMail } = require('../models/methods/user.Methods.js')
 const {v4: uuid} = require('uuid')
-
+const {sendWelcomeSMS} = require('../helpers/sendsms.js');
+const { sendVerificationCode } = require('../middlewares/VerifNumber.js');
 
 //register new user
 exports.getRegister = async (req, res) => {
@@ -20,6 +21,14 @@ exports.getRegister = async (req, res) => {
         const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber , OwnerId : OwnerId});
         const result = await newUser.save()
         // mailsender(req.body.Email,'welcomingEmail', LastName)
+        const verificationCode = await sendVerificationCode(PhoneNumber);
+        if (!verificationCode) {
+            return res.status(500).json({ success: false, message: 'Failed to send verification code' });
+          }
+        const smsSent = await sendWelcomeSMS(PhoneNumber);
+        if (!smsSent) {
+          return res.status(500).json({ success: false, message: 'Failed to send welcome SMS' });
+        }    
         return res.status(201).send({ message: 'signing up successfully', result: result })
     } catch (err) {
         return res.status(404).send('Unable to Register user : ' + err)
@@ -103,7 +112,7 @@ exports.logout = async (req, res) => {
             const decodedToken = await verifyToken(token);
 
             await UserSchema.findByIdAndUpdate(decodedToken.id, {isActive: false });
-            
+
             return res.status(200).json({ success: true, message: 'Logged out successfully' });
         } catch (error) {
             
