@@ -29,8 +29,6 @@ const UserSchema = new Schema({
   PhoneNumber: {
     required: true,
     type: Number,
-    min: 500000000,
-    max: 800000000
   },
   Role: {
     type: String,
