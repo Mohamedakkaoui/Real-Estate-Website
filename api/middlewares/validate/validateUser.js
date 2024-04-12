@@ -36,7 +36,7 @@ exports.validateUser = [
   body('PhoneNumber')
     .exists()
     .withMessage('Phone number is required')
-    .matches(/^0[5-7]\d{8}$/)
+    .matches(/^\+212\d{9}$/)
     .withMessage('Invalid phone number format'),
   
   
