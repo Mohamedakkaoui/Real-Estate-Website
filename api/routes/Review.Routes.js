@@ -10,11 +10,6 @@ const verifyRoles = require('../middlewares/roles.js')
 
 
 
-
-const { IsOwner } = require ('../middlewares/IsOwner.js')
-const ROLES_LIST = require('../config/Roles_Lists.js')
-const verifyRoles = require('../middlewares/roles.js')
-
  ReviewRoute.post('/add', isAuthenticated,CreateReview)
 // ReviewRoute.get('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin), IsOwner, GetReviewById)
 
