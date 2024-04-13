@@ -1,8 +1,11 @@
 const Nexmo = require('nexmo');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const UserSchema = require('../models/schemas/user.Model');
 const nexmo = new Nexmo({
-  apiKey: '1c8fb771',
-  apiSecret: 'VTjiswQEr4TocgyB'
+  apiKey: process.env.NEXMO_API_KEY,
+  apiSecret: process.env.NEXMO_API_SECRET,
 });
 
 exports.sendVerificationCode = async (PhoneNumber) => {
