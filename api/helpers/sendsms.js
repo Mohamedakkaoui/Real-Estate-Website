@@ -1,29 +1,3 @@
-// const twilio = require('twilio');
-
-// // Twilio credentials
-// const accountSid = TWILIO_ACCOUNT_SID;
-// const authToken = TWILIO_AUTH_TOKEN;
-// const twilioPhoneNumber = '+12565408372'; 
-// const phoneNumber = '+212627618729'
-
-// const client = twilio(accountSid, authToken);
-
-// // Function to send SMS notification
-// exports.sendSMSNotification = async (body) => {
-//     let msgOpt = {
-//         from: twilioPhoneNumber,
-//         to: phoneNumber,
-//         body : 'Hello from RYMZ'
-//     }
-//   try {
-//     const message = await client.messages.create(msgOpt);
-//     console.log(message, 'SMS notification sent successfully')
-   
-//   } catch (error) {
-//     console.error('Error sending SMS notification:', error);
-//   }
-// }
-
 
 const Nexmo = require('nexmo');
 const dotenv = require('dotenv');
