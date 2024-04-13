@@ -1,8 +1,8 @@
 // const twilio = require('twilio');
 
 // // Twilio credentials
-// const accountSid = 'ACd6ded2e9bbb723f2608b22081226cfae';
-// const authToken = '56e4b98fe1cc532579a0e707cfe23887';
+// const accountSid = TWILIO_ACCOUNT_SID;
+// const authToken = TWILIO_AUTH_TOKEN;
 // const twilioPhoneNumber = '+12565408372'; 
 // const phoneNumber = '+212627618729'
 
@@ -26,10 +26,13 @@
 
 
 const Nexmo = require('nexmo');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const nexmo = new Nexmo({
-  apiKey: '1c8fb771',
-  apiSecret: 'VTjiswQEr4TocgyB'
+  apiKey: process.env.NEXMO_API_KEY,
+  apiSecret: process.env.NEXMO_API_SECRET 
 });
 
 
