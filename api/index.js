@@ -4,12 +4,14 @@ const server = express()
 require('dotenv').config()
 const { default: mongoose } = require('mongoose')
 const bodyParser = require('body-parser')
-const helmet = require('helmet');
-const compression = require('compression');
+const helmet = require('helmet')
+const compression = require('compression')
 
 
 //necessary functions import
+
 const {limiter} = require('./middlewares/rateLimit')
+
 
 
 //use of packs
@@ -34,7 +36,7 @@ const AuthRoute = require('./routes/auth.Routes')
 const UserRoute = require('./routes/user.Routes')
 const ReviewRoute = require('./routes/Review.Routes')
 const ListingRoute = require('./routes/listing.Routes')
-
+const AgencyRoute = require('./routes/Agency.Routes')
 
 
 //using routes
@@ -42,8 +44,7 @@ server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
 server.use('/listings', ListingRoute)
-
-
+// server.use('/agency', AgencyRoute)
 
 // Import the database connection function and execute it
 const { connection } = require('./config/database')

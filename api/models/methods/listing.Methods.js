@@ -7,21 +7,18 @@ const ListingsSchema = require('../schemas/listing.Model')
 //get property by Id 
 exports.getListingByIdDB = async (id) => {
   try {
-    if (mongoose.Types.ObjectId.isValid(id)) 
-    {
-      const Listing = await ListingsSchema.findOne({_id : id})
+      const Listing = await ListingsSchema.findOne({ Object_id : id})
       return Listing
-    }
   } catch (error) {
     throw new Error('Failed to get property by ID: ' + error)
   }
-};
+}
 
 
 //method to delete property
 exports.deleteListingDB = async (id) => {
   try {
-    const ListingtoDelete = await ListingsSchema.findByIdAndDelete(id);
+    const ListingtoDelete = await ListingsSchema.findByIdAndDelete({ Object_id : id });
     return ListingtoDelete
   } catch (error) {
     throw new Error('Failed to delete user : ' + error)
@@ -56,9 +53,9 @@ exports.AddnewListingDB = async (data) => {
 //update Listing from DB
 exports.UpdateListingDB = async (id,data) => {
   try{
-      return await ListingsSchema.findByIdAndUpdate(id,data,{new:true})
+      return await ListingsSchema.findByIdAndUpdate({Object_id : id} , data, {new:true})
   }
   catch(error){
-      return error
+      throw new error (error)
   }
 }

@@ -1,5 +1,4 @@
 const ReviewSchema = require('../schemas/reviews.Model')
-const mongoose = require('mongoose')
 
 
 
@@ -18,11 +17,8 @@ exports.addReviewDB = async (data) => {
 //Get review by ID
 exports.GetReviewByIdDB = async (id) => {
   try {
-    if (mongoose.Types.ObjectId.isValid(id))
-    {
-      const Review = await ReviewSchema.findOne({_id : id})
-      return Review
-    }
+    const Review = await ReviewSchema.findOne({ Object_id : id})
+    return Review
   } catch (err) {
     throw new Error (err)
   }
@@ -32,11 +28,8 @@ exports.GetReviewByIdDB = async (id) => {
 //update review 
 exports.UpdateReviewDB = async (id, data) => {
   try {
-    if (mongoose.Types.ObjectId.isValid(id))
-    {
-    const review = await ReviewSchema.findByIdAndUpdate(id, data, { new: true })
+    const review = await ReviewSchema.findByIdAndUpdate({ Object_id : id}, data, { new: true })
     return review
-    }
   } catch (err) {
     throw new Error(err)
   }
@@ -46,14 +39,10 @@ exports.UpdateReviewDB = async (id, data) => {
 
 exports.deleteReviewDB = async (id) => {
   try {
-    if (!mongoose.Types.ObjectId.isValid(id))
-    {
-      throw new Error('Invalid review ID')
-    }
-    const deletedReview = await ReviewSchema.deleteOne({ _id: id });
+    const deletedReview = await ReviewSchema.deleteOne({ Object_id : id })
     return deletedReview
   } catch (err) {
-    throw new Error('Failed to delete review: ' + err.message);
+    throw new Error('Failed to delete review: ' + err.message)
   }
 }
 
@@ -66,3 +55,20 @@ exports.getAllReviewsDB = async () => {
     throw new Error(err)
   }
 }
+
+//get the user's Review at the top of reviews
+
+exports.ReviewsForUser = async(userID)=> {
+    try {
+        const allReviews = await ReviewSchema.find({}).sort({ _id: -1 });
+        const userReviewIndex = allReviews.findIndex(review => review.user === userID);
+        if (userReviewIndex !== -1) {
+            const userReview = allReviews.splice(userReviewIndex, 1)[0];
+            allReviews.unshift(userReview);
+        }
+        return allReviews;
+    } catch (error) {
+        throw error;
+    }
+}
+

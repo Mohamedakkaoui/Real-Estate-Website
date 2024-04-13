@@ -7,49 +7,52 @@ const { bufferAndUpload } = require('../helpers/datauri.js');
 //all users
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await getAllUsersDB();
-    res.status(200).json(users);
+    const users = await getAllUsersDB()
+    if (!users) {
+      return res.status(404).json({ message: "No users found" })
+    }
+    return res.status(200).json(users)
   } catch (error) {
-    console.log(error)
+    return res.status(500).json({ message: "Internal server error" , Error : error.message})
   }
-};
+}
 
 //get user by id
 exports.getUserById = async (req, res) => {
   try {
-    const id = req.user.id;
-    const user = await getUsersBId(id);
-    res.status(200).json(user);
+    const { id } = req.params
+    const user = await GetUserbyIdDB(id)
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
+    return res.status(200).json(user)
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    return res.status(500).json({ message: "Internal server error" , Error : error.message })
   }
-};
+}
 
 
 //Update User Info
 exports.updateUserProfile = async (req, res) => {
   try {
     const { id } = req.user
-
     if (!id) {
-      return res.status(404).json({ message: 'no user identified!' })
+      return res.status(404).json({ message: 'No user identified!' })
     }
     const data = req.body
     if (!data) {
-      return res.status(404).json({ message: 'no data provided' });
+      return res.status(404).json({ message: 'No data provided' })
     }
     var { FirstName, LastName, Username, Email, PhoneNumber } = data
-
-    const user = await findUser(id)
+    const user = await GetUserbyIdDB(id)
     if (!user) {
-      return res.status(404).json({ message: 'no user found' });
+      return res.status(404).json({ message: 'no user found' })
     }
     const updatedUser = await updateProfileDB(id, { FirstName, LastName, Username, Email, PhoneNumber }, { new: true })
     return res.status(202).json({ message: 'user updated successfully' })
   }
   catch (error) {
-    console.log(error.message)
+    return res.status(500).json({ message: "User couldnt be updated" , Error : error.message })
   }
 }
 
@@ -65,33 +68,33 @@ exports.updateUserPassword = async (req, res) => {
     if (!newPassword || newPassword === '') {
       return res.status(400).json({ message: 'no password sent!' })
     }
-    const user = await findUser(id)
+    const user = await GetUserbyIdDB(id)
     const matchedPassword = await VerifyPassword(newPassword, user.Password);
     if (matchedPassword) {
       return res.status(400).json({ message: 'you used the same old password, please provide a new password!' })
     }
     else {
       let Password = await HashPassword(newPassword)
-      await updateProfile(id, { Password }, { new: true })
+      await updateProfileDB(id, { Password }, { new: true })
       return res.status(202).json({ message: 'password modified successfuly!' })
     }
   }
   catch (error) {
-    console.log(error.message)
+    return res.status(500).json({ message: "Internal server error" , Error : error.message })
   }
 }
 
 //Delete user
 exports.DeleteUser = async (req, res) => {
   try {
-    const id = req.user.id
+    const { id } = req.user
     const deleteUser = await DeleteUserDB(id)
     if (deleteUser.deletedCount == 0) {
       return res.status(404).send('User Not Found')
     }
     return res.status(202).send('deleted Succesfully')
   } catch (error) {
-    console.log(error)
+    return res.status(500).json({ message: "Error While deleting User" , Error : error.message })
   }
 }
 
@@ -117,7 +120,7 @@ exports.updateProfilePic = async (req, res) => {
     return res.status(202).json({ message: 'image added successfully' })
   }
   catch (error) {
-    console.log(error.message)
+    return res.status(500).json({ message: "Error updating Profile Picture" , Error : error.message })
   }
 }
 

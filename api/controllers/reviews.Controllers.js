@@ -1,16 +1,18 @@
-const {addReviewDB , GetReviewByIdDB , UpdateReviewDB , deleteReviewDB} = require('../models/methods/reviews.Methods')
+const {addReviewDB , GetReviewByIdDB ,getAllReviewsDB, UpdateReviewDB , deleteReviewDB, ReviewsForUser} = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
+const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
 
 
 //Create Review
 exports.CreateReview = async (req, res) => {
   try {
     const { rating, comment, property_id } = req.body
-    const user_id = req.user.id
-    if (!user_id) {
+    const owner = req.user.id
+    if (!owner) {
       return res.status(404).send('No user identified')
     }
-    const Review = await addReviewDB({ rating, comment, user_id, property_id })
+    const Object_id = generateCustomUUID()
+    const Review = await addReviewDB({ rating, comment, owner, property_id, Object_id })
     if (!Review) {
       return res.status(404).send('Failed to create review. Please try again later.')
     }
@@ -19,6 +21,7 @@ exports.CreateReview = async (req, res) => {
     return res.status(404).json({ error: "Error creating review. Please try again later.", Error : error.message })
   }
 }
+
 
 
 
@@ -91,3 +94,14 @@ exports.getAllReviews = async (req, res) => {
 }
 
 
+//get the user's Review at the top of reviews
+exports.getReviewUserAddTop =async(req,res)=>{
+  try {
+    const userID=req.user.id;
+    const reviewUser= await ReviewsForUser(userID);
+    res.send(reviewUser);
+
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}

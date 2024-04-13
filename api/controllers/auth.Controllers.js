@@ -1,7 +1,9 @@
 //import necessary functions 
 const UserSchema = require('../models/schemas/user.Model.js');
-const { mailsender } = require('../middlewares/nodemailer.js')
-const { HashPassword, VerifyPassword } = require('../helpers/hashing.js');
+const { HashPassword,VerifyPassword} = require('../helpers/hashing.js');
+const EmailService = require('../Utils/Emails.js');
+const emailService = new EmailService(); 
+// const { mailsender } = require('../middlewares/nodemailer.js')
 const { generateToken , verifyToken } = require('../helpers/jwt');
 const { GetUserbyIdDB, updateProfileDB , checkExitingMail } = require('../models/methods/user.Methods.js')
 const {v4: uuid} = require('uuid')
@@ -17,9 +19,18 @@ exports.getRegister = async (req, res) => {
         if (verifyEmail) {
             return res.status(400).json({ message: "email already used" })
         }
-        const OwnerId = uuid()
-        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber , OwnerId : OwnerId});
+
+         const OwnerId = uuid()
+        const newUser = new UserSchema({ FirstName, LastName, Username, Email, Password: hashedPassword, PhoneNumber,OwnerId : OwnerId });
+        const verificationToken = emailService.generateVerificationToken();
+        // await verifyemail(req, res);
+        const verificationLink = `http://localhost:3500/users/auth/verify?email=${encodeURIComponent(Email)}&token=${verificationToken}`;
+        newUser.verificationToken = verificationToken;
+        // OwnerId : OwnerId
+        emailService.sendVerificationEmail(Email, verificationLink);
         const result = await newUser.save()
+
+
         // mailsender(req.body.Email,'welcomingEmail', LastName)
         const verificationCode = await sendVerificationCode(PhoneNumber);
         if (!verificationCode) {
@@ -34,8 +45,6 @@ exports.getRegister = async (req, res) => {
         return res.status(404).send('Unable to Register user : ' + err)
     }
 }
-
-
 
 // login user
 exports.getLogin = async (req, res) => {
@@ -54,8 +63,6 @@ exports.getLogin = async (req, res) => {
         return res.status(501).send('Unsuccessful attempt to login :' + err)
     }
 }
-
-
 //Generate temporary token
 exports.GenrateTempToken = async (req, res) => {
     try {
