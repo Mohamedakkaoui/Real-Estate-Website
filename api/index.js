@@ -10,7 +10,7 @@ const compression = require('compression')
 
 //necessary functions import
 
-const {limiter} = require('./middlewares/rateLimit')
+const { limiter } = require('./middlewares/rateLimit')
 
 
 
@@ -36,6 +36,7 @@ const AuthRoute = require('./routes/auth.Routes')
 const UserRoute = require('./routes/user.Routes')
 const ReviewRoute = require('./routes/Review.Routes')
 const ListingRoute = require('./routes/listing.Routes')
+const bookingRoute = require('./routes/booking.Routes')
 const AgencyRoute = require('./routes/Agency.Routes')
 
 
@@ -44,6 +45,7 @@ server.use('/users/auth', AuthRoute)
 server.use('/users', UserRoute)
 server.use('/reviews', ReviewRoute)
 server.use('/listings', ListingRoute)
+server.ude('/booking', bookingRoute)
 // server.use('/agency', AgencyRoute)
 
 // Import the database connection function and execute it

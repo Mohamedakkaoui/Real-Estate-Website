@@ -55,8 +55,14 @@ const UserSchema = new Schema({
     watchList: [{
         type: Schema.Types.ObjectId,
         //ref: 'Listing'
-    }]
-    
-    })
+    }],
+    Notifications: [
+        {
+            listingID: { type: mongoose.Schema.Types.ObjectId, ref: 'Listing' },
+            operationType: { type: String },
+        }
+    ]
 
-    module.exports = mongoose.model('Users', UserSchema)
+})
+
+module.exports = mongoose.model('Users', UserSchema)
