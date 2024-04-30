@@ -1,6 +1,6 @@
 //import schema & mongoose
 const mongoose = require('mongoose')
-const ListingsSchema = require('../schemas/listing.Model')
+const ListingsSchema = require('../models/schemas/listing.Model')
 
 //query controller
 exports.listingFilterOptions = async (req) => {

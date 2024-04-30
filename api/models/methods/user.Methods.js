@@ -15,7 +15,6 @@ exports.checkExitingMail = async (email) => {
   }
 }
 
-
 //save listing for users
 exports.saveListingForUser = async(userId,listingId)=>{
   try {
