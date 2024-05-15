@@ -9,7 +9,7 @@ import { ContextAuth } from "../../Context/AuthContext";
 import IconDropDown from "../Common/DropDown/IconDropDown";
 
 function NavBar() {
-  const { isLoggedIn, setIsLoggedIn } = ContextAuth();
+  const { isLoggedIn } = ContextAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
 
@@ -49,11 +49,6 @@ function NavBar() {
                 <li className="mt-2">
                   <a className="hover:text-[#FFA920]" href="#">
                     Property
-                  </a>
-                </li>
-                <li className="mt-2">
-                  <a className="hover:text-[#FFA920]" href="#">
-                    Page
                   </a>
                 </li>
                 <li className="mt-2">
