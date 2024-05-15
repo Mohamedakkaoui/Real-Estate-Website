@@ -5,23 +5,18 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useRef, useState } from "react";
-import Toast from "../Common/Toast/Toast";
-import Cookies from 'js-cookie'
 import { ContextAuth } from "../../Context/AuthContext";
-import { jwtDecode } from "jwt-decode";
 
 
 function Login({ show, onClose, onSwitchToSignUp }) {
+
   const [isVisible, setIsVisible] = useState(true);
   const [VerrificationMessage, setVerificationMessage] = useState({
     message : "",
     type : ""
   })
-  const [showToast, setShowToast] = useState(false)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
-  const { setIsLoggedIn } = ContextAuth()
-  
-
+  const {  handleLogin } = ContextAuth()
   
   const schema = z.object({
     Email: z.string().email("Invalid Email adress"),
@@ -44,22 +39,13 @@ function Login({ show, onClose, onSwitchToSignUp }) {
 
   const OnLogin: SubmitHandler<FormFields> = async (data) => {
     try {
-      const res = await LoginUser(data);
-      const token = res.data.token;
-      Cookies.set('token', token, { expires: 10/24 });
-      onClose();
-      console.log("Login successful:", res.data);
-      setIsLoggedIn(true)
+      const res = await LoginUser(data)
+      handleLogin(res)
+      onClose() //can be added in the login logic
       setVerificationMessage({
         message : res.data.Message,
         type : "success"
-      })
-      const decoded = jwtDecode(token)
-      SetUserProfile(decoded) 
-      setShowToast(true)
-      setTimeout(() => {
-        setShowToast(false)
-      }, 3000);
+      })//adde to loin logic 
     } catch (error) {
       if (error.response && error.response.data && error.response.data.Message) {
         setError("root", {
