@@ -12,7 +12,8 @@ import { ContextAuth } from "../../../Context/AuthContext";
 function IconDropDown() {
 
 
-  const { UserProfile } = ContextAuth();
+  const { UserProfile, handleLogout } = ContextAuth();
+  console.log(UserProfile);
 
   return (
     <div className="flex items-center gap-4">
@@ -26,7 +27,7 @@ function IconDropDown() {
             }}
             className="transition-transform"
             description={UserProfile.Email}
-            name="Tony Reichert"
+            name={UserProfile.Username}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
@@ -36,7 +37,7 @@ function IconDropDown() {
           </DropdownItem>
           <DropdownItem key="Profile">Profile</DropdownItem>
           <DropdownItem key="Dashbaord">Dashboard</DropdownItem>
-          <DropdownItem key="logout" color="danger">
+          <DropdownItem key="logout" color="danger" onClick={handleLogout}>
             Log Out
           </DropdownItem>
         </DropdownMenu>
