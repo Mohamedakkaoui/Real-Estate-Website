@@ -6,6 +6,9 @@ import NotFound from "./Pages/NotFound";
 import ResetPassword from "./Pages/ResetPassword";
 import UpdatePassword from "./Pages/UpdatePssword";
 import { AuthProvider } from "./Context/AuthContext";
+import Test from "./Pages/test";
+
+
 
 function App() {
   return (
