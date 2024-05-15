@@ -32,4 +32,8 @@ export function UpdatePassword (id, token ,body) {
 }
 
 
+export function getUserById(id) {
+  return api.get(`users/${id}`)
+}
+
 export default api
