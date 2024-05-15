@@ -19,9 +19,6 @@ const EmailVerificationPage = () => {
     const verifyEmail = async () => {
       try {
         const response = await VerifyEmail(email, token);
-        console.log(response);
-        console.log(typeof response.statusText)
-
         console.log(response.status === 200);
         if (response.status === 200) {
           setVerificationStatus("success");
@@ -31,8 +28,8 @@ const EmailVerificationPage = () => {
           setVerificationMessage(response.data.Message)
         }
       } catch (error) {
-        console.error("Error occurred during email verification:", error.response.data.Message);
-        setVerificationStatus('error');
+        console.error("Error occurred during email verification:", error.response.data.Message)
+        setVerificationStatus('error')
         setVerificationMessage(error.response.data.Message)
       }
     }
