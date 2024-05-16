@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useRef, useState } from "react";
 import { ContextAuth } from "../../Context/AuthContext";
-
+import { toast } from 'sonner';
 
 function Login({ show, onClose, onSwitchToSignUp }) {
 
@@ -46,6 +46,7 @@ function Login({ show, onClose, onSwitchToSignUp }) {
         message : res.data.Message,
         type : "success"
       })//adde to loin logic 
+      toast.success(res.data.Message)
     } catch (error) {
       if (error.response && error.response.data && error.response.data.Message) {
         setError("root", {

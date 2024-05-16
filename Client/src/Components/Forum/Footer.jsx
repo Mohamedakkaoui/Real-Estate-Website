@@ -6,10 +6,12 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";
 import SignUp from "../Modal/SignUp";
 import Login from "../Modal/Login";
+import { ContextAuth } from "../../Context/AuthContext";
 
 function Footer() {
   const [showSignUpModal, setShowSignUpModal] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const { isLoggedIn } = ContextAuth();
 
 
   const openSignUpModal = (e) => {
@@ -116,16 +118,16 @@ function Footer() {
         </div>
       </footer>
 
-      <SignUp
+      {!isLoggedIn && <SignUp
         show={showSignUpModal}
         onClose={() => setShowSignUpModal(false)}
         onSwitchToLogin={openLoginModal}
-      />
-      <Login
+      />}
+      {!isLoggedIn && <Login
         show={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         onSwitchToSignUp={openSignUpModal}
-      />
+      />}
     </>
   );
 }

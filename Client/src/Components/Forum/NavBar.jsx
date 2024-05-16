@@ -7,6 +7,7 @@ import HoverMenuWithTransition from "../Common/DropDown/DropDown";
 import { isAuth } from "../../Utils/IsAuth";
 import { ContextAuth } from "../../Context/AuthContext";
 import IconDropDown from "../Common/DropDown/IconDropDown";
+import { Toaster } from "sonner";
 
 function NavBar() {
   const { isLoggedIn } = ContextAuth();
@@ -178,15 +179,24 @@ function NavBar() {
         </section>
       </div>
 
-      <Login
+      {!isLoggedIn && < Login
         show={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         onSwitchToSignUp={openSignUpModal}
-      />
-      <SignUp
+      />}
+      {!isLoggedIn && <SignUp
         show={showSignUpModal}
         onClose={() => setShowSignUpModal(false)}
         onSwitchToLogin={openLoginModal}
+      />}
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            toast: "bg-green-400",
+            title: "text-white",
+          },
+        }}
       />
     </>
   );
