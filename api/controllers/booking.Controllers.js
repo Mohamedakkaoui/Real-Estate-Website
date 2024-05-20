@@ -1,4 +1,4 @@
-const { registerBookingDB, updateBookingDB, checkListingAvailability, priceCalc, getBookingByIdDB } = require("../models/methods/booking.Methods")
+const { registerBookingDB, updateBookingDB, checkListingAvailability, priceCalc, getBookingByIdDB,permissionToBook } = require("../models/methods/booking.Methods")
 
 
 
@@ -85,3 +85,15 @@ exports.cancelBooking = async (req, res) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+// get owner's permission to book a proprety
+exports.OwnerPermissionToBook = async (req, res) => {
+    try {
+        const userId=req.user;
+        const propertyId=req.params.propertyId;
+        const result = await permissionToBook(userId,propertyId );
+        res.status(result.status).json(result.body);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};

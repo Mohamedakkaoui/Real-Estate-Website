@@ -1,0 +1,47 @@
+.button-container button {
+    transition: all 0.3s ease;
+  }
+  
+  .button-container button:hover {
+    transform: translateY(-2px); /* Example animation: Move the button 2 pixels up on hover */
+  }
+  button:hover .text-gray-50 {
+    color: #0b2a79 !important; /* Change this color to the color you want on hover */
+  }
+  /* cards */
+  .card {
+    border: 1px solid #e2e8f0; /* Border color */
+    border-radius: 8px; /* Border radius */
+    overflow: hidden; /* Hide overflow content */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  
+  .image-container {
+    width: 100%;
+    height: 200px; /* Fixed height for the image container */
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%; /* Ensure image fills the container */
+    height: 100%; /* Ensure image maintains aspect ratio */
+    object-fit: cover; /* Scale the image to cover the entire container */
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .price {
+    color: #f97316; /* Price color */
+    margin-top: 20px; /* Margin top for price */
+    font-size: 20px; /* Set font size to 24px or adjust as needed */
+  }
+  .date-picker-container {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .date-picker-container.active {
+    visibility: visible;
+    pointer-events: auto;
+  }
