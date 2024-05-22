@@ -26,9 +26,9 @@ function Footer() {
 
   return (
     <>
-      <footer className="bg-black font-sans dark:bg-gray-900">
-        <div className="container mx-auto px-6 py-12 ">
-          <div className="flex flex-col lg:flex-row  justify-between items-center pb-7 mx-8">
+      <footer className="bg-black font-sans dark:bg-gray-900 z-2 ">
+        <div className="container mx-auto px-6 py-12">
+          <div className="flex flex-col lg:flex-row  justify-between items-center pb-1 mx-8">
             <div className="pb-7">
               <img src={Logo} alt="" />
             </div>
@@ -81,14 +81,12 @@ function Footer() {
                 </p>
               </div>
             </div>
-
-            {/* this si the button */}
-
+            {/* my button  */}
             <div className="sm:col-span-2 lg:col-span-2 lg:pl-20">
               <h1 className="max-w-lg text-xl font-semibold mt-8 text-white xl:text-lg tracking-wide pl-4 mb-4 sm:mb-2">
                 Keep Yourself Up To Date
               </h1>
-              <div className="mt-4 flex justify-between w-full">
+              <div className="mt-4 flex justify-between w-full ">
                 <form className="flex w-full">
                   <input
                     style={{ outline: "none" }}
