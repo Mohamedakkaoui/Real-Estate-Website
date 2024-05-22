@@ -6,8 +6,7 @@ import NotFound from "./Pages/NotFound";
 import ResetPassword from "./Pages/ResetPassword";
 import UpdatePassword from "./Pages/UpdatePssword";
 import { AuthProvider } from "./Context/AuthContext";
-
-
+import PropertyDetail from "./Pages/PropertyDetail";
 function App() {
   return (
     <>
@@ -15,6 +14,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/Home" element={<Home />} />
+            <Route path="/PropertyDetail" element={<PropertyDetail />} />
             <Route path="/users/auth/verify" element={<CheckEmail />} />
             <Route
               path="/users/auth/reset-password-email"

@@ -41,11 +41,11 @@ function Login({ show, onClose, onSwitchToSignUp }) {
     try {
       const res = await LoginUser(data)
       handleLogin(res)
-      onClose() //can be added in the login logic
+      onClose()
       setVerificationMessage({
         message : res.data.Message,
         type : "success"
-      })//adde to loin logic 
+      })
       toast.success(res.data.Message)
     } catch (error) {
       if (error.response && error.response.data && error.response.data.Message) {
@@ -181,8 +181,6 @@ function Login({ show, onClose, onSwitchToSignUp }) {
           </div>
         </div>
       </Modal>
-
-      <button ref={closeButtonRef} style={{ visibility: "hidden" }} />
 
     </>
   );
