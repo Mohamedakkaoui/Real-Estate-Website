@@ -1,0 +1,13 @@
+.marker {
+    width: 40px;
+    /* Customize width */
+    height: 40px;
+    /* Customize height */
+    background-color: #007bff;
+    /* Customize background color */
+    border-radius: 50%;
+    /* Ensure it's circular */
+    border: 2px solid #fff;
+    /* Add a border */
+    cursor: pointer;
+}

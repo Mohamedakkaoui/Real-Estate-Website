@@ -1,0 +1,14 @@
+.firsttag {
+    margin: 10px 30px;
+}
+
+.firsttag h3 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.leftside {
+    flex: 1;
+    width: max-content;
+    /* background: #cf0f0f; */
+}

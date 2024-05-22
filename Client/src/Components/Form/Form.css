@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .container {
+    margin: auto;
+}
+ */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide icons */
+input[type="number"]::-webkit-credentials-auto-fill-button,
+input[type="number"]::-ms-clear,
+input[type="number"]::-ms-reveal {
+    display: none;
+}
+
+.btmbuttons {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    gap: 10px;
+}

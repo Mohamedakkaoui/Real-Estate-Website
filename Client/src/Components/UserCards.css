@@ -1,0 +1,94 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.custom-bg-style {
+    background-image: linear-gradient(to right, #6b46c1, #805ad5, #9b7ad5);
+}
+
+.custom-icon-bg {
+    background-image: linear-gradient(to left, #6b46c1, #805ad5, #9b7ad5);
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.md\\:flex-row {
+    flex-direction: row;
+}
+
+.bg-purple-900 {
+    background-color: #4b2e83;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+.p-6 {
+    padding: 1.5rem;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.border-2 {
+    border-width: 2px;
+}
+
+.border-purple-500 {
+    border-color: #6b46c1;
+}
+
+.text-purple-300 {
+    color: #d1bcf9;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.custom-icon-bg {
+    background-image: linear-gradient(to left, #6b46c1, #805ad5, #9b7ad5);
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.h-12 {
+    height: 3rem;
+}
+
+.w-12 {
+    width: 3rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-purple-100 {
+    color: #e7e1f6;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+}
