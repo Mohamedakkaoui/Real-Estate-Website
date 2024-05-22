@@ -10,7 +10,7 @@ function UserInfo() {
           <img src={BackUser} alt="" className="w-full h-full object-cover" />
         </div>
         {/* the text area  */}
-        <div className="w-[85%] m-auto pt-8">
+        <div className="w-[85%] m-auto pt-9">
           <div className="flex mb-5 mt-5 items-center">
             <Phone className="text-[#FFA920] size-6 mr-3 mt-1" />
             <p className="font-semibold text-xl text-gray-400">Phone :</p>
@@ -18,7 +18,7 @@ function UserInfo() {
           </div>
 
           {/* import te icon for the mail */}
-          <div className="flex items-center mb-5 mt-5 border-b-2 pb-7">
+          <div className="flex items-center mb-5 mt-7 border-b-2 pb-7">
             <Mail className="text-[#FFA920] size-6 mr-3 mt-1"/>
             <p className="font-semibold text-lg text-gray-400">Mail :</p>
             <p className=" ml-auto font-semibold">
