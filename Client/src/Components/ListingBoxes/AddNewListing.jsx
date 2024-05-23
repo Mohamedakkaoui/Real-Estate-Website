@@ -280,8 +280,8 @@ const AddListing = () => {
                             </div>
                             <div className="widget-content">
                                 <div className="Info">
-                                    <div className="col-sm-41">
-                                        <label>Listing Title</label>
+                                    <div className="col-sm-41 mb-2">
+                                        <label className='mb-1'>Listing Title :</label>
                                         <input
                                             type="text"
                                             placeholder="Title of your property"
@@ -291,7 +291,7 @@ const AddListing = () => {
                                         />
                                     </div>
                                     <div className="col-sm-42">
-                                        <label>Listing Price</label>
+                                        <label className='mb-1'>Listing Price :</label>
                                         <input
                                             type="text"
                                             placeholder="Listing Price"
@@ -302,7 +302,7 @@ const AddListing = () => {
                                         />
                                     </div>
                                     <div className="col-sm-43">
-                                        <label>Type</label>
+                                        <label className='mb-1'>Type :</label>
                                         <select
                                             value={type}
                                             style={{ borderRadius: "10px" }}
@@ -316,7 +316,7 @@ const AddListing = () => {
                                         </select>
                                     </div>
                                     <div className="col-sm-44">
-                                        <label>Category</label>
+                                        <label className='mb-1'>Category :</label>
                                         <select
                                             value={category}
                                             style={{ borderRadius: "10px" }}
@@ -342,7 +342,7 @@ const AddListing = () => {
                             <div className='Location'>
                                 <div className='Locationinputs mb-2'>
                                     <div className='Address'>
-                                        <label>Address</label>
+                                        <label className='mb-1'>Address :</label>
                                         <input
                                             type="text"
                                             placeholder="Enter address"
@@ -352,7 +352,7 @@ const AddListing = () => {
                                         />
                                     </div>
                                     <div className='others'>
-                                        <label>City</label>
+                                        <label className='mb-1'>City :</label>
                                         <input
                                             type="text"
                                             placeholder="Enter city"
@@ -362,7 +362,7 @@ const AddListing = () => {
                                         />
                                     </div>
                                     <div className='others'>
-                                        <label>Longitude (Drag marker on the map)</label>
+                                        <label className='mb-1'>Longitude (Drag marker on the map) :</label>
                                         <input
                                             style={{ borderRadius: "10px" }}
 
@@ -373,7 +373,7 @@ const AddListing = () => {
                                         />
                                     </div>
                                     <div className='others'>
-                                        <label>Latitude (Drag marker on the map)</label>
+                                        <label className='mb-1'>Latitude (Drag marker on the map) :</label>
                                         <input
                                             type="text"
                                             value={coordinates.lat}
@@ -392,7 +392,7 @@ const AddListing = () => {
                                 <div className="widget-icon"><MdOutlinePermMedia /></div>
                                 <h3 className="widget-title">Media</h3>
                             </div>
-                            <div className="widget-content" style={{ borderTop: "1px solid #ccc", margin: '0 0 15px 0' }}>
+                            <div className="widget-content mb-2" style={{ borderTop: "1px solid #ccc" }}>
                                 <PrimeReactProvider>
                                     <FileDropZone />
                                 </PrimeReactProvider>

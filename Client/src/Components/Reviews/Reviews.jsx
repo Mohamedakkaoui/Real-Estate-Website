@@ -17,37 +17,58 @@ import {
     Input,
 } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["User", "Rating", "Date", "Comment"];
+const TABLE_HEAD = ["Property", "User", "Rating", "Comment", "Date"];
 
 const TABLE_ROWS = [
     {
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
+        img: "https://homeradar.kwst.net/images/all/3.jpg",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
+        User: "Spotify",
+        Rating: "2,5",
+        date: "Wed 3:00pm",
+        Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+    }, {
+        img: "https://homeradar.kwst.net/images/all/3.jpg",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
         User: "Spotify",
         Rating: "2,5",
         date: "Wed 3:00pm",
         Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
     },
     {
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
+        img: "https://homeradar.kwst.net/images/all/3.jpg",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
         User: "Spotify",
         Rating: "2,5",
         date: "Wed 3:00pm",
         Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
     },
     {
-        img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-        User: "other",
-        Rating: "4,5",
+        img: "https://homeradar.kwst.net/images/all/3.jpg",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
+        User: "Spotify",
+        Rating: "2,5",
         date: "Wed 3:00pm",
         Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
     },
     {
-        img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-        User: "other",
-        Rating: "4,5",
+        img: "https://homeradar.kwst.net/images/all/3.jpg",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
+        User: "Spotify",
+        Rating: "2,5",
         date: "Wed 3:00pm",
         Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
     },
+    {
+        img: "https://homeradar.kwst.net/images/all/3.jpg",
+        profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
+        User: "Spotify",
+        Rating: "2,5",
+        date: "Wed 3:00pm",
+        Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+    },
+
+
 ];
 
 export function TransactionsTable() {
@@ -74,12 +95,12 @@ export function TransactionsTable() {
                             {TABLE_HEAD.map((head) => (
                                 <th
                                     key={head}
-                                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 w-1/8 p-4"
+                                    className="border-y border-blue-gray-100 bg-gray-200 p-4"
                                 >
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
-                                        className="flex justify-center font-normal leading-none opacity-70"
+                                        className="flex justify-center font-bold leading-none opacity-70"
                                     >
                                         {head}
                                     </Typography>
@@ -96,6 +117,7 @@ export function TransactionsTable() {
                                     Rating,
                                     date,
                                     Comment,
+                                    profilePic
                                 },
                                 index,
                             ) => {
@@ -106,10 +128,33 @@ export function TransactionsTable() {
 
                                 return (
                                     <tr key={name}>
-                                        <td className={classes} style={{ width: '20%' }}>
-                                            <div className="flex  items-center " style={{ gap: "10px" }}>
+                                        <td className={classes} style={{ width: '35%' }}>
+                                            <div className="flex items-center gap-4" >
+                                                <Avatar src={img} alt={name} style={{ width: '150px', height: '120px' }} />
+                                                <div className="flex flex-col">
+                                                    <Typography
+                                                        variant="small"
+                                                        color="blue-gray"
+                                                        className="font-normal mb-4"
+                                                    >
+                                                        {name}
+                                                        Lorem Ipsum is simply dummy text of the printing
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="small"
+                                                        color="blue-gray"
+                                                        className="font-bold	"
+                                                    >
+                                                        556 MAD
+                                                    </Typography>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className={classes} style={{ width: '15%' }}>
+                                            <div className="flex items-center " style={{ gap: "10px" }}>
                                                 <Avatar
-                                                    src={img}
+                                                    src={profilePic}
                                                     alt={name}
                                                     size="md"
                                                     className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
@@ -127,20 +172,12 @@ export function TransactionsTable() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal flex justify-center"
+                                                className="font-bold flex justify-center"
                                             >
-                                                {Rating}
+                                                {Rating} ★
                                             </Typography>
                                         </td>
-                                        <td className={classes} style={{ width: '10%' }}>
-                                            <Typography
-                                                variant="small"
-                                                color="blue-gray"
-                                                className="font-normal"
-                                            >
-                                                {date}
-                                            </Typography>
-                                        </td>
+
                                         <td className={classes} >
                                             <div className="w-32 max-h-12">
 
@@ -152,6 +189,15 @@ export function TransactionsTable() {
                                                     {Comment}
                                                 </Typography>
                                             </div>
+                                        </td>
+                                        <td className={classes} style={{ width: '10%' }}>
+                                            <Typography
+                                                variant="small"
+                                                color="blue-gray"
+                                                className="font-normal"
+                                            >
+                                                {date}
+                                            </Typography>
                                         </td>
                                     </tr>
                                 );
