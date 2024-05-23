@@ -30,7 +30,8 @@ class EmailService {
   }
 
   resetPasswordEmail(id, token) {
-    const MailText = `Password link  to reset your password : <br/><br/>http://localhost:3500/users/auth/reset-password/${id}/${token}`;
+    const resetPasswordMail = `http://localhost:5173/users/auth/password-reset?id=${id}&token=${token}`
+    const MailText = `Password link  to reset your password : <br/><br/> <a href="${resetPasswordMail}">${resetPasswordMail}</a>`;
     return MailText;
   }
 

@@ -6,11 +6,13 @@ exports.validateUser = [
    //validate firstName
   body('FirstName')
   .exists()
+  .optional()
   .withMessage('First name is required'),
 
   //validate lastName
   body('LastName')
   .exists()
+  .optional()
   .withMessage('Last name is required'),
 
   //validate UserName
@@ -35,6 +37,7 @@ exports.validateUser = [
   //validate PhoneNumber
   body('PhoneNumber')
     .exists()
+    .optional()
     .withMessage('Phone number is required')
     .matches(/^\+212\d{9}$/)
     .withMessage('Invalid phone number format'),

@@ -4,13 +4,15 @@ import ImagesSection from "../Components/PropertyDetail/ImagesSection";
 import DetailComponents from "../Components/PropertyDetail/DetailComponents";
 import Navbar from "../Components/Forum/NavBar";
 import Footer from "../Components/Forum/Footer";
+import Carousel from "../Components/Common/Carousel";
+
 function PropertyDetail() {
   return (
     <>
       <Navbar />
       <div>
         <Header />
-        <ImagesSection />
+        <Carousel />
         <DetailComponents />
       </div>
       <Footer />

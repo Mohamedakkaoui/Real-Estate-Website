@@ -23,11 +23,11 @@ exports.getUserById = async (req, res) => {
     const { id } = req.params
     const user = await GetUserbyIdDB(id)
     if (!user) {
-      return res.status(404).json({ message: "User not found" })
+      return res.status(404).json({ Message: "User not found" })
     }
-    return res.status(200).json(user)
+    return res.status(200).json({Message : "User found succesfully", User : user})
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" , Error : error.message })
+    return res.status(500).json({ Message: "Internal server error" , Error : error.message })
   }
 }
 
@@ -123,14 +123,3 @@ exports.updateProfilePic = async (req, res) => {
     return res.status(500).json({ message: "Error updating Profile Picture" , Error : error.message })
   }
 }
-
-
-
-
-
-
-
-
-
-
-

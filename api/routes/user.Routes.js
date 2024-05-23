@@ -18,7 +18,7 @@ UserRoute.route('/profile')
     .get(isAuthenticated, verifyRoles(ROLES_LIST.Admin, ROLES_LIST.User, ROLES_LIST.Guest),getUserById)
 
 UserRoute.get('/', isAuthenticated, verifyRoles(ROLES_LIST.Admin), getAllUsers)
-UserRoute.get('/:id', isAuthenticated, ValidateID, verifyRoles(ROLES_LIST.Admin), getUserById)
+UserRoute.get('/:id', ValidateID, getUserById)
 UserRoute.put('/profile/change-password', isAuthenticated,verifyRoles(ROLES_LIST.Guest, ROLES_LIST.User), updateUserPassword)
 UserRoute.put('/profile/add-pic', isAuthenticated,verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Guest, ROLES_LIST.User), profilePicUpload.single("profilePic"), updateProfilePic)
 UserRoute.delete('/profile/delete', isAuthenticated,verifyRoles(ROLES_LIST.Guest, ROLES_LIST.Admin, ROLES_LIST.User), DeleteUser)
