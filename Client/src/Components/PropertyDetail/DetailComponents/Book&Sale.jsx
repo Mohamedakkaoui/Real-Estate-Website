@@ -57,7 +57,7 @@ function BookAndSale() {
         </div>
         {/* third section  */}
 
-        <button className="bg-[#ffa9202a] py-2 px-6 rounded-lg mt-4 w-full text-[#FFA920] font-semibold text-lg mb-6">
+        <button className="bg-[#ffa9202a] py-2 px-6 rounded-lg mt-5 w-full text-[#FFA920] font-semibold text-lg mb-6">
           Reserve
         </button>
 

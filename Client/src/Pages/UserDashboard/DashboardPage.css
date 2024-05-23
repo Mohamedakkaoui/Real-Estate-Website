@@ -1,0 +1,31 @@
+.whole {
+    display: flex;
+    height: 100vh;
+    /* width: 80%; */
+    /* Ensure the layout fills the entire viewport height */
+}
+
+.fixed-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    /* Adjust width as needed */
+    height: 100%;
+    /* Make the sidebar fill the entire viewport height */
+    overflow-y: auto;
+    /* Enable vertical scrolling if needed */
+    border-right: 1px solid #ccc;
+    /* Optional: Add a border to separate the sidebar */
+}
+
+.leftsection {
+    flex: 1;
+    /* Take up remaining space */
+    padding-left: 20px;
+    /* Ensure content doesn't overlap with fixed sidebar */
+    overflow-y: auto;
+    /* Enable scrolling for the content on the left */
+    background-color: #fafafa;
+    padding-right: 20px;
+}

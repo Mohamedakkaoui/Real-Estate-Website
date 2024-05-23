@@ -1,4 +1,5 @@
 import React from "react";
+import BasicRating from "../../Common/RatingStars";
 
 function PostReview() {
   return (
@@ -8,9 +9,9 @@ function PostReview() {
           Leave a Review{" "}
         </span>
       </div>
-      <div className="w-[95%] mx-auto">
-        <div className="text-md font-semibold">Rating</div>
-        <div></div>
+      <div className="w-[95%] mx-auto flex gap-7 mt-3 mb-3">
+        <div className="text-lg font-semibold">Rating</div>
+        <div> <BasicRating/></div>
       </div>
       <div className="flex flex-col w-[95%] m-auto">
         <div className="mt-2 mb-4 font-semibold ">Your Review</div>
@@ -19,7 +20,7 @@ function PostReview() {
           <textarea
             name=""
             id=""
-            className="w-full rounded-lg border-1 border-gray-300"
+            className="w-full rounded-lg border-1 border-gray-300 h-[200px]"
             placeholder="Your message"
           ></textarea>
         </div>

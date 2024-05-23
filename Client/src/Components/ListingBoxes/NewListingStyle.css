@@ -1,0 +1,129 @@
+.widget {
+    margin: 20px;
+    border: 1px solid;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.widget-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.Locationinputs {
+    display: flex;
+    border-top: 1px solid #ccc;
+    flex-wrap: wrap;
+
+}
+
+.others {
+    width: 28%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.Address {
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.others {
+    width: 30%;
+}
+
+
+.Info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    flex-wrap: wrap;
+}
+
+.col-sm-41 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.col-sm-42 {
+    display: flex;
+    width: 31%;
+    /* margin: 0 20px; */
+    flex-direction: column;
+}
+
+.col-sm-43 {
+    display: flex;
+    flex-direction: column;
+    width: 31%;
+}
+
+.col-sm-44 {
+    display: flex;
+    flex-direction: column;
+    width: 31%;
+}
+
+.BasicInfo .widget-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.BasicInfo .widget-icon {
+    width: 50px;
+    /* Adjust as needed */
+    height: 50px;
+    /* Adjust as needed */
+    background-color: #f0f0f0;
+    /* Example background color */
+    border-radius: 50%;
+}
+
+.BasicInfo .input-container {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.BasicInfo .input-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.BasicInfo .input-container input,
+.BasicInfo .input-container select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .BasicInfo {
+        flex-direction: column;
+    }
+
+    .BasicInfo .input-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}

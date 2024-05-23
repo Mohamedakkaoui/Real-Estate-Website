@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+p {
+    font-size: 14px;
+    color: grey;
+}
+
+ul {}
+
+.flowbite-sidebar-item-group {
+    margin-block-start: 105px;
+
+}
+
+div.bg-gray-50 {
+    height: 100%;
+    /* Take full height of its container */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    overflow-x: hidden;
+    /* Hide horizontal overflow */
+    background-color: #ffffff;
+    /* Light gray background */
+    padding: 20px;
+    /* Add padding inside the div */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Add shadow for depth */
+}
+
+div.bg-gray-50 ul.flowbite-sidebar-item-group {
+    margin-top: 90px;
+    /* Add margin at the top */
+    padding-top: 0;
+    /* Add padding at the top */
+    border-top: 1px solid #ccc;
+    /* Add a border at the top */
+}
+
+/* ScrollableComponent.css */
+.scrollable-component {
+    /* Set height to fit the viewport and enable vertical scrolling */
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Styling the scrollbar */
+.scrollable-component::-webkit-scrollbar {
+    width: 10px;
+    /* Width of the scrollbar */
+}
+
+/* Track (the area behind the scrollbar) */
+.scrollable-component::-webkit-scrollbar-track {
+    background: #bc2c2c;
+    /* Color of the track */
+}
+
+/* Handle (the draggable part of the scrollbar) */
+.scrollable-component::-webkit-scrollbar-thumb {
+    background: #5e0472;
+    /* Color of the handle */
+    border-radius: 5px;
+    /* Rounded corners */
+}
+
+/* Handle on hover */
+.scrollable-component::-webkit-scrollbar-thumb:hover {
+    background: #70ca0a;
+    /* Darker color when hovered */
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.scrollable-component .item {
+    font-weight: 500;
+
+}
+
+.scrollable-component .item:hover {
+    color: #FFA920;
+    background-color: #FFF5E0;
+}
+
+.item:hover svg {
+    /* Add hover styles to the SVG */
+    fill: #FFA920;
+    /* Change the fill color, for example */
+    /* Add any other styles you want to apply on hover */
+}
