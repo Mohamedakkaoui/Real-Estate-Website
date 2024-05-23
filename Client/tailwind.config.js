@@ -24,8 +24,8 @@ module.exports = {
         questrial: "Questrial",
       },
       colors: {
-        primary: "#FF6400",
-        secondary: "#003049",
+        primary: "#FFA920",
+        secondary: "#2f3542",
         secondaryOrange: "#FF8475",
         "main-bg": "#fff",
         "main-dark": "#1F1D2B",
@@ -82,5 +82,5 @@ module.exports = {
       },
     };
     addUtilities(newUtilities);
-  }),flowbite.plugin(), nextui()],
+  }), flowbite.plugin(), nextui()],
 };
