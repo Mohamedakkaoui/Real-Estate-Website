@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const compression = require("compression");
 const cors = require("cors");
-const {getLogin} = require ("./controllers/auth.Controllers")
 //necessary functions import
 
 const { limiter } = require("./middlewares/rateLimit");
@@ -26,13 +25,10 @@ var corsOptions = {
 };
 server.use(cors(corsOptions));
 
-server.post("/users/auth/login", (req, res) => {
-  getLogin()
-  console.log('entered');
-})
-
 server.options("/users/auth/login", cors());
-
+server.options("/users/auth/register", cors());
+server.options("/users/auth/reset-password-email", cors())
+server.options("/users/auth/reset-password/:id/:token", cors())
 // Helmet middleware for securing HTTP headers
 server.use(helmet());
 
@@ -62,7 +58,6 @@ server.use("/booking", bookingRoute);
 
 // Import the database connection function and execute it
 const { connection } = require("./config/database");
-const { getLogin } = require("./controllers/auth.Controllers");
 const database = connection();
 
 // Connect to the MongoDB database
