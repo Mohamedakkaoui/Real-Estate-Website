@@ -164,7 +164,7 @@ export function TransactionsTable() {
                     {date}
                   </Typography>
                 </td>
-                <td className="p-4">
+                <td className="p-4" style={{width : "60%"}}>
                   <Typography
                     variant="small"
                     color="blue-gray"
