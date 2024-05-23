@@ -89,7 +89,7 @@ export function TransactionsTable() {
                 </div>
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
-                <table className="w-full min-w-max table-auto text-left">
+                <table className="w-full table-auto text-left">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
@@ -179,7 +179,7 @@ export function TransactionsTable() {
                                         </td>
 
                                         <td className={classes} >
-                                            <div className="w-32 max-h-12">
+                                            <div className="">
 
                                                 <Typography
                                                     variant="small"

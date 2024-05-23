@@ -83,7 +83,7 @@ export function ReviewsTable() {
 
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
-                <table className="mt-4 w-full min-w-max table-auto text-left">
+                <table className="mt-4 w-full  table-auto text-left">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
