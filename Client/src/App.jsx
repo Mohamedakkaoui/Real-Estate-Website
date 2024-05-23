@@ -7,6 +7,9 @@ import ResetPassword from "./Pages/ResetPassword";
 import UpdatePassword from "./Pages/UpdatePssword";
 import { AuthProvider } from "./Context/AuthContext";
 import PropertyDetail from "./Pages/PropertyDetail";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+import DashboardPage from "./Pages/UserDashboard/DashboardPage";
+
 function App() {
   return (
     <>
@@ -16,6 +19,8 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/PropertyDetail" element={<PropertyDetail />} />
             <Route path="/users/auth/verify" element={<CheckEmail />} />
+            <Route path="/Admin-Dashboard" element={<AdminDashboard/>}></Route>
+            <Route path="/User-Dashboard/*" element={<DashboardPage/>}></Route>
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}

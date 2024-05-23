@@ -68,18 +68,18 @@ export function TransactionsTable() {
                 </div>
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
-                <table className="w-full min-w-max table-auto text-left">
+                <table className="w-full table-auto text-left">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
                                 <th
                                     key={head}
-                                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 w-1/8 p-4"
+                                    className="border-y border-blue-gray-100 bg-gray-200  w-1/8 p-4"
                                 >
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
-                                        className="flex justify-center font-normal leading-none opacity-70"
+                                        className="flex justify-center font-bold leading-none opacity-70"
                                     >
                                         {head}
                                     </Typography>
@@ -106,7 +106,7 @@ export function TransactionsTable() {
 
                                 return (
                                     <tr key={name}>
-                                        <td className={classes} style={{ width: '20%' }}>
+                                        <td className={classes} style={{ width: '10%' }}>
                                             <div className="flex  items-center " style={{ gap: "10px" }}>
                                                 <Avatar
                                                     src={img}
@@ -127,7 +127,7 @@ export function TransactionsTable() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal flex justify-center"
+                                                className="font-bold flex justify-center"
                                             >
                                                 {Rating}
                                             </Typography>
@@ -136,13 +136,13 @@ export function TransactionsTable() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal"
+                                                className="font-normal text-center"
                                             >
                                                 {date}
                                             </Typography>
                                         </td>
                                         <td className={classes} >
-                                            <div className="w-32 max-h-12">
+                                            <div className="">
 
                                                 <Typography
                                                     variant="small"
