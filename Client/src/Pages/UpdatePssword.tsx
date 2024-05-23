@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Image from "../assets/bg-login.jpg";
+import BgLogin  from "../assets/bg-login.jpg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { UpdatePassword } from "../Api/Authapi";
+import { UpdatePassword } from "../api/Authapi";
 import { MoveLeft } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 
@@ -101,7 +101,7 @@ function UpdatePssword() {
         <div className="absolute w-48 h-48 rounded-xl bg-[#FFA920] right-[40px] bottom-6 z-0 transform rotate-12 hidden md:block"></div>
         <div className="flex  h-[600px] z-10">
           <div className="bg-cover  w-[400px] shadow-2xl h-[600px] w relative">
-            <img src={Image} alt="" className="w-full h-full rounded-l-lg" />
+            <img src={BgLogin} alt="" className="w-full h-full rounded-l-lg" />
           </div>
           <form
             onSubmit={handleResetPassword}

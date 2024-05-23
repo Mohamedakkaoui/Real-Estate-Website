@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { getUserById } from "../Api/Authapi";
+import { getUserById } from "../api/Authapi";
 
 export const AuthContext = createContext({
   isLoggedIn: false,

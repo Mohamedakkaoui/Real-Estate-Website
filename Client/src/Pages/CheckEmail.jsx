@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle, CircleX } from "lucide-react";
-import { VerifyEmail } from "../Api/Authapi";
+import { VerifyEmail } from "../api/Authapi";
 import { Card } from "flowbite-react";
 
 const EmailVerificationPage = () => {
