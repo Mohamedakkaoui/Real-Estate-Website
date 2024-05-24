@@ -1,21 +1,14 @@
-import { PencilIcon } from "@heroicons/react/24/solid";
-import {
-    ArrowDownTrayIcon,
-    MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
 import {
     Card,
     CardHeader,
     Typography,
     Button,
     CardBody,
-    Chip,
     CardFooter,
     Avatar,
     IconButton,
-    Tooltip,
-    Input,
 } from "@material-tailwind/react";
+import { useState } from "react";
 
 const TABLE_HEAD = ["Property", "User", "Rating", "Comment", "Date"];
 
@@ -72,6 +65,26 @@ const TABLE_ROWS = [
 ];
 
 export function TransactionsTable() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5; // Number of items per page
+
+    const totalPages = Math.ceil(TABLE_ROWS.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItems = TABLE_ROWS.slice(startIndex, endIndex);
+
+    const handlePrevPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
+
+    const handlePageClick = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <Card className="">
             <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -82,10 +95,8 @@ export function TransactionsTable() {
                         </Typography>
                         <Typography color="gray" className="mt-1 font-normal">
                             These are details about the customers reviews
-
                         </Typography>
                     </div>
-
                 </div>
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
@@ -194,7 +205,7 @@ export function TransactionsTable() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal text-center"
+                                                className="font-normal"
                                             >
                                                 {date}
                                             </Typography>
@@ -207,33 +218,22 @@ export function TransactionsTable() {
                 </table>
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Button variant="outlined" size="sm">
+                <Button variant="outlined" size="sm" onClick={handlePrevPage} disabled={currentPage === 1}>
                     Previous
                 </Button>
                 <div className="flex items-center gap-2">
-                    <IconButton variant="outlined" size="sm">
-                        1
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        2
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        3
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        ...
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        8
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        9
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        10
-                    </IconButton>
+                    {[...Array(totalPages)].map((_, index) => (
+                        <IconButton
+                            key={index}
+                            variant={currentPage === index + 1 ? "outlined" : "text"}
+                            size="sm"
+                            onClick={() => handlePageClick(index + 1)}
+                        >
+                            {index + 1}
+                        </IconButton>
+                    ))}
                 </div>
-                <Button variant="outlined" size="sm">
+                <Button variant="outlined" size="sm" onClick={handleNextPage} disabled={currentPage === totalPages}>
                     Next
                 </Button>
             </CardFooter>
