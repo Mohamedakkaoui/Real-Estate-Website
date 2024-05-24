@@ -19,8 +19,8 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/PropertyDetail" element={<PropertyDetail />} />
             <Route path="/users/auth/verify" element={<CheckEmail />} />
-            <Route path="/Admin-Dashboard" element={<AdminDashboard/>}></Route>
-            <Route path="/User-Dashboard/*" element={<DashboardPage/>}></Route>
+            <Route path="/Admin-Dashboard" element={<AdminDashboard />}></Route>
+            <Route path="/User-Dashboard/*" element={<DashboardPage />}></Route>
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}

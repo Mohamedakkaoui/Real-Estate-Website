@@ -194,7 +194,7 @@ export function TransactionsTable() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal"
+                                                className="font-normal text-center"
                                             >
                                                 {date}
                                             </Typography>
