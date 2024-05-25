@@ -25,7 +25,6 @@ export function TransactionsTable() {
   const getReviews = async () => {
     try {
       const res = await GetMYlistingReviews();
-      console.log(res.data.Reviews[1].date);
       if (!res) {
         console.log(res.data.Reviews.date);
         toast.error(res.data.Message);

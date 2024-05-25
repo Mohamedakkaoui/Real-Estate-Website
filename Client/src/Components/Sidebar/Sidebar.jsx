@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
 import "./Sidebar.css";
 import { BiAddToQueue } from "react-icons/bi";
@@ -13,8 +13,20 @@ import { GiCalendar } from "react-icons/gi";
 import { RiMessage3Line } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { BsCalendarRange } from "react-icons/bs";
+import {ContextAuth} from '../../Context/AuthContext'
 
 function SidebarComp() {
+
+  const { handleLogout } = ContextAuth()
+  const Navigate = useNavigate()
+
+
+  const handlelogout = (e) => {
+    e.preventDefault()
+    handleLogout()
+    Navigate('/Home')
+  }
+
   return (
     <div className="scrollable-component">
      <Sidebar>
@@ -102,10 +114,10 @@ function SidebarComp() {
         </div>
         
       </Sidebar.Item>
-      <Sidebar.Item as={NavLink} to="/logout" className="px-0">
+      <Sidebar.Item className="px-0">
       <div className="flex gap-4">
           <BiLogOut size={25} />
-          <h2>Log out</h2>
+          <button onClick={handlelogout}><h2>Log out</h2></button> 
         </div>
         
       </Sidebar.Item>

@@ -31,7 +31,7 @@ function DashboardPage() {
                         <Route path="My-bookings" element={<MyBookings />} />
                         <Route path="favourites" element={<Favorites />} />
                         <Route path="My-Reviews" element={<Myrevs />} />
-                        <Route path="/" element={<Form />} /> {/* Default route */}
+                        <Route path="/" element={<Form />} />
                     </Routes>
                 </div>
             </div>

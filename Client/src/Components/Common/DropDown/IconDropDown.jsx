@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 
 function IconDropDown() {
   const { UserProfile, handleLogout } = ContextAuth();
-  console.log(UserProfile);
 
   return (
     <div className="flex items-center gap-4">
