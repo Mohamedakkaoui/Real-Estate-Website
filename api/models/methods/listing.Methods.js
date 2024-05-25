@@ -58,4 +58,10 @@ exports.UpdateListingDB = async (id, data) => {
   }
 }
 
-
+exports.FindListingByOwnerIdDB = async (id) => {
+  try {
+    return await ListingsSchema.find({owner : id})
+  } catch (error) {
+    throw new error (error)
+  }
+}

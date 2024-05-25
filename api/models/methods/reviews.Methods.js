@@ -1,5 +1,6 @@
 const ReviewSchema = require('../schemas/reviews.Model')
 const mongoose = require('mongoose')
+const { FindListingByOwnerIdDB } = require('./listing.Methods')
 
 
 
@@ -93,4 +94,16 @@ exports.calculateRating = async (propertyId, res) => {
     return averageRatingScore;
   }
   catch (err) { throw err }
+}
+
+
+exports.MyListingReviewsDB = async (id) => {
+  try {
+    const Listings = await FindListingByOwnerIdDB(id)
+    const ListingsIDs = Listings.map(Listing => Listing._id)
+    const Reviews = await ReviewSchema.find({property_id : {$in: ListingsIDs} }).populate('property_id', 'title images').populate('owner', 'Username Email')
+    return Reviews
+  } catch (error) {
+    throw error
+  }
 }
