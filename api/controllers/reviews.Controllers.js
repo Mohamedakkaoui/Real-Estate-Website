@@ -1,4 +1,4 @@
-const {addReviewDB , GetReviewByIdDB ,getAllReviewsDB, UpdateReviewDB , deleteReviewDB, ReviewsForUser} = require('../models/methods/reviews.Methods')
+const {addReviewDB , GetReviewByIdDB ,getAllReviewsDB, UpdateReviewDB , deleteReviewDB, ReviewsForUser, MyListingReviewsDB} = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
 const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
 
@@ -87,9 +87,9 @@ exports.deleteReview = async (req, res) => {
 exports.getAllReviews = async (req, res) => {
   try {
     const reviews = await getAllReviewsDB()
-    return res.status(200).json(reviews)
+    return res.status(200).json({Message : "Data fetched ok 200" , Reviews : reviews})
   } catch (error) {
-    return res.status(404).json({message : 'Couldnt Get Review', Error : error.message})
+    return res.status(404).json({Message : 'Couldnt Get Review', Error : error.message})
   }
 }
 
@@ -103,5 +103,40 @@ exports.getReviewUserAddTop =async(req,res)=>{
 
   } catch (error) {
     res.status(500).send(error);
+  }
+}
+
+
+//Get reviews by ReviewsID
+exports.GetReviewById = async (req, res) => {
+  try {
+    const { id } = req.params
+    if (!id)  {
+      return res.status(404).json({message : 'No review ID was provided.'})
+    }
+    const review = await GetReviewByIdDB(id)
+    if (!review) {
+      return res.status(404).json({message : 'No review was found fro the provided ID'})
+    }
+    return res.status(200).json({message :'Review retrieved successfully', Review : review })
+  } catch (error) {
+    return res.status(404).json({message : 'Unable to retrieve review. Please try again later.', error : error.messaeg})
+  }
+}
+
+
+exports.GetMyListingsReviews = async (req, res) => {
+  try {
+    const { id } = req.user
+    const reviews = await MyListingReviewsDB(id)
+    if(! reviews ) {
+      return res.status(404).json({Message : "No reviews were found"})
+    }
+    else if (reviews.length == 0){
+      return res.status(200).json({Message : "No reviews were found"})
+    }
+    return res.status(200).json({Message : "Reviews retrieved succefully", Reviews : reviews})
+  } catch (error) {
+    return res.status(404).json({Message : "Unbale to retrieve reviews", Error : error.message})
   }
 }
