@@ -20,7 +20,6 @@ export function TransactionsTable() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentItems, setCurrentItems] = useState([]);
   const [Reviews, SetReviews] = useState([]);
-  const [Response, setResponse] = useState("");
 
   const getReviews = async () => {
     try {
