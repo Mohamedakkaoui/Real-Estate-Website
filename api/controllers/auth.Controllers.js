@@ -72,6 +72,7 @@ exports.getRegister = async (req, res) => {
 // login user
 exports.getLogin = async (req, res) => {
   try {
+    console.log('ok');
     const { Email, Password } = req.body;
     const userDB = await UserSchema.findOne({ Email });
     if (!userDB) {

@@ -2,17 +2,17 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ReviewSchema = new mongoose.Schema({
-    Object_id : {
-        type : String,
+    Object_id: {
+        type: String,
     },
     property_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Property', // Assuming you have a Property model
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Listing',
         required: true
     },
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'User', // Assuming you have a User model
+        ref: 'Users',
         required: true
     },
     rating: {

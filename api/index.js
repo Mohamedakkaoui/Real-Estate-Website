@@ -30,13 +30,13 @@ server.options("/users/auth/register", cors());
 server.options("/users/auth/reset-password-email", cors())
 server.options("/users/auth/reset-password/:id/:token", cors())
 // Helmet middleware for securing HTTP headers
-server.use(helmet());
+// server.use(helmet());
 
 // Compression middleware to compress responses
 server.use(compression());
 
 // Apply rate limiter to all requests
-server.use(limiter);
+// server.use(limiter);
 
 //
 

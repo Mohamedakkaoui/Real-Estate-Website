@@ -18,6 +18,7 @@ exports.isAuthenticated = async (req, res, next) => {
         req.user = verify
         next()
     } catch (err) {
+        console.log(err)
         return res.status(500).json({ message: 'Internal Server Error' })
     }
 

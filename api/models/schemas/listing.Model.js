@@ -4,10 +4,9 @@ const Schema = mongoose.Schema
 
 const ListingsSchema = new mongoose.Schema({
 
-  Object_id : {
-    type : String,
+  Object_id: {
+    type: String,
   },
-
   title: {
     type: String,
     required: true

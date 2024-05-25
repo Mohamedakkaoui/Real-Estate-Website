@@ -94,3 +94,15 @@ exports.calculateRating = async (propertyId, res) => {
   }
   catch (err) { throw err }
 }
+
+
+//get reviews of a user by ID
+exports.GetReviewOfUser = async (UserId) => {
+  try {
+    const Reviews = await ReviewSchema.find({ owner: UserId }).populate('property_id', 'title price images -_id').populate('owner', 'Username ProfilePic -_id').select('-_id ')
+    return Reviews
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+

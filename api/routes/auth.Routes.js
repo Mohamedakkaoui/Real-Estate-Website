@@ -16,7 +16,7 @@ const { verifyVerificationCode } = require("../middlewares/VerifNumber");
 AuthRoute.post("/register", AvoidAuth, validateUser, getRegister);
 AuthRoute.post("/verify", verifyVerificationCode);
 AuthRoute.get("/verify", verifyemail);
-AuthRoute.post("/login", AvoidAuth, getLogin);
+AuthRoute.post("/login", getLogin);
 AuthRoute.post("/reset-password-email", GenrateTempToken);
 AuthRoute.post("/password-reset/:id/:token", ResetPassword);
 AuthRoute.post("/logout", logout);

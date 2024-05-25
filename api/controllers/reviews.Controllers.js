@@ -1,6 +1,6 @@
-const {addReviewDB , GetReviewByIdDB ,getAllReviewsDB, UpdateReviewDB , deleteReviewDB, ReviewsForUser} = require('../models/methods/reviews.Methods')
+const { addReviewDB, GetReviewByIdDB, getAllReviewsDB, UpdateReviewDB, deleteReviewDB, ReviewsForUser, GetReviewOfUser } = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
-const  generateCustomUUID  = require ('../Utils/customUuidGenerator.js')
+const generateCustomUUID = require('../Utils/customUuidGenerator.js')
 
 
 //Create Review
@@ -18,7 +18,7 @@ exports.CreateReview = async (req, res) => {
     }
     return res.status(200).json({ message: 'Review created successfully', review: Review })
   } catch (error) {
-    return res.status(404).json({ error: "Error creating review. Please try again later.", Error : error.message })
+    return res.status(404).json({ error: "Error creating review. Please try again later.", Error: error.message })
   }
 }
 
@@ -29,34 +29,33 @@ exports.CreateReview = async (req, res) => {
 exports.GetReviewById = async (req, res) => {
   try {
     const { id } = req.params
-    if (!id)  {
-      return res.status(404).json({message : 'No review ID was provided.'})
+    if (!id) {
+      return res.status(404).json({ message: 'No review ID was provided.' })
     }
     const review = await GetReviewByIdDB(id)
     if (!review) {
-      return res.status(404).json({message : 'No review was found fro the provided ID'})
+      return res.status(404).json({ message: 'No review was found fro the provided ID' })
     }
-    return res.status(200).json({message :'Review retrieved successfully', Review : review })
+    return res.status(200).json({ message: 'Review retrieved successfully', Review: review })
   } catch (error) {
-    return res.status(404).json({message : 'Unable to retrieve review. Please try again later.', error : error.messaeg})
+    return res.status(404).json({ message: 'Unable to retrieve review. Please try again later.', error: error.messaeg })
   }
 }
 
 //update review
-exports.updateReview = async (req, res) =>{
-  try{
-    const { rating , comment , property_id } = req.body
+exports.updateReview = async (req, res) => {
+  try {
+    const { rating, comment, property_id } = req.body
     const { id } = req.params
     const user_id = req.user.id
-    const review= await UpdateReviewDB(id , {rating , comment, user_id, property_id})
-    if(!review)
-    {
+    const review = await UpdateReviewDB(id, { rating, comment, user_id, property_id })
+    if (!review) {
       return res.status(404).json(`message: cannot find any review with ID ${id}`);
     }
-    const update =await GetReviewByIdDB(id)
+    const update = await GetReviewByIdDB(id)
     res.status(200).json(update)
-  } catch(error){
-    res.status(500).json({message:'Failed to Update Review', Error :error.message}) 
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to Update Review', Error: error.message })
   }
 }
 
@@ -70,10 +69,10 @@ exports.deleteReview = async (req, res) => {
       return res.status(400).send('Review ID is required')
     }
     const deletedReview = await deleteReviewDB(reviewId)
-    if (!deletedReview){
-      res.status(400).json({message : 'unable to Delete'})
+    if (!deletedReview) {
+      res.status(400).json({ message: 'unable to Delete' })
     }
-      if(deletedReview.deletedCount == 0) {
+    if (deletedReview.deletedCount == 0) {
       return res.status(404).send('Review not found')
     }
     return res.status(200).json({ message: 'Review deleted successfully' })
@@ -89,19 +88,31 @@ exports.getAllReviews = async (req, res) => {
     const reviews = await getAllReviewsDB()
     return res.status(200).json(reviews)
   } catch (error) {
-    return res.status(404).json({message : 'Couldnt Get Review', Error : error.message})
+    return res.status(404).json({ message: 'Couldnt Get Review', Error: error.message })
   }
 }
 
 
 //get the user's Review at the top of reviews
-exports.getReviewUserAddTop =async(req,res)=>{
+exports.getReviewUserAddTop = async (req, res) => {
   try {
-    const userID=req.user.id;
-    const reviewUser= await ReviewsForUser(userID);
+    const userID = req.user.id;
+    const reviewUser = await ReviewsForUser(userID);
     res.send(reviewUser);
 
   } catch (error) {
     res.status(500).send(error);
+  }
+}
+
+//get user reviews
+
+exports.getUserReviews = async (req, res) => {
+  try {
+    const userID = req.user.id;
+    const reviews = await GetReviewOfUser(userID)
+    return res.status(200).json(reviews)
+  } catch (error) {
+    return res.status(404).json({ message: 'Couldnt Get Reviews', Error: error.message })
   }
 }

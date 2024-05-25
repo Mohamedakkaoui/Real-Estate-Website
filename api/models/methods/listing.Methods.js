@@ -58,4 +58,14 @@ exports.UpdateListingDB = async (id, data) => {
   }
 }
 
-
+//get my listings
+exports.getMyListingsDB = async (UserId) => {
+  try {
+    if (mongoose.Types.ObjectId.isValid(UserId)) {
+      const Listings = await ListingsSchema.find({ owner: UserId }).select("title location images -_id")
+      return Listings
+    }
+  } catch (error) {
+    throw new Error('Failed to get property by ID: ' + error)
+  }
+};

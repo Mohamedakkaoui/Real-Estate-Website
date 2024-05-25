@@ -5,13 +5,10 @@ const ListingRoute = express.Router()
 
 
 //importing controllers & Middlewares
-const { addNewListing, deleteListing, getListings, getListingById, updateListing, saveListingUser } = require('../controllers/listing.Controllers')
+const { addNewListing, deleteListing, getListings, getListingById, updateListing, saveListingUser, getMyListings } = require('../controllers/listing.Controllers')
 const { ListingPicsUpload } = require('../middlewares/multer')
 const { isAuthenticated } = require('../middlewares/authMiddlewares')
-
 const { validateListing } = require('../middlewares/validate/validateListing')
-
-
 const { IsOwner } = require('../middlewares/IsOwner.js')
 
 
@@ -23,6 +20,7 @@ const ROLES_LIST = require('../config/Roles_Lists.js')
 const { listingFilterOptions } = require('../helpers/query.js')
 
 //defining routes
+ListingRoute.get('/MyListings', isAuthenticated, getMyListings)
 ListingRoute.get('/All', getListings)
 ListingRoute.get('/filteredListings', listingFilterOptions)
 ListingRoute.get('/:id', isAuthenticated, IsOwner, getListingById)
