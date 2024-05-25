@@ -1,5 +1,6 @@
 const ReviewSchema = require('../schemas/reviews.Model')
 const mongoose = require('mongoose')
+const { FindListingByOwnerIdDB } = require('./listing.Methods')
 
 
 
@@ -96,6 +97,7 @@ exports.calculateRating = async (propertyId, res) => {
 }
 
 
+
 //get reviews of a user by ID
 exports.GetReviewOfUser = async (UserId) => {
   try {
@@ -106,3 +108,14 @@ exports.GetReviewOfUser = async (UserId) => {
   }
 }
 
+
+exports.MyListingReviewsDB = async (id) => {
+  try {
+    const Listings = await FindListingByOwnerIdDB(id)
+    const ListingsIDs = Listings.map(Listing => Listing._id)
+    const Reviews = await ReviewSchema.find({property_id : {$in: ListingsIDs} }).populate('property_id', 'title images price').populate('owner', 'Username Email')
+    return Reviews
+  } catch (error) {
+    throw error
+  }
+}

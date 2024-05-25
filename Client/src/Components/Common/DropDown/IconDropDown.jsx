@@ -4,14 +4,12 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Avatar,
   User,
 } from "@nextui-org/react";
 import { ContextAuth } from "../../../Context/AuthContext";
+import { Link } from "react-router-dom";
 
 function IconDropDown() {
-
-
   const { UserProfile, handleLogout } = ContextAuth();
   console.log(UserProfile);
 
@@ -32,11 +30,15 @@ function IconDropDown() {
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-bold">Signed in as</p>
-            <p className="font-bold">{UserProfile.Email}</p>
+            <p className="font-bold text-black">Signed in as</p>
+            <p className="font-bold text-black">{UserProfile.Email}</p>
           </DropdownItem>
-          <DropdownItem key="Profile">Profile</DropdownItem>
-          <DropdownItem key="Dashbaord">Dashboard</DropdownItem>
+          <DropdownItem key="Profile">
+            <Link to="/User-Dashboard/profile">Profile</Link>{" "}
+          </DropdownItem>
+          <DropdownItem key="Dashbaord">
+            <Link to="/User-Dashboard/main">Dashboard</Link>{" "}
+          </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleLogout}>
             Log Out
           </DropdownItem>

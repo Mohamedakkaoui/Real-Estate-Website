@@ -58,6 +58,7 @@ exports.UpdateListingDB = async (id, data) => {
   }
 }
 
+
 //get my listings
 exports.getMyListingsDB = async (UserId) => {
   try {
@@ -69,3 +70,11 @@ exports.getMyListingsDB = async (UserId) => {
     throw new Error('Failed to get property by ID: ' + error)
   }
 };
+
+exports.FindListingByOwnerIdDB = async (id) => {
+  try {
+    return await ListingsSchema.find({owner : id})
+  } catch (error) {
+    throw new error (error)
+  }
+}

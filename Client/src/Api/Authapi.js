@@ -21,8 +21,6 @@ export function VerifyEmail (email, token) {
 }
 
 export function ResetPassword (body) {
-  console.log("entered");
-  console.log(body);
   return api.post("users/auth/reset-password-email", body)
 }
 

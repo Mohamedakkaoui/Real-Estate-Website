@@ -1,28 +1,22 @@
 //import used functions
-const { verifyToken } = require("../helpers/jwt")
-
+const { verifyToken } = require("../helpers/jwt");
 
 //defining Auuthentification check middleware
 exports.isAuthenticated = async (req, res, next) => {
-    try {
-        const bearerHeader = req.headers['authorization']
-        if (!bearerHeader) {
-            return res.status(401).json({ message: 'Unauthorized: Token missing' })
-        }
-        const token = bearerHeader.split(' ')[1]
-        const verify = await verifyToken(token) // Await here
-        if (!verify) {
-            return res.status(401).json({ message: 'Unauthorized: Invalid token' })
-        }
-
-        req.user = verify
-        next()
-    } catch (err) {
-        console.log(err)
-        return res.status(500).json({ message: 'Internal Server Error' })
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      return res.status(401).json({ Message: "Unauthorized: Token missing" });
     }
-
-
-
-}
-
+    const verify = await verifyToken(token);
+    if (!verify) {
+      return res.status(401).json({ Message: "Unauthorized: Invalid token" });
+    }
+    req.user = verify;
+    next();
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ Message: "Internal Server Error", Error: err.message });
+  }
+};

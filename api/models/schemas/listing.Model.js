@@ -42,15 +42,9 @@ const ListingsSchema = new mongoose.Schema({
   },
   images: [],
   owner: {
-    // type: String
-    // type: Schema.Types.ObjectId,
-    // ref: 'User',
-    // required: true
-
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Users',
     required: true
-
   }
 });
 
