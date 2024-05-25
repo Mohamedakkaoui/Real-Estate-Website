@@ -1,21 +1,17 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import {
     Card,
     CardHeader,
-    Input,
     Typography,
     Button,
     CardBody,
-    Chip,
     CardFooter,
-    Tabs,
-    TabsHeader,
-    Tab,
     Avatar,
     IconButton,
     Tooltip,
 } from "@material-tailwind/react";
+
+
 
 const TABLE_HEAD = ["Property", "User", "Rating", "Review", "Date", ""];
 
@@ -66,6 +62,9 @@ const TABLE_ROWS = [
 
 
 export function ReviewsTable() {
+
+   
+
     return (
         <Card className="h-full w-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
