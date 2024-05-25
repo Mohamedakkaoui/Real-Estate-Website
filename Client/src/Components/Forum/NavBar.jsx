@@ -7,6 +7,7 @@ import HoverMenuWithTransition from "../Common/DropDown/DropDown";
 import { ContextAuth } from "../../Context/AuthContext";
 import IconDropDown from "../Common/DropDown/IconDropDown";
 import { Toaster } from "sonner";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const { isLoggedIn } = ContextAuth();
@@ -58,23 +59,23 @@ function NavBar() {
               <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-9">
                 <HoverMenuWithTransition />
                 <li className="mt-2">
-                  <a className="hover:text-[#FFA920]" href="#">
+                  <Link to="/Home" className="hover:text-[#FFA920]">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="mt-2">
-                  <a className="hover:text-[#FFA920]" href="#">
+                  <Link to="/PropertyDetail" className="hover:text-[#FFA920]">
                     Catagory
+                  </Link>
+                </li>
+                <li className="mt-2">
+                  <a className="hover:text-[#FFA920]">
+                    Propeties
                   </a>
                 </li>
                 <li className="mt-2">
-                  <a className="hover:text-[#FFA920]" href="#">
-                    Property
-                  </a>
-                </li>
-                <li className="mt-2">
-                  <a className="hover:text-[#FFA920]" href="#">
-                    Blog
+                  <a className="hover:text-[#FFA920]" >
+                    About Us
                   </a>
                 </li>
               </ul>
@@ -209,9 +210,9 @@ function NavBar() {
                             d="m22.469 10.645-8.154-7.676a2.651 2.651 0 0 0-3.63 0L8.75 4.791V3A.75.75 0 0 0 8 2.25H5a.75.75 0 0 0-.75.75v6.027l-1.697 1.598a1.624 1.624 0 0 0-.445 1.814c.24.645.83 1.061 1.501 1.061h.641V21a.75.75 0 0 0 .75.75h15a.75.75 0 0 0 .75-.75v-7.5h.639a1.6 1.6 0 0 0 1.503-1.062c.244-.655.069-1.367-.423-1.793ZM5.75 3.75h1.5v2.452l-1.5 1.413V3.75Zm15.736 8.164c-.032.086-.081.086-.097.086H20a.75.75 0 0 0-.75.75v7.5H5.75v-7.5A.75.75 0 0 0 5 12H3.61c-.016 0-.065 0-.097-.086a.152.152 0 0 1 .045-.176l8.155-7.676a1.15 1.15 0 0 1 1.574 0l8.175 7.696c.057.048.036.125.024.156Z"
                           />
                         </svg>
-                        <div className="text-white font-semibold border-l  pl-2">
+                        <Link to="/User-Dashboard/new-property" className="text-white font-semibold border-l  pl-2">
                           Sell Property
-                        </div>
+                        </Link>
                       </div>
                     </Button>
                   </div>
