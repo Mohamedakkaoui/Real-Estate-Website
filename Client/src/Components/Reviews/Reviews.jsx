@@ -8,78 +8,48 @@ import {
   Avatar,
   IconButton,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getAllReviews, { GetMYlistingReviews } from "../../Api/ReviewsApi";
+import Image from '../../assets/yassine.png'
+import { toast } from 'sonner';
 
-const TABLE_HEAD = ["Property", "User", "Rating", "Comment", "Date"];
-
-const TABLE_ROWS = [
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
-    User: "Spotify",
-    Rating: "2,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
-    User: "Spotify",
-    Rating: "2,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  },
-  {
-    img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-    User: "other",
-    Rating: "4,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  },
-  {
-    img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-    User: "other",
-    Rating: "4,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  },
-  {
-    img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-    User: "other",
-    Rating: "4,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  },
-  {
-    img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-    User: "other",
-    Rating: "4,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  },
-  {
-    img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-    User: "other",
-    Rating: "4,5",
-    date: "Wed 3:00pm",
-    Comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  }
-];
+const TABLE_HEAD = ["User","Rating", "Date", "Comment"];
 
 export function TransactionsTable() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Number of items per page
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [currentItems, setCurrentItems] = useState([])
+  const [Reviews, SetReviews] = useState([]);
+  const [Response, setResponse] = useState("")
 
-  const totalPages = Math.ceil(TABLE_ROWS.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = TABLE_ROWS.slice(startIndex, endIndex);
+  const getReviews = async () => {
+    try {
+      const res = await GetMYlistingReviews();
+      if (!res) {
+        console.log(res.data.Message);
+        toast.error(res.data.Message)
+      }
+      SetReviews(res.data.Reviews);
+    } catch (error) {
+      console.log(error.response)
+      toast.error("Error occured loading Data")
+    }
+  };
+  useEffect(() => {
+    getReviews();
+  }, []);
 
+  useEffect(() => {
+    if (Reviews.length > 0) {
+    const itemsPerPage = 5;
+    setTotalPages(Math.ceil(Reviews.length / itemsPerPage));
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setCurrentItems(Reviews.slice(startIndex, endIndex));
+  }
+
+  },[Reviews, currentPage])
+  
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
@@ -91,7 +61,6 @@ export function TransactionsTable() {
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   return (
     <Card className="">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -127,59 +96,66 @@ export function TransactionsTable() {
             </tr>
           </thead>
           <tbody>
-            {currentItems.map(({ img, User, Rating, date, Comment }, index) => (
-              <tr key={index}>
-                <td className="p-4 w-1/4" style={{ width: '10%' }}>
-                  <div className="flex items-center" style={{ gap: "10px" }}>
-                    <Avatar
-                      src={img}
-                      alt={User}
-                      size="md"
-                      className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                    />
+            {currentItems.length > 0 &&
+              currentItems.map(({ rating, date, comment }, index) => (
+                <tr key={index}>
+                  <td className="p-4 w-1/4" style={{ width: "20%" }}>
+                    <div className="flex items-center" style={{ gap: "10px" }}>
+                      <Avatar
+                        src={Image}
+                        alt=""
+                        size="md"
+                        className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                      />
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-bold ml-5"
+                      >
+                        Yassine liassaoui
+                      </Typography>
+                    </div>
+                  </td>
+                  <td className="p-4 w-1/4" style={{ width: "5%" }}>
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-bold"
+                      className="font-bold flex justify-center"
                     >
-                      {User}
+                      {rating}
                     </Typography>
-                  </div>
-                </td>
-                <td className="p-4 w-1/4" style={{ width: '10%' }}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-bold flex justify-center"
-                  >
-                    {Rating}
-                  </Typography>
-                </td>
-                <td className="p-4 w-1/4" style={{ width: '10%' }}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal text-center"
-                  >
-                    {date}
-                  </Typography>
-                </td>
-                <td className="p-4" style={{width : "60%"}}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {Comment}
-                  </Typography>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="p-4 w-1/4" style={{ width: "10%" }}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal text-center"
+                    >
+                      {date}
+                    </Typography>
+                  </td>
+                  <td className="p-4" style={{ width: "40%" }}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {comment}
+                    </Typography>
+                  </td>
+                </tr>
+              ))}
           </tbody>
+          {Reviews.length === 0 && <p>Loading reviews...</p>}
         </table>
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Button variant="outlined" size="sm" onClick={handlePrevPage} disabled={currentPage === 1}>
+        <Button
+          variant="outlined"
+          size="sm"
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+        >
           Previous
         </Button>
         <div className="flex items-center gap-2">
@@ -194,7 +170,12 @@ export function TransactionsTable() {
             </IconButton>
           ))}
         </div>
-        <Button variant="outlined" size="sm" onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <Button
+          variant="outlined"
+          size="sm"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
           Next
         </Button>
       </CardFooter>
