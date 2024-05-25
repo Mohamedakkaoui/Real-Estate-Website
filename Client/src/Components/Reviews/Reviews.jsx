@@ -10,10 +10,10 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { GetMYlistingReviews } from "../../Api/ReviewsApi";
-import Image from "../../assets/yassine.png";
 import { toast } from "sonner";
+import moment from "moment";
 
-const TABLE_HEAD = ["User", "Rating", "Date", "Comment"];
+const TABLE_HEAD = ["Property", "Rating", "User", "Comment", "Date"];
 
 export function TransactionsTable() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,13 +24,13 @@ export function TransactionsTable() {
   const getReviews = async () => {
     try {
       const res = await GetMYlistingReviews();
+      console.log(res.data.Reviews[1].date);
       if (!res) {
-        console.log(res.data.Message);
+        console.log(res.data.Reviews.date);
         toast.error(res.data.Message);
       }
       SetReviews(res.data.Reviews);
     } catch (error) {
-      console.log(error.response);
       toast.error("Error occured loading Data");
     }
   };
@@ -95,54 +95,87 @@ export function TransactionsTable() {
           </thead>
           <tbody>
             {currentItems.length > 0 &&
-              currentItems.map(({ rating, date, comment }, index) => (
-                <tr key={index}>
-                  <td className="p-4 w-1/4" style={{ width: "20%" }}>
-                    <div className="flex items-center" style={{ gap: "10px" }}>
-                      <Avatar
-                        src={Image}
-                        alt=""
-                        size="md"
-                        className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                      />
+              currentItems.map((review, index) => {
+                const isLast = index === currentItems.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
+
+                return (
+                  <tr key={index}>
+                    <td className={classes}>
+                      <div className="flex items-center gap-4">
+                        <Avatar
+                          src={review.property_id.images[0]}
+                          alt=""
+                          size="md"
+                          style={{ width: "150px", height: "120px" }}
+                        />
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal mb-4"
+                          >
+                            {!review.owner
+                              ? "Property"
+                              : review.property_id.title}
+                          </Typography>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-bold"
+                          >
+                            {review.property_id.price} MAD
+                          </Typography>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className={classes}>
+                      <div className="flex flex-col">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-bold text-center opacity-70"
+                        >
+                          {review.rating} ★
+                        </Typography>
+                      </div>
+                    </td>
+
+                    <td className={classes}>
+                      <div className="flex flex-col">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal text-center"
+                        >
+                          {!review.owner ? "User" : review.owner.Username}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-bold ml-5"
+                        className="font-normal"
                       >
-                        Yassine liassaoui
+                        {review.comment}
                       </Typography>
-                    </div>
-                  </td>
-                  <td className="p-4 w-1/4" style={{ width: "5%" }}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-bold flex justify-center"
-                    >
-                      {rating}
-                    </Typography>
-                  </td>
-                  <td className="p-4 w-1/4" style={{ width: "10%" }}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal text-center"
-                    >
-                      {date}
-                    </Typography>
-                  </td>
-                  <td className="p-4" style={{ width: "40%" }}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {comment}
-                    </Typography>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {moment(review.date).format("MMMM Do YYYY")}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
           {Reviews.length === 0 && <p>Loading reviews...</p>}
         </table>
