@@ -1,4 +1,4 @@
-const { getAllListingDB, getListingByIdDB, deleteListingDB, AddnewListingDB, UpdateListingDB, getMyListingsDB } = require('../models/methods/listing.Methods')
+const { getAllListingDB, getListingByIdDB, deleteListingDB, AddnewListingDB, UpdateListingDB, getMyListingsDB, FindListingBylocationDB} = require('../models/methods/listing.Methods')
 const { bufferAndUploadMultiple } = require("../helpers/datauri")
 const generateCustomUUID = require('../Utils/customUuidGenerator.js')
 const { saveListingForUser } = require('../models/methods/user.Methods.js')
@@ -119,6 +119,16 @@ exports.getMyListings = async (req, res) => {
   }
 }
 
-
-
-
+//get Listing in your city
+exports.GetcityListings = async (req, res) => {
+  try {
+    const { city }= req.params
+    const listings = await FindListingBylocationDB(city)
+    if (!listings) {
+      return res.status(404).json({Message : "No listings nearby were Found"})
+    }
+    return res.status(200).json({Message : "Listings retrieved succefully", Listings : listings})
+  } catch (error) {
+    return res.status(500).json({Message : "Failed to get Listings" , Error : error.message})
+  }
+}
