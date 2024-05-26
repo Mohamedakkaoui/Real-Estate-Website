@@ -78,3 +78,11 @@ exports.FindListingByOwnerIdDB = async (id) => {
     throw new error (error)
   }
 }
+
+exports.FindListingBylocationDB = async (city) => {
+  try {
+    return await ListingsSchema.find({location : city})
+  } catch (error) {
+    throw new error (error)
+  }
+}
