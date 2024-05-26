@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 
 
 const ListingsSchema = new mongoose.Schema({
-
   Object_id: {
     type: String,
   },
