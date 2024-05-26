@@ -109,7 +109,7 @@ const Categories = () => {
                 </div>
                 <div className="absolute bottom-0 left-0 w-full px-2 py-2 transition-transform bg-gradient-to-t from-black/80 text-slate-100 to-transparent">
                   <h1 className="text-lg font-semibold">{object.category.Type}</h1>
-                  <p>{object.listings.length} Listings</p>
+                  <p>{object.listings.length} properties</p>
                 </div>
               </div>
             )) : <div className="flex items-center justify-center mx-auto mt-20"><Loading  /></div>}
