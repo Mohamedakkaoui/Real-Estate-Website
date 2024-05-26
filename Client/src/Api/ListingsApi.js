@@ -9,12 +9,11 @@ const api = axios.create({
 });
 
 export function GetNerbyListings(city) {
-  console.log("entered");
   return api.get(`/NearbyListings/${city}`);
 }
 
 export function GetAllListings () {
-  return api.get('/')
+  return api.get('/All')
 }
 
 
