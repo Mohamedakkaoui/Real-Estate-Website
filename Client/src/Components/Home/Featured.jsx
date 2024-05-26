@@ -8,13 +8,6 @@ import Loading from '../Common/Loading';
 function Featured() {
 
   const { city, listings, loading, error} = ListingsNeraby()
-  if (!listings.length > 0) {
-    const getalllsitings = async () => {
-      const res  = await GetAllListings()
-      const listings = res.data.listings
-    }
-  }
-  
   //another condiiton if the arrya legth is 0
   
   return (
