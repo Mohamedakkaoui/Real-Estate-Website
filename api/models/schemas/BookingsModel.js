@@ -8,6 +8,7 @@ const BookingSchema = new mongoose.Schema({
   },
   listing: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Listing',
     required: true
   },
   startDate: {
@@ -28,10 +29,10 @@ const BookingSchema = new mongoose.Schema({
     default: 'pending'
   },
   owner: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users',
     required: true
-  }
+  },
 });
 
 module.exports = mongoose.model('Booking', BookingSchema);
