@@ -28,6 +28,7 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "flowbite-react": "^0.9.0",
     "framer-motion": "^11.1.9",
     "heroicons": "^2.1.3",
