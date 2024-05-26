@@ -32,6 +32,7 @@ server.options("/users/auth/register", cors());
 server.options("/users/auth/reset-password-email", cors())
 server.options("/users/auth/reset-password/:id/:token", cors())
 server.options("/reviews/MylistingReviews",cors())
+server.options("/listings", cors())
 // Helmet middleware for securing HTTP headers
 // server.use(helmet());
 
