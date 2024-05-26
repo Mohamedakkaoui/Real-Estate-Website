@@ -1,4 +1,4 @@
-const { getAllListingDB, getListingByIdDB, deleteListingDB, AddnewListingDB, UpdateListingDB, getMyListingsDB, FindListingBylocationDB} = require('../models/methods/listing.Methods')
+const { getAllListingDB, getListingByIdDB, deleteListingDB, AddnewListingDB, UpdateListingDB, getMyListingsDB, FindListingBylocationDB, GetListingsBycategeryDB} = require('../models/methods/listing.Methods')
 const { bufferAndUploadMultiple } = require("../helpers/datauri")
 const generateCustomUUID = require('../Utils/customUuidGenerator.js')
 const { saveListingForUser } = require('../models/methods/user.Methods.js')
@@ -12,8 +12,7 @@ exports.saveListingUser = async (req, res) => {
     const user = await saveListingForUser(userId, listingId);
     return res.status(201).send(user);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'Internal Server Error' });
+    return res.status(500).json({ Message: 'Internal Server Error' });
   }
 };
 
@@ -25,7 +24,7 @@ exports.getListings = async (req, res) => {
     if (listings.length === 0) {
       return res.status(404).json({ Message: 'Listings not found' })
     }
-    return res.status(200).json(listings)
+    return res.status(200).json({Message : "Listings retieived succefully",Listings : listings})
   } catch (error) {
     return res.status(500).json({ Message: 'Failed to get Listings', Error: error.message })
   }
@@ -39,7 +38,7 @@ exports.addNewListing = async (req, res) => {
     const images = await bufferAndUploadMultiple(req)
     const Object_id = generateCustomUUID()
     const newProperty = await AddnewListingDB({ title, description, category, listingType, price, size, options, images, location, owner, Object_id })
-    return res.status(201).json({ message: 'New property added!', result: newProperty })
+    return res.status(201).json({ Message: 'New property added!', result: newProperty })
   } catch (err) {
     return res.status(404).json({ Message: 'Unable to add new property', Error: err.message })
   }

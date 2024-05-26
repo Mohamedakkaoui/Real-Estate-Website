@@ -1,5 +1,7 @@
 const {body, validationResult} = require('express-validator')
 
+
+const categories = ["Land", "House", "Apartment", "Office", "Villa"]
 exports.validateListing = [
 
     // Validate title
@@ -27,7 +29,9 @@ exports.validateListing = [
     .notEmpty()
     .withMessage('Category is required')
     .isLength({min:3})
-    .withMessage('category must be at least 3 characters long'),
+    .withMessage('category must be at least 3 characters long')
+    .isIn(categories)
+    .withMessage("Invalid option selected"),
   
     // Validate listingType
     body('listingType')
