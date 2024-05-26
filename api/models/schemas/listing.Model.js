@@ -22,6 +22,10 @@ const ListingsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  city : {
+    type : String,
+    required : true
+  },
   location: {
     type: String,
     required: true
@@ -41,7 +45,7 @@ const ListingsSchema = new mongoose.Schema({
   },
   images: [],
   owner: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Users',
     required: true
   }
