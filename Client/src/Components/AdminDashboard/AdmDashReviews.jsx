@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+// import { MagnifyingGlassIcon } from "@heroicons/react/outline/AcademicCapIcon";
+// import { PencilIcon, UserPlusIcon } from "@heroicons/react/solid/AcademicCapIcon"
 import {
     Card,
     CardHeader,
@@ -83,7 +83,7 @@ export function ReviewsTable() {
 
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
-                <table className="mt-4 w-full min-w-max table-auto text-left">
+                <table className="mt-4 w-full  table-auto text-left">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
@@ -195,7 +195,7 @@ export function ReviewsTable() {
                                         <td className={classes}>
                                             <Tooltip content="Edit User">
                                                 <IconButton variant="text">
-                                                    <PencilIcon className="h-4 w-4" />
+                                                    {/* <PencilIcon className="h-4 w-4" /> */}
                                                 </IconButton>
                                             </Tooltip>
                                         </td>

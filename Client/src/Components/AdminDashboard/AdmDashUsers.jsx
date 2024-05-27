@@ -1,17 +1,12 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+// import { PencilIcon } from "@heroicons/react/solid";
 import {
     Card,
     CardHeader,
-    Input,
     Typography,
     Button,
     CardBody,
     Chip,
     CardFooter,
-    Tabs,
-    TabsHeader,
-    Tab,
     Avatar,
     IconButton,
     Tooltip,
@@ -184,7 +179,7 @@ export function MembersTable() {
                                         <td className={classes}>
                                             <Tooltip >
                                                 <IconButton variant="text">
-                                                    <PencilIcon className="h-4 w-4" />
+                                                    {/* <PencilIcon className="h-4 w-4" /> */}
                                                 </IconButton>
                                             </Tooltip>
                                         </td>

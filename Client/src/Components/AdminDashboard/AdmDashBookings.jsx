@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+// import { MagnifyingGlassIcon } from "@heroicons/react/outline/AcademicCapIcon";
+// import { PencilIcon, UserPlusIcon } from "@heroicons/react/solid/AcademicCapIcon";
 import {
     Card,
     CardHeader,
@@ -188,7 +188,7 @@ export function BookingsTable() {
                                         <td className={classes}>
                                             <Tooltip content="Edit User">
                                                 <IconButton variant="text">
-                                                    <PencilIcon className="h-4 w-4" />
+                                                    {/* <PencilIcon className="h-4 w-4" /> */}
                                                 </IconButton>
                                             </Tooltip>
                                         </td>

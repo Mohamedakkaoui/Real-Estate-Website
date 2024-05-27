@@ -1,5 +1,5 @@
 import React from 'react'
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+// import { PhotoIcon, UserCircleIcon } from '@heroicons/react/solid/AcademicCapIcon'
 import './Form.css'
 
 function Form() {
@@ -40,7 +40,7 @@ function Form() {
                                     Photo
                                 </label>
                                 <div className="mt-2 flex items-center gap-x-3">
-                                    <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
+                                    {/* <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" /> */}
                                     <label htmlFor="file-upload" className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer">
                                         Change
                                         <input id="file-upload" name="file-upload" type="file" className="sr-only" />

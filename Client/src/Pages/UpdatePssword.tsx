@@ -3,7 +3,7 @@ import BgLogin  from "../assets/bg-login.jpg";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { UpdatePassword } from "../api/Authapi";
+import { UpdatePassword } from "../Api/Authapi";
 import { MoveLeft } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 

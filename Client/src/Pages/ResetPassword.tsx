@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "flowbite-react";
-import { ResetPassword } from "../api/Authapi";
+import { ResetPassword } from "../Api/Authapi";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

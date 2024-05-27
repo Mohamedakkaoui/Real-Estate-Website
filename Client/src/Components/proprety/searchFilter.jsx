@@ -4,7 +4,7 @@ import { DatePicker, Space } from 'antd';
 import 'antd/dist/reset.css';
 import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from '@chakra-ui/react';
 import './stylecss.css';
-import { fetchListingsFilter } from '../../api/apiProprety'; 
+import { fetchListingsFilter } from '../../Api/apiProprety'; 
 import CardWithImageLeft from './Card/CardComponent';
 
 const { RangePicker } = DatePicker;

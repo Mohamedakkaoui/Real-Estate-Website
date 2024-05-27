@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import Image from "../../assets/bg-login.jpg";
-import { LoginUser } from "../../api/Authapi";
+import { LoginUser } from "../../Api/Authapi";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

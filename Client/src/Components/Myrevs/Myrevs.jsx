@@ -1,8 +1,9 @@
-import { PencilIcon } from "@heroicons/react/24/solid";
-import {
-    ArrowDownTrayIcon,
-    MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+// import { PencilIcon } from "@heroicons/react/24/solid";
+// import {
+//     ArrowDownTrayIcon,
+//     MagnifyingGlassIcon,
+// } from "@heroicons/react/24/outline";
+
 import {
     Card,
     CardHeader,
@@ -67,7 +68,7 @@ export function Myrevs() {
                 </div>
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
-                <table className="w-full min-w-max table-auto text-left">
+                <table className="w-full table-auto text-left">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
@@ -107,7 +108,7 @@ export function Myrevs() {
 
                                 return (
                                     <tr >
-                                        <td className={classes} style={{ width: '15%' }}>
+                                        <td className={classes} style={{ width: '10%' }}>
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
@@ -127,7 +128,7 @@ export function Myrevs() {
                                         </td>
 
                                         <td className={classes} >
-                                            <div className="w-32 max-h-12">
+                                            <div className="">
 
                                                 <Typography
                                                     variant="small"
@@ -138,7 +139,7 @@ export function Myrevs() {
                                                 </Typography>
                                             </div>
                                         </td>
-                                        <td className={classes}>
+                                        <td className={classes} style={{width : "5%"}}>
                                             <Tooltip content="Edit User">
                                                 <IconButton variant="text">
                                                     <PencilIcon className="h-4 w-4" />

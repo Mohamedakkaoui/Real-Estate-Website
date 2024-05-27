@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
  import '@fortawesome/fontawesome-free/css/all.css';
 import '../Components/proprety/stylecss.css';
-import { fetchListingsFilter,fetchListings } from '../api/apiProprety';
+import { fetchListingsFilter,fetchListings } from '../Api/apiProprety';
 import SearchFilters from '../Components/proprety/searchFilter';
 import CardWithImage from '../Components/proprety/Card/CardComponent';
 import MapVertical from '../Components/proprety/mapComponent';
