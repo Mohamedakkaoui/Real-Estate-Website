@@ -1,4 +1,5 @@
-import { PencilIcon } from "@heroicons/react/24/solid";
+import React, { useState, useEffect } from 'react';
+import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
     Card,
     CardHeader,
@@ -10,6 +11,7 @@ import {
     IconButton,
     Tooltip,
 } from "@material-tailwind/react";
+import { getAllReviews } from "../../Api/Authapi";
 
 
 
@@ -60,11 +62,36 @@ const TABLE_ROWS = [
         date: "23/04/18",
     }]
 
+async function fetchReviews() {
+    try {
+        const response = await getAllReviews();
+        const reviews = response.data;
+        return reviews
+    } catch (error) {
+        console.log('Error fetching user reviews:', error);
+    }
+}
+
 
 export function ReviewsTable() {
+    const defaultImage = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'
+    const defaultAvatar = 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1716681600&semt=ais_user'
 
-   
+    const [tableRows, setTableRows] = useState([]);
 
+    useEffect(() => {
+        async function getTableRows() {
+            try {
+                const reviews = await fetchReviews();
+                console.log(reviews);
+                setTableRows(reviews);
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+            }
+        }
+
+        getTableRows();
+    }, []);
     return (
         <Card className="h-full w-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -104,9 +131,10 @@ export function ReviewsTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(
-                            ({ img, name, email, profilepic, date, rating }, index) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
+                        {tableRows.map(
+                            ({ comment, owner, property_id, date, rating }, index) => {
+                                const imageUrl = property_id?.images?.[0]?.url || defaultImage;
+                                const isLast = index === tableRows.length - 1;
                                 const classes = isLast
                                     ? "p-4"
                                     : "p-4 border-b border-blue-gray-50";
@@ -115,22 +143,21 @@ export function ReviewsTable() {
                                     <tr key={name}>
                                         <td className={classes}>
                                             <div className="flex items-center gap-4" >
-                                                <Avatar src={img} alt={name} style={{ width: '150px', height: '120px' }} />
+                                                <Avatar src={imageUrl} alt={property_id.title} style={{ width: '150px', height: '120px' }} />
                                                 <div className="flex flex-col">
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal mb-4"
                                                     >
-                                                        {name}
-                                                        Lorem Ipsum is simply dummy text of the printing
+                                                        {property_id.title}
                                                     </Typography>
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-bold	"
                                                     >
-                                                        556 MAD
+                                                        {property_id.price} MAD
                                                     </Typography>
 
                                                 </div>
@@ -138,21 +165,21 @@ export function ReviewsTable() {
                                         </td>
                                         <td className={classes}>
                                             <div className="flex items-center gap-4">
-                                                <Avatar src={profilepic} alt={name} size="8" />
+                                                <Avatar src={owner.ProfilePic ? owner.ProfilePic : defaultAvatar} alt={name} size="8" />
                                                 <div className="flex flex-col">
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal"
                                                     >
-                                                        {name}
+                                                        {owner.FirstName} {owner.LastName}
                                                     </Typography>
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal"
                                                     >
-                                                        {email}
+                                                        {owner.Email}
                                                     </Typography>
                                                 </div>
                                             </div>
@@ -176,8 +203,7 @@ export function ReviewsTable() {
                                                     color="blue-gray"
                                                     className="font-normal opacity-70"
                                                 >
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.                                                </Typography>
-
+                                                    {comment}</Typography>
 
                                             </div>
                                         </td>
@@ -186,9 +212,9 @@ export function ReviewsTable() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal"
+                                                className="font-normal text-center"
                                             >
-                                                {date}
+                                                {new Date(date).toLocaleDateString()}
                                             </Typography>
                                         </td>
                                         <td className={classes}>

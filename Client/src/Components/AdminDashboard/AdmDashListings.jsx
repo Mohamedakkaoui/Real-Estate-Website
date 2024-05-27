@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
@@ -11,58 +12,39 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import { getAllListings } from '../../Api/Authapi';
 
 const TABLE_HEAD = ["Property", "Description", "Status", "Date", ""];
 
-const TABLE_ROWS = [
-  {
-    img: "https://homeradar.kwst.net/images/all/3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://homeradar.kwst.net/images/all/3.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://homeradar.kwst.net/images/all/3.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://homeradar.kwst.net/images/all/3.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://homeradar.kwst.net/images/all/3.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
-];
+
+async function fetchlistings() {
+  try {
+    const response = await getAllListings();
+    const listings = response.data;
+    console.log(listings);
+    return listings
+  } catch (error) {
+    console.log('Error fetching user reviews:', error);
+  }
+}
 
 export function ListingsTable() {
+  const defaultImage = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'
+  const [tableRows, setTableRows] = useState([]);
+
+  useEffect(() => {
+    async function getTableRows() {
+      try {
+        const listings = await fetchlistings();
+        console.log(listings);
+        setTableRows(listings);
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+      }
+    }
+
+    getTableRows();
+  }, []);
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -99,37 +81,36 @@ export function ListingsTable() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ img, name, email, job, org, online, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+            {tableRows.map(
+              ({ price, title, description, images, isActive }, index) => {
+                const isLast = index === tableRows.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
 
                 return (
-                  <tr key={name}>
+                  <tr key={index}>
                     <td className={classes} style={{ width: "35%" }}>
                       <div className="flex items-center gap-4">
                         <Avatar
-                          src={img}
-                          alt={name}
+                          src={images.length == 0 ? images[0] : defaultImage}
+                          alt={title}
                           style={{ width: "150px", height: "120px" }}
                         />
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal mb-4"
+                            className="mb-4 font-extrabold"
                           >
-                            {name}
-                            Lorem Ipsum is simply dummy text of the printing
+                            {title}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-bold	"
                           >
-                            556 MAD
+                            {price} MAD
                           </Typography>
                         </div>
                       </div>
@@ -141,11 +122,7 @@ export function ListingsTable() {
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book.{" "}
+                          {description}
                         </Typography>
                       </div>
                     </td>
@@ -154,8 +131,8 @@ export function ListingsTable() {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={online ? "Active" : "Inactive"}
-                          color={online ? "green" : "blue-gray"}
+                          value={isActive ? "Active" : "Inactive"}
+                          color={isActive ? "green" : "red"}
                         />
                       </div>
                     </td>
@@ -163,9 +140,9 @@ export function ListingsTable() {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal text-center"
                       >
-                        {date}
+                        {'date'}
                       </Typography>
                     </td>
                     <td className={classes}>

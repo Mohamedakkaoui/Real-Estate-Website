@@ -1,5 +1,5 @@
 //importing necessary methods and functions
-const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB } = require('../models/methods/user.Methods.js')
+const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB, GetMyProfile } = require('../models/methods/user.Methods.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
 const jwt = require('jsonwebtoken');
 const { bufferAndUpload } = require('../helpers/datauri.js');
@@ -13,7 +13,7 @@ exports.getAllUsers = async (req, res) => {
     }
     return res.status(200).json(users)
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" , Error : error.message})
+    return res.status(500).json({ message: "Internal server error", Error: error.message })
   }
 }
 
@@ -25,12 +25,11 @@ exports.getUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ Message: "User not found" })
     }
-    return res.status(200).json({Message : "User found succesfully", User : user})
+    return res.status(200).json({ Message: "User found succesfully", User: user })
   } catch (error) {
-    return res.status(500).json({ Message: "Internal server error" , Error : error.message })
+    return res.status(500).json({ Message: "Internal server error", Error: error.message })
   }
 }
-
 
 //Update User Info
 exports.updateUserProfile = async (req, res) => {
@@ -52,7 +51,7 @@ exports.updateUserProfile = async (req, res) => {
     return res.status(202).json({ message: 'user updated successfully' })
   }
   catch (error) {
-    return res.status(500).json({ message: "User couldnt be updated" , Error : error.message })
+    return res.status(500).json({ message: "User couldnt be updated", Error: error.message })
   }
 }
 
@@ -80,7 +79,7 @@ exports.updateUserPassword = async (req, res) => {
     }
   }
   catch (error) {
-    return res.status(500).json({ message: "Internal server error" , Error : error.message })
+    return res.status(500).json({ message: "Internal server error", Error: error.message })
   }
 }
 
@@ -94,7 +93,7 @@ exports.DeleteUser = async (req, res) => {
     }
     return res.status(202).send('deleted Succesfully')
   } catch (error) {
-    return res.status(500).json({ message: "Error While deleting User" , Error : error.message })
+    return res.status(500).json({ message: "Error While deleting User", Error: error.message })
   }
 }
 
@@ -120,6 +119,24 @@ exports.updateProfilePic = async (req, res) => {
     return res.status(202).json({ message: 'image added successfully' })
   }
   catch (error) {
-    return res.status(500).json({ message: "Error updating Profile Picture" , Error : error.message })
+    return res.status(500).json({ message: "Error updating Profile Picture", Error: error.message })
   }
 }
+
+
+//get user by id
+exports.getMyProfile = async (req, res) => {
+  try {
+    const { id } = req.user
+    const user = await GetMyProfile(id)
+    if (!user) {
+      return res.status(404).json({ Message: "User not found" })
+    }
+    return res.status(200).json(user)
+  } catch (error) {
+    return res.status(500).json({ Message: "Internal server error", Error: error.message })
+  }
+}
+
+
+

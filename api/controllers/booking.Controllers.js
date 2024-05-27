@@ -1,12 +1,12 @@
-const { registerBookingDB, updateBookingDB, checkListingAvailability, priceCalc, getBookingByIdDB } = require("../models/methods/booking.Methods")
-
+const { registerBookingDB, updateBookingDB, checkListingAvailability, priceCalc, getBookingByIdDB, getBookingsDB } = require("../models/methods/booking.Methods")
+const { getListingById } = require('../controllers/listing.Controllers')
 
 
 
 //new booking
 exports.registerNewBooking = async (req, res) => {
     try {
-        const listing = getListingById
+        const listing = getListingById();
         const listingId = listing._id
         const user = req.user.id
         const { startDate, endDate } = req.body
@@ -83,5 +83,21 @@ exports.cancelBooking = async (req, res) => {
         return res.status(200).json({ message: 'Booking cancelled successfully' })
     } catch (error) {
         return res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+
+
+
+//get all bookings
+exports.getBookings = async (req, res) => {
+    try {
+        const bookings = await getBookingsDB()
+        if (!bookings) {
+            return res.status(404).json({ message: 'No bookings' })
+        }
+        return res.status(200).json(bookings)
+    } catch (err) {
+        return res.status(500).json({ message: 'Unable to retrieve bookings. ', Error: err.message })
     }
 }

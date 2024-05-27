@@ -13,10 +13,6 @@ function AdminDashboard() {
     return (
         <div className='mx-auto'>
             <AdminHeader />
-            <MembersTable />
-            <ListingsTable />
-            <ReviewsTable />
-            <BookingsTable />
         </div >
     )
 }

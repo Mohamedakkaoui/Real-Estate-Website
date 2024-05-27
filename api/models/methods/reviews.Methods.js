@@ -113,9 +113,20 @@ exports.MyListingReviewsDB = async (id) => {
   try {
     const Listings = await FindListingByOwnerIdDB(id)
     const ListingsIDs = Listings.map(Listing => Listing._id)
-    const Reviews = await ReviewSchema.find({property_id : {$in: ListingsIDs} }).populate('property_id', 'title images price').populate('owner', 'Username Email')
+    const Reviews = await ReviewSchema.find({ property_id: { $in: ListingsIDs } }).populate('property_id', 'title images price').populate('owner', 'Username Email')
     return Reviews
   } catch (error) {
     throw error
   }
 }
+// get all reviews
+exports.getAllReviewsfromDB = async () => {
+  try {
+    const Reviews = await ReviewSchema.find().select('-_id').populate('owner', 'FirstName LastName ProfilePic -_id').populate('property_id', 'title price images -_id')
+    return Reviews;
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+

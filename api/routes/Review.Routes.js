@@ -16,12 +16,23 @@ const { IsOwner } = require("../middlewares/IsOwner.js");
 const ROLES_LIST = require("../config/Roles_Lists.js");
 const verifyRoles = require("../middlewares/roles.js");
 
+const { CreateReview, GetReviewById, updateReview, deleteReview, getAllReviews, getReviewUserAddTop, getUserReviews, getAlltheReviews } = require('../controllers/reviews.Controllers')
+
+
+
+
+
+
 ReviewRoute.get("/userReviews", isAuthenticated, getUserReviews);
 
 ReviewRoute.post("/add", isAuthenticated, CreateReview);
+ReviewRoute.get('/', isAuthenticated, getAlltheReviews)
+
+ReviewRoute.get('/userReviews', isAuthenticated, getUserReviews)
+
+ReviewRoute.post('/add', isAuthenticated, CreateReview)
 // ReviewRoute.get('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin), IsOwner, GetReviewById)
 
-// ReviewRoute.get('/', getAllReviews)
 // ReviewRoute.put('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User), IsOwner, updateReview)
 
 ReviewRoute.get("/MylistingReviews", isAuthenticated, GetMyListingsReviews);

@@ -49,6 +49,7 @@ const ListingsSchema = new mongoose.Schema({
     ref: 'Users',
     required: true
   }
+
 });
 
 module.exports = mongoose.model('Listing', ListingsSchema)

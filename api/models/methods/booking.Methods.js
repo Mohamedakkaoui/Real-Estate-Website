@@ -34,7 +34,7 @@ exports.cancelBooking = async (id, data) => {
 exports.getBookingByIdDB = async (id) => {
     try {
 
-        const booking = await ListingsSchema.findOne({ _id: id })
+        const booking = await bookingSchema.findOne({ _id: id })
         return booking
 
     } catch (error) {
@@ -76,3 +76,16 @@ exports.checkListingAvailability = async (listingId, startDate, endDate) => {
         return false
     }
 }
+
+
+//get all bookings
+exports.getBookingsDB = async () => {
+    try {
+
+        const bookings = await bookingSchema.find().select('-owner -_id').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
+        return bookings
+
+    } catch (error) {
+        throw new Error('Failed to get bookings ' + error)
+    }
+};
