@@ -79,9 +79,9 @@ exports.FindListingByOwnerIdDB = async (id) => {
   }
 }
 
-exports.FindListingBylocationDB = async (city) => {
+exports.FindListingBylocationDB = async (City) => {
   try {
-    return await ListingsSchema.find({location : city})
+    return await ListingsSchema.find({city : City})
   } catch (error) {
     throw new error (error)
   }
