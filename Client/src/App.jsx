@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Home from "./Pages/Home";
 import CheckEmail from "./Pages/CheckEmail";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -9,7 +9,6 @@ import { AuthProvider } from "./Context/AuthContext";
 import PropertyDetail from "./Pages/PropertyDetail";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import DashboardPage from "./Pages/UserDashboard/DashboardPage";
-
 function App() {
   return (
     <>
