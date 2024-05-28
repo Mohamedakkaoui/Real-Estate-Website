@@ -16,5 +16,9 @@ export function GetAllListings () {
   return api.get('/All')
 }
 
+export function GetMyListings () {
+  return api.get('/MyListings')
+}
+
 
 export default api;
