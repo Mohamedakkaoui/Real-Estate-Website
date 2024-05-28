@@ -12,8 +12,8 @@ import { Myrevs } from '../../Components/Myrevs/Myrevs'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MyBookings from '../../Components/MyBookings/MyBookings'
 
-
 function DashboardPage() {
+
     return (
         
             <div className='whole'>
