@@ -192,9 +192,9 @@ exports.GetMyListingsReviews = async (req, res) => {
     const { id } = req.user;
     const reviews = await MyListingReviewsDB(id);
     if (!reviews) {
-      return res.status(404).json({ Message: "No reviews were found" });
+      return res.status(404).json({ Message: "No reviews were found" , Reviews : []});
     } else if (reviews.length == 0) {
-      return res.status(200).json({ Message: "No reviews were found" });
+      return res.status(200).json({ Message: "No reviews were found" , Reviews : []});
     }
     return res
       .status(200)
@@ -204,4 +204,4 @@ exports.GetMyListingsReviews = async (req, res) => {
       .status(404)
       .json({ Message: "Unbale to retrieve reviews", Error: error.message });
   }
-};
+}
