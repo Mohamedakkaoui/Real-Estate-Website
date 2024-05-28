@@ -52,7 +52,6 @@ const Categories = () => {
     GetCategoriesAndListings()
   }, []);
 
-  console.log(listings)
 
   return (
     <div className="pt-10 pb-16 w-[90%]  mx-auto mt-10 hide-scrollbar">

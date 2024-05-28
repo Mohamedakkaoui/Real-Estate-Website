@@ -11,7 +11,8 @@ const SingleProductCard = ({
   size,
   images,
   basis,
-  listingType
+  listingType,
+  city
 }) => {
   return (
     <div
@@ -30,7 +31,7 @@ const SingleProductCard = ({
         <div className="absolute bottom-0 left-0 w-full px-2 py-2 transition-transform bg-gradient-to-t from-black/80 sm:translate-y-10 group-hover:translate-y-0 to-transparent">
           <div className="text-white flex-align-center gap-x-2">
             <BiMap />
-            <p>{location}</p>
+            <p>{city}</p>
           </div>
         </div>
       </div>
