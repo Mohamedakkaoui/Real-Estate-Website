@@ -240,7 +240,11 @@ const AddListing = () => {
     const [category, setCategory] = useState('All Categories');
     const [keywords, setKeywords] = useState('');
     const [coordinates, setCoordinates] = useState({ lng: '', lat: '' });
+    const [uploadedImages, setUploadedImages] = useState([]);
 
+    const handleUploadComplete = (images) => {
+        setUploadedImages(images);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form submitted!');
@@ -250,12 +254,14 @@ const AddListing = () => {
         console.log('Category:', category);
         console.log('Keywords:', keywords);
         console.log('Coordinates:', coordinates);
+        console.log('images:', uploadedImages)
         setListingTitle('');
         setType('All Types');
         setListingPrice('');
         setCategory('All Categories');
         setKeywords('');
         setCoordinates({ lng: '', lat: '' });
+
     };
 
     const handleCoordinatesChange = useCallback((coords) => {
@@ -394,7 +400,7 @@ const AddListing = () => {
                             </div>
                             <div className="widget-content mb-2" style={{ borderTop: "1px solid #ccc" }}>
                                 <PrimeReactProvider>
-                                    <FileDropZone />
+                                    <FileDropZone onUploadComplete={handleUploadComplete} />
                                 </PrimeReactProvider>
                             </div>
                         </div>

@@ -1,21 +1,8 @@
-<<<<<<< Updated upstream
-const {
-  addReviewDB,
-  GetReviewByIdDB,
-  getAllReviewsDB,
-  UpdateReviewDB,
-  deleteReviewDB,
-  ReviewsForUser,
-  GetReviewOfUser,
-  MyListingReviewsDB,
-} = require("../models/methods/reviews.Methods");
-const generateCustomUUID = require("../Utils/customUuidGenerator.js");
-=======
-const { addReviewDB, GetReviewByIdDB, getAllReviewsDB, UpdateReviewDB, deleteReviewDB, ReviewsForUser, GetReviewOfUser, getAllReviewsfromDB } = require('../models/methods/reviews.Methods')
+const { addReviewDB, GetReviewByIdDB, getAllReviewsDB, UpdateReviewDB, deleteReviewDB, ReviewsForUser, MyListingReviewsDB,
+  GetReviewOfUser, getAllReviewsfromDB } = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
 const generateCustomUUID = require('../Utils/customUuidGenerator.js')
 
->>>>>>> Stashed changes
 
 //Create Review
 exports.CreateReview = async (req, res) => {
@@ -166,7 +153,6 @@ exports.getUserReviews = async (req, res) => {
       .status(404)
       .json({ message: "Couldnt Get Reviews", Error: error.message });
   }
-<<<<<<< Updated upstream
 };
 
 //Get reviews by ReviewsID
@@ -213,8 +199,7 @@ exports.GetMyListingsReviews = async (req, res) => {
       .json({ Message: "Unbale to retrieve reviews", Error: error.message });
   }
 };
-=======
-}
+
 
 
 //get all reviews
@@ -226,4 +211,3 @@ exports.getAlltheReviews = async (req, res) => {
     return res.status(404).json({ message: 'Couldnt Get Reviews', Error: error.message })
   }
 }
->>>>>>> Stashed changes

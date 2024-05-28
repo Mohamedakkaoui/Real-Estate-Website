@@ -113,7 +113,6 @@ exports.updateProfilePic = async (req, res) => {
     if (!localImage) {
       return res.status(404).json({ message: 'no image provided' });
     }
-    console.log(localImage)
     const uploadedImage = await bufferAndUpload(localImage)
     const updatedUser = await updateProfileDB(id, { ProfilePic: uploadedImage }, { new: true })
     return res.status(202).json({ message: 'image added successfully' })

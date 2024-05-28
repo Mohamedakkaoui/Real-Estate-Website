@@ -1,15 +1,10 @@
 import axios from "axios";
 
-
-const token = document.cookie.split('=')[1];
-
-
-
 const api = axios.create({
   baseURL: "http://localhost:3500",
   headers: {
     "Content-Type": "application/json",
-    'Authorization': `Bearer ${token}`
+
   },
   withCredentials: true,
 });

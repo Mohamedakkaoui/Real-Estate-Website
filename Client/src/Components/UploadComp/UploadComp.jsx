@@ -59,7 +59,7 @@ import 'primeicons/primeicons.css';                         // Icons
 
 
 
-export default function UploadComp() {
+export default function UploadComp({ onUploadComplete }) {
     const toast = useRef(null);
     const [totalSize, setTotalSize] = useState(0);
     const fileUploadRef = useRef(null);
@@ -74,9 +74,17 @@ export default function UploadComp() {
 
         setTotalSize(_totalSize);
     };
-
+    const [uploadedImages, setUploadedImages] = useState([]);
     const onTemplateUpload = (e) => {
         let _totalSize = 0;
+
+        const response = JSON.parse(e.xhr.responseText);
+        console.log('Backend response:', response);
+
+        if (response.Images) {
+            setUploadedImages(prevImages => [...prevImages, ...response.Images]);
+            onUploadComplete(response.Images);
+        }
 
         e.files.forEach((file) => {
             _totalSize += file.size || 0;
@@ -85,7 +93,6 @@ export default function UploadComp() {
         setTotalSize(_totalSize);
         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
     };
-
     const onTemplateRemove = (file, callback) => {
         setTotalSize(totalSize - file.size);
         callback();
@@ -116,7 +123,7 @@ export default function UploadComp() {
     const itemTemplate = (file, props) => {
         return (
             <div className="flex flex-col items-center flex-wrap">
-                <div className="flex flex-col items-center" style={{ width: '40%' }}>
+                <div className="flex flex-col items-center" >
                     <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
                     <span className="flex flex-col text-left ml-3">
                         {file.name}
@@ -152,7 +159,7 @@ export default function UploadComp() {
             <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
             <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
 
-            <FileUpload ref={fileUploadRef} name="demo[]" url="/api/upload" multiple accept="image/*" maxFileSize={1000000}
+            <FileUpload ref={fileUploadRef} name="images" url="http://localhost:3500/listings/pics" multiple accept="image/*" maxFileSize={1000000}
                 onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                 headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                 chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />

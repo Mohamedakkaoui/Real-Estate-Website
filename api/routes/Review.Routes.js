@@ -1,13 +1,8 @@
-const {
-  CreateReview,
-  GetReviewById,
-  updateReview,
-  deleteReview,
-  getAllReviews,
-  getReviewUserAddTop,
-  getUserReviews,
-  GetMyListingsReviews,
-} = require("../controllers/reviews.Controllers");
+
+const { CreateReview, GetReviewById, updateReview, deleteReview, getAllReviews,
+  getReviewUserAddTop, getUserReviews, getAlltheReviews, GetMyListingsReviews,
+} = require('../controllers/reviews.Controllers')
+
 const express = require("express");
 const ReviewRoute = express.Router();
 const { isAuthenticated } = require("../middlewares/authMiddlewares");
@@ -16,7 +11,6 @@ const { IsOwner } = require("../middlewares/IsOwner.js");
 const ROLES_LIST = require("../config/Roles_Lists.js");
 const verifyRoles = require("../middlewares/roles.js");
 
-const { CreateReview, GetReviewById, updateReview, deleteReview, getAllReviews, getReviewUserAddTop, getUserReviews, getAlltheReviews } = require('../controllers/reviews.Controllers')
 
 
 

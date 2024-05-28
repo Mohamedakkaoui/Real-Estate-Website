@@ -22,9 +22,9 @@ const ListingsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  city : {
-    type : String,
-    required : true
+  city: {
+    type: String,
+    required: true
   },
   location: {
     type: String,
@@ -35,6 +35,15 @@ const ListingsSchema = new mongoose.Schema({
     required: true
   },
   size: {
+    type: Number
+  },
+  rooms: {
+    type: Number
+  },
+  bathrooms: {
+    type: Number
+  },
+  accomodation: {
     type: Number
   },
   features: {
