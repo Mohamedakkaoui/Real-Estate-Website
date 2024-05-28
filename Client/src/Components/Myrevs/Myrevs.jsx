@@ -1,72 +1,50 @@
+import React, { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
     Card,
     CardHeader,
-    Input,
     Typography,
     Button,
     CardBody,
-    Chip,
     CardFooter,
-    Tabs,
-    TabsHeader,
-    Tab,
     Avatar,
     IconButton,
     Tooltip,
 } from "@material-tailwind/react";
+import { getUserReviews } from "../../Api/Authapi";
+
 
 const TABLE_HEAD = ["Property", "Rating", "Review", "Date", ""];
 
-
-const TABLE_ROWS = [
-    {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    },
-    {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }, {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }, {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }, {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }]
+async function fetchUserReviews() {
+    try {
+        const response = await getUserReviews();
+        const reviews = response.data;
+        return reviews
+    } catch (error) {
+        console.log('Error fetching user reviews:', error);
+    }
+}
 
 
 export function Myrevs() {
+    const [tableRows, setTableRows] = useState([]);
+
+    useEffect(() => {
+        async function getTableRows() {
+            try {
+                const reviews = await fetchUserReviews();
+                setTableRows(reviews);
+            } catch (error) {
+                console.error('Error fetching user reviews:', error);
+            }
+        }
+
+        getTableRows();
+    }, []);
     return (
+
         <Card className="">
             <CardHeader floated={false} shadow={false} className="rounded-none">
                 <div className="flex justify-center items-center text-center mb-4">
@@ -105,34 +83,32 @@ export function Myrevs() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(
-                            ({ img, name, email, profilepic, date, rating }, index) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
+                        {tableRows.map(
+                            ({ img, name, email, profilepic, date, comment, property_id, rating }, index) => {
+                                const isLast = index === tableRows.length - 1;
                                 const classes = isLast
                                     ? "p-4"
                                     : "p-4 border-b border-blue-gray-50";
-
+                                const firstImageUrl = property_id?.images?.[0]?.url;
                                 return (
                                     <tr key={name}>
                                         <td className={classes}>
                                             <div className="flex items-center gap-4" >
-                                                <Avatar src={img} alt={name} style={{ width: '150px', height: '120px' }} />
+                                                <Avatar src={firstImageUrl} alt={name} style={{ width: '150px', height: '120px' }} />
                                                 <div className="flex flex-col">
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal mb-4"
                                                     >
-                                                        {name}
-                                                        Lorem Ipsum is simply dummy text of the printing
+                                                        {property_id.title}
                                                     </Typography>
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-bold	"
                                                     >
-                                                        556 MAD
-                                                    </Typography>
+                                                        {property_id.price}   MAD                                                 </Typography>
 
                                                 </div>
                                             </div>
@@ -157,7 +133,7 @@ export function Myrevs() {
                                                     color="blue-gray"
                                                     className="font-normal opacity-70"
                                                 >
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.                                                </Typography>
+                                                    {comment} </Typography>
 
 
                                             </div>
@@ -167,9 +143,9 @@ export function Myrevs() {
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
-                                                className="font-normal"
+                                                className="font-normal text-center"
                                             >
-                                                {date}
+                                                {new Date(date).toLocaleDateString()}
                                             </Typography>
                                         </td>
                                         <td className={classes}>

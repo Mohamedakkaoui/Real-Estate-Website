@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -16,56 +17,39 @@ import {
     IconButton,
     Tooltip,
 } from "@material-tailwind/react";
+import { getAllBookings } from '../../Api/Authapi';
 
-const TABLE_HEAD = ["Property", "User", "From", "To", "Booken on", ""];
+const TABLE_HEAD = ["Property", "User", "Status", "From", "To", "Total Price", "Booken on", ""];
 
 
-const TABLE_ROWS = [
-    {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    },
-    {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }, {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }, {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }, {
-        img: "https://homeradar.kwst.net/images/all/3.jpg",
-        name: "John Michael",
-        email: "john@creative-tim.com",
-        profilepic: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-        rating: "4.0",
-        comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        date: "23/04/18",
-    }]
+async function fetchBookings() {
+    try {
+        const response = await getAllBookings();
+        const bookings = response.data;
+        return bookings
+    } catch (error) {
+        console.log('Error fetching users bookings:', error);
+    }
+}
 
 
 export function BookingsTable() {
+    const defaultImage = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'
+    const [tableRows, setTableRows] = useState([]);
+
+    useEffect(() => {
+        async function getTableRows() {
+            try {
+                const bookings = await fetchBookings();
+                console.log(bookings);
+                setTableRows(bookings);
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+            }
+        }
+
+        getTableRows();
+    }, []);
     return (
         <Card className="h-full w-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -105,9 +89,9 @@ export function BookingsTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(
-                            ({ img, name, email, profilepic, date, }, index) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
+                        {tableRows.map(
+                            ({ user, createdAt, endDate, listing, startDate, status, totalPrice }, index) => {
+                                const isLast = index === tableRows.length - 1;
                                 const classes = isLast
                                     ? "p-4"
                                     : "p-4 border-b border-blue-gray-50";
@@ -116,22 +100,21 @@ export function BookingsTable() {
                                     <tr key={name}>
                                         <td className={classes}>
                                             <div className="flex items-center gap-4" >
-                                                <Avatar src={img} alt={name} style={{ width: '150px', height: '120px' }} />
+                                                <Avatar src={listing.images[0].url} alt={name} style={{ width: '150px', height: '120px' }} />
                                                 <div className="flex flex-col">
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal mb-4"
                                                     >
-                                                        {name}
-                                                        Lorem Ipsum is simply dummy text of the printing
+                                                        {listing.title}
                                                     </Typography>
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-bold	"
                                                     >
-                                                        556 MAD
+                                                        {listing.price} MAD
                                                     </Typography>
 
                                                 </div>
@@ -139,23 +122,33 @@ export function BookingsTable() {
                                         </td>
                                         <td className={classes}>
                                             <div className="flex items-center gap-4">
-                                                <Avatar src={profilepic} alt={name} size="8" />
+                                                <Avatar src={user.ProfilePic} alt={name} size="8" />
                                                 <div className="flex flex-col">
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal"
                                                     >
-                                                        {name}
+                                                        {user.FirstName} {user.LastName}
                                                     </Typography>
                                                     <Typography
                                                         variant="small"
                                                         color="blue-gray"
                                                         className="font-normal"
                                                     >
-                                                        {email}
+                                                        {user.Email}
                                                     </Typography>
                                                 </div>
+                                            </div>
+                                        </td>
+                                        <td className={classes}>
+                                            <div className="mx-auto w-max">
+                                                <Chip
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    value={status === 'confirmed' ? "confirmed" : "unconfirmed"}
+                                                    color={status === 'confirmed' ? "green" : "red"}
+                                                />
                                             </div>
                                         </td>
                                         <td className={classes}>
@@ -164,7 +157,7 @@ export function BookingsTable() {
                                                 color="blue-gray"
                                                 className="font-normal text-center"
                                             >
-                                                {date}
+                                                {new Date(startDate).toLocaleDateString()}
                                             </Typography>
                                         </td>
                                         <td className={classes}>
@@ -173,7 +166,7 @@ export function BookingsTable() {
                                                 color="blue-gray"
                                                 className="font-normal text-center"
                                             >
-                                                {date}
+                                                {new Date(endDate).toLocaleDateString()}
                                             </Typography>
                                         </td>
                                         <td className={classes}>
@@ -182,7 +175,16 @@ export function BookingsTable() {
                                                 color="blue-gray"
                                                 className="font-normal text-center"
                                             >
-                                                {date}
+                                                {totalPrice}
+                                            </Typography>
+                                        </td>
+                                        <td className={classes}>
+                                            <Typography
+                                                variant="small"
+                                                color="blue-gray"
+                                                className="font-normal text-center"
+                                            >
+                                                {new Date(createdAt).toLocaleDateString()}
                                             </Typography>
                                         </td>
                                         <td className={classes}>

@@ -121,4 +121,18 @@ exports.MyListingReviewsDB = async (id) => {
   } catch (error) {
     throw error;
   }
+
 };
+
+// get all reviews
+exports.getAllReviewsfromDB = async () => {
+  try {
+    const Reviews = await ReviewSchema.find().select('-_id').populate('owner', 'FirstName LastName ProfilePic -_id').populate('property_id', 'title price images -_id')
+    return Reviews;
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+

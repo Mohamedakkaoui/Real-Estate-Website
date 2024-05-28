@@ -34,7 +34,7 @@ exports.getListings = async (req, res) => {
     }
     return res
       .status(200)
-      .json({ Message: "Listings retieived succefully", Listings: listings });
+      .json(listings);
   } catch (error) {
     return res
       .status(500)

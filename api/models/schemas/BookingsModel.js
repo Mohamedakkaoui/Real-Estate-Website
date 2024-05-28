@@ -30,10 +30,10 @@ const BookingSchema = new mongoose.Schema({
     default: 'pending'
   },
   owner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Users',
     required: true
-  },
-});
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Booking', BookingSchema);

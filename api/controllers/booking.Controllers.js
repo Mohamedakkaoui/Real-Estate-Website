@@ -11,21 +11,15 @@ const { getListingById } = require("./listing.Controllers");
 
 //new booking
 exports.registerNewBooking = async (req, res) => {
-  try {
-    const listing = getListingById();
-    const listingId = listing._id;
-    const user = req.user.id;
-    const { startDate, endDate} = req.body;
-    const isAvailable = await checkListingAvailability(
-      listingId,
-      startDate,
-      endDate
-    )
-    if (!isAvailable) {
-      return res
-        .status(200)
-        .json({ Message: "Listing is not available for the specified dates." });
-    }
+    try {
+        const listing = getListingById();
+        const listingId = listing._id
+        const user = req.user.id
+        const { startDate, endDate } = req.body
+        const isAvailable = await checkListingAvailability(listingId, startDate, endDate);
+        if (!isAvailable) {
+            return res.status(200).json({ Message: 'Listing is not available for the specified dates.' });
+        }
     const totalPrice = await priceCalc(startDate, endDate, listing.price);
     const owner = listing.owner;
     const data = {
@@ -123,7 +117,7 @@ exports.cancelBooking = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}
 
 //MyBookings
 exports.getMyBooking = async (req, res) => {
@@ -154,3 +148,20 @@ exports.getBooking = async (req, res) => {
       .json({ Message: "Error getting my bookings", Error: error.message });
   }
 };
+
+
+
+
+
+//get all bookings
+exports.getBookings = async (req, res) => {
+    try {
+        const bookings = await getBookingsDB()
+        if (!bookings) {
+            return res.status(404).json({ message: 'No bookings' })
+        }
+        return res.status(200).json(bookings)
+    } catch (err) {
+        return res.status(500).json({ message: 'Unable to retrieve bookings. ', Error: err.message })
+    }
+}

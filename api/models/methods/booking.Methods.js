@@ -40,12 +40,14 @@ exports.cancelBooking = async (id, data) => {
 };
 //get booking
 exports.getBookingByIdDB = async (id) => {
-  try {
-    const booking = await ListingsSchema.findOne({ _id: id });
-    return booking;
-  } catch (error) {
-    throw new Error("Failed to get booking by ID: " + error);
-  }
+    try {
+
+        const booking = await bookingSchema.findOne({ _id: id })
+        return booking
+
+    } catch (error) {
+        throw new Error('Failed to get booking by ID: ' + error)
+    }
 };
 
 //update booking from DB
@@ -75,7 +77,6 @@ exports.checkListingAvailability = async (listingId, startDate, endDate) => {
       endDate: { $gt: startDate },
       status: { $in: ["confirmed", "pending"] },
     });
-
     return overlappingBookings.length === 0;
   } catch (error) {
     return false;
@@ -92,4 +93,16 @@ exports.MyBookingsDB = async (id) => {
   } catch (error) {
     throw new error(error);
   }
+}
+
+
+//get all bookings
+exports.getBookingsDB = async () => {
+    try {
+        const bookings = await bookingSchema.find().select('-owner -_id').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
+        return bookings
+
+    } catch (error) {
+        throw new Error('Failed to get bookings ' + error)
+    }
 };
