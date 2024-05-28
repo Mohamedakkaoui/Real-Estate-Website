@@ -14,14 +14,12 @@ function ListingsNeraby() {
     const success = (position) => {
       const lat = position.coords.latitude;
       const long = position.coords.longitude;
-      console.log(position);
 
       const geoApiUrl = `https://us1.locationiq.com/v1/reverse?key=${URLKEY}&lat=${lat}&lon=${long}&format=json`;
 
       fetch(geoApiUrl)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const city = data.address.city;
           SetCity(city);
           fetchNearbyListings(city)
