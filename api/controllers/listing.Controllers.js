@@ -34,7 +34,7 @@ exports.getListings = async (req, res) => {
     }
     return res
       .status(200)
-      .json(listings);
+      .json({ Message : "Listings retrved successfully", Listings :  listings});
   } catch (error) {
     return res
       .status(500)
@@ -55,8 +55,9 @@ exports.addNewListing = async (req, res) => {
       options,
       location,
       city,
+      owner
     } = req.body;
-    const owner = req.user.id;
+    // const owner = req.user.id;
     const images = await bufferAndUploadMultiple(req);
     const Object_id = generateCustomUUID();
     const newProperty = await AddnewListingDB({
