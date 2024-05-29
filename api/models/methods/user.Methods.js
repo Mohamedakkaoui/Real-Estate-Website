@@ -61,7 +61,7 @@ exports.getAllUsersDB = async () => {
 }
 
 //method to get user by Id 
-exports.GetUserbyIdDB = async (id) => {
+exports.GetUserbyIdallInfoDB = async (id) => {
   try {
     const user = await UserSchema.findById({ _id: id })
     return user
@@ -73,7 +73,7 @@ exports.GetUserbyIdDB = async (id) => {
 //method to get user by Id 
 exports.GetUserbyIdDB = async (id) => {
   try {
-    const user = await UserSchema.findById({ _id: id }).select('FirstName LastName Username Email PhoneNumber -_id')
+    const user = await UserSchema.findById({ _id: id }).select('FirstName LastName watchList Username Email PhoneNumber -_id')
     return user
   } catch (error) {
     throw new Error('Couldnt Find User : ' + error)
