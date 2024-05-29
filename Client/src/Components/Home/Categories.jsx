@@ -42,6 +42,7 @@ const Categories = () => {
             listings: categorylistings,
           });
         });
+        console.log(ListingwithCategoryes)
         setListings(ListingwithCategoryes);
         setLoading(false);
       } catch (error) {
