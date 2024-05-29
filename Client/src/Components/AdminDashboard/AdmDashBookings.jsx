@@ -41,7 +41,6 @@ export function BookingsTable() {
         async function getTableRows() {
             try {
                 const bookings = await fetchBookings();
-                console.log(bookings);
                 setTableRows(bookings);
             } catch (error) {
                 console.error('Error fetching bookings:', error);
