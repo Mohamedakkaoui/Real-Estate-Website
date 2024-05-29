@@ -219,6 +219,7 @@
 
 // export default AddListing;
 import React, { useState, useCallback } from 'react';
+import { addNewListing } from '../../Api/apiProprety';
 import Map from '../MapComp/MapComp';
 import './NewListingStyle.css';
 import { FiInfo } from "react-icons/fi";
@@ -231,31 +232,52 @@ import { BsHouseAdd } from "react-icons/bs";
 import { MdOutlinePermMedia } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 
-
-
 const AddListing = () => {
     const [listingTitle, setListingTitle] = useState('');
     const [type, setType] = useState('All Types');
     const [listingPrice, setListingPrice] = useState('');
     const [category, setCategory] = useState('All Categories');
-    const [keywords, setKeywords] = useState('');
+    const [description, setDescription] = useState('');
+    const [size, setSize] = useState('');
+    const [features, setFeatures] = useState([]);
+    const [location, setLocation] = useState('');
     const [coordinates, setCoordinates] = useState({ lng: '', lat: '' });
+    const [images, setImages] = useState([]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted!');
-        console.log('Listing Title:', listingTitle);
-        console.log('Type:', type);
-        console.log('Listing Price:', listingPrice);
-        console.log('Category:', category);
-        console.log('Keywords:', keywords);
-        console.log('Coordinates:', coordinates);
-        setListingTitle('');
-        setType('All Types');
-        setListingPrice('');
-        setCategory('All Categories');
-        setKeywords('');
-        setCoordinates({ lng: '', lat: '' });
+        const data = {
+            title: listingTitle,
+            description,
+            category,
+            listingType: type,
+            price: parseFloat(listingPrice),
+            size: parseFloat(size),
+            features,
+            location: `${coordinates.lng}, ${coordinates.lat}`,
+            images,
+        };
+
+        // Log the data to be sent
+        console.log('Data to be sent:', data);
+
+        try {
+            const result = await addNewListing(data);
+            console.log('New property added:', result);
+
+            // Reset form fields after successful submission
+            setListingTitle('');
+            setType('All Types');
+            setListingPrice('');
+            setCategory('All Categories');
+            setDescription('');
+            setSize('');
+            setFeatures([]);
+            setCoordinates({ lng: '', lat: '' });
+            setImages([]);
+        } catch (error) {
+            console.error('Error adding property:', error.response ? error.response.data : error.message);
+        }
     };
 
     const handleCoordinatesChange = useCallback((coords) => {
@@ -296,7 +318,6 @@ const AddListing = () => {
                                             type="text"
                                             placeholder="Listing Price"
                                             style={{ borderRadius: "10px" }}
-
                                             value={listingPrice}
                                             onChange={(e) => setListingPrice(e.target.value)}
                                         />
@@ -306,7 +327,6 @@ const AddListing = () => {
                                         <select
                                             value={type}
                                             style={{ borderRadius: "10px" }}
-
                                             onChange={(e) => setType(e.target.value)}
                                         >
                                             <option value="All Types">All Types</option>
@@ -320,7 +340,6 @@ const AddListing = () => {
                                         <select
                                             value={category}
                                             style={{ borderRadius: "10px" }}
-
                                             onChange={(e) => setCategory(e.target.value)}
                                         >
                                             <option value="All Categories">All Categories</option>
@@ -330,6 +349,25 @@ const AddListing = () => {
                                             <option value="Land">Land</option>
                                             <option value="Office">Office</option>
                                         </select>
+                                    </div>
+                                    <div className="col-sm-45">
+                                        <label>Description</label>
+                                        <textarea
+                                            placeholder="Description of your property"
+                                            style={{ borderRadius: "10px", marginBottom: '5px' }}
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="col-sm-46">
+                                        <label>Size</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Size of your property"
+                                            style={{ borderRadius: "10px", marginBottom: '5px' }}
+                                            value={size}
+                                            onChange={(e) => setSize(e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -347,25 +385,13 @@ const AddListing = () => {
                                             type="text"
                                             placeholder="Enter address"
                                             style={{ borderRadius: "10px" }}
-
-                                            onChange={(e) => setCoordinates({ ...coordinates, address: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className='others'>
-                                        <label>City</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Enter city"
-                                            style={{ borderRadius: "10px" }}
-
-                                            onChange={(e) => setCoordinates({ ...coordinates, city: e.target.value })}
+                                            onChange={(e) => setLocation(e.target.value)}
                                         />
                                     </div>
                                     <div className='others'>
                                         <label>Longitude (Drag marker on the map)</label>
                                         <input
                                             style={{ borderRadius: "10px" }}
-
                                             type="text"
                                             value={coordinates.lng}
                                             placeholder="Map longitude"
@@ -378,7 +404,6 @@ const AddListing = () => {
                                             type="text"
                                             value={coordinates.lat}
                                             style={{ borderRadius: "10px" }}
-
                                             placeholder="Map latitude"
                                             readOnly
                                         />
@@ -404,7 +429,7 @@ const AddListing = () => {
                                 <h3 className="widget-title">Listing Details</h3>
                             </div>
                             <div className="widget-content" style={{ padding: "5px", borderTop: "1px solid #ccc" }}>
-                                <ListingDetails />
+                                <ListingDetails setFeatures={setFeatures} />
                             </div>
                         </div>
                         <div className='flex justify-center mb-2'>
@@ -421,3 +446,7 @@ const AddListing = () => {
 };
 
 export default AddListing;
+
+
+
+
