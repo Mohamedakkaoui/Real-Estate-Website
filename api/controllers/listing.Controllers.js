@@ -177,7 +177,7 @@ exports.getMyListings = async (req, res) => {
     const userID = req.user.id;
     const listings = await getMyListingsDB(userID);
     if (listings.length === 0) {
-      return res.status(404).json({ Message: "Listings not found" });
+      return res.status(200).json({ Message: "Listings not found" , Listings : []});
     }
     return res.status(200).json({ Message : "Listings retrieved succefully", Listings :listings});
   } catch (error) {
