@@ -1,6 +1,5 @@
 import React from "react";
 import "./Main.css";
-import { UserCheck } from "lucide-react";
 import UserCards from "../UserCards";
 import { ContextAuth } from "../../Context/AuthContext";
 import TableDash from "../Common/Table/Table";
