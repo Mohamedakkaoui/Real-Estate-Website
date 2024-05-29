@@ -30,7 +30,7 @@ exports.deleteListingDB = async (id) => {
 //get all listed properties
 exports.getAllListingDB = async () => {
   try {
-    const listings = await ListingsSchema.find().select(' title description images price -_id')
+    const listings = await ListingsSchema.find()
     return listings
   } catch (error) {
     throw new Error('Failed to fetch listing from the database : ' + error)
