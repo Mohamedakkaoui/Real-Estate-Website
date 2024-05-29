@@ -18,6 +18,8 @@ exports.saveListingUser = async (req, res) => {
 };
 
 
+
+
 //All listing
 exports.getListings = async (req, res) => {
   try {

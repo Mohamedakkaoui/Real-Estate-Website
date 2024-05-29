@@ -3,7 +3,7 @@ const express = require('express')
 const UserRoute = express.Router()
 
 //importing controllers & Middlewares
-const { updateUserProfile, getUserById, getAllUsers, updateUserPassword, DeleteUser, GetUserByUsername, updateProfilePic } = require('../controllers/user.Controllers.js')
+const { updateUserProfile, getUserById, getAllUsers, updateUserPassword, DeleteUser, GetUserByUsername, updateProfilePic,getAllFavorite } = require('../controllers/user.Controllers.js')
 const { profilePicUpload } = require('../middlewares/multer.js')
 const { isAuthenticated } = require('../middlewares/authMiddlewares')
 const ROLES_LIST = require('../config/Roles_Lists.js')
@@ -13,6 +13,7 @@ const { ValidateID } = require('../middlewares/ValidateID .js')
 
 
 //defining routes
+UserRoute.get('/favorite',isAuthenticated,getAllFavorite)
 UserRoute.route('/profile')
     .put(isAuthenticated, verifyRoles(ROLES_LIST.Admin, ROLES_LIST.User), updateUserProfile)
     .get(isAuthenticated, verifyRoles(ROLES_LIST.Admin, ROLES_LIST.User, ROLES_LIST.Guest),getUserById)

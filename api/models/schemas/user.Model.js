@@ -55,7 +55,7 @@ const UserSchema = new Schema({
   watchList: [
     {
       type: Schema.Types.ObjectId,
-      //ref: 'Listing'
+      ref: 'Listing'
     },
   ],
   Notifications: [

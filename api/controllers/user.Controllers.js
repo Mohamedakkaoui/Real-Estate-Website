@@ -3,6 +3,7 @@ const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB } = require(
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
 const jwt = require('jsonwebtoken');
 const { bufferAndUpload } = require('../helpers/datauri.js');
+const UserSchema = require('../models/schemas/user.Model.js')
 
 //all users
 exports.getAllUsers = async (req, res) => {
@@ -123,3 +124,20 @@ exports.updateProfilePic = async (req, res) => {
     return res.status(500).json({ message: "Error updating Profile Picture" , Error : error.message })
   }
 }
+//get All favorie of user
+exports.getAllFavorite = async (req, res) => {
+  const {id} = req.user;
+  try {
+      const user = await UserSchema.findById(id).select('watchList').populate({
+        path: 'watchList',
+        select: 'title size price images -_id',}).exec();
+
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      res.status(200).json(user.watchList);
+  } catch (error) {
+      res.status(500).send(error.message);
+  }
+};
