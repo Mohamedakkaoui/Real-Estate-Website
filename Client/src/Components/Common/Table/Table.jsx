@@ -38,9 +38,7 @@ export default function TableDash() {
     const getBookings = async () => {
       try {
         const resMyBookings = await GetMyBookings();
-        console.log(resMyBookings);
         const Bookings = resMyBookings.data.MyBookings;
-        console.log(Bookings);
         SetBookings(Bookings);
       } catch (error) {
         console.log(error);
