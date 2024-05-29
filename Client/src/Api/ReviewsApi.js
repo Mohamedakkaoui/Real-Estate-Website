@@ -9,7 +9,6 @@ const api = axios.create({
 });
 
 export function getAllReviews() {
-  console.log("entered");
   return api.get("/");
 }
 
