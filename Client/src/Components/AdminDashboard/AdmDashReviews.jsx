@@ -83,7 +83,6 @@ export function ReviewsTable() {
         async function getTableRows() {
             try {
                 const reviews = await fetchReviews();
-                console.log(reviews);
                 setTableRows(reviews);
             } catch (error) {
                 console.error('Error fetching reviews:', error);

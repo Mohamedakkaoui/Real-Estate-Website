@@ -23,7 +23,6 @@ async function fetchUsers() {
     try {
         const response = await getAllUsers();
         const users = response.data;
-        console.log(users);
         return users
     } catch (error) {
         console.log('Error fetching users:', error);

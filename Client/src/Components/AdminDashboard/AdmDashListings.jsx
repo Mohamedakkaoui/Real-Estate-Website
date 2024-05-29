@@ -21,7 +21,6 @@ async function fetchlistings() {
   try {
     const response = await getAllListings();
     const listings = response.data;
-    console.log(listings);
     return listings
   } catch (error) {
     console.log('Error fetching user reviews:', error);
@@ -36,7 +35,6 @@ export function ListingsTable() {
     async function getTableRows() {
       try {
         const listings = await fetchlistings();
-        console.log(listings);
         setTableRows(listings);
       } catch (error) {
         console.error('Error fetching listings:', error);
