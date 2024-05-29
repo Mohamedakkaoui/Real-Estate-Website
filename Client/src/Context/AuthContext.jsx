@@ -72,10 +72,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const handleLogin = async (Response) => {
-    console.log("test");
     const token = Response.data.token;
     const user = Response.data.User;
-    console.log(user);
     Cookies.set("token", token, { expires: 10 / 24 });
     setIsLoggedIn(true);
     SetUserProfile(user);
