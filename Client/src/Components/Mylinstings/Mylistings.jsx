@@ -7,7 +7,7 @@ import { getUserListings } from "../../Api/Authapi";
 async function fetchUserListings() {
     try {
         const response = await getUserListings();
-        const Listings = response.data;
+        const { Listings } = response.data;
         return Listings
     } catch (error) {
         console.log('Error fetching user reviews:', error);
