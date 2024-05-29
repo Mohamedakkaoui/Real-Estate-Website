@@ -61,7 +61,7 @@ function RatingCard() {
               ></div>
             </div>
             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              {calculatePercentage(ratingsCount[star - 1])}%
+              {calculatePercentage(ratingsCount[star - 1]).toFixed(0)}%
             </span>
           </div>
         ))}
