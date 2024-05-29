@@ -86,7 +86,6 @@ exports.checkListingAvailability = async (listingId, startDate, endDate) => {
 //myBookings
 exports.MyBookingsDB = async (id) => {
   try {
-    console.log(id);
     return await bookingSchema
       .find({ user: id })
       .populate("property_id", "title images price")
