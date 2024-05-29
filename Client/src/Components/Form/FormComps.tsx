@@ -37,17 +37,17 @@ function PersonalInfos() {
     FirstName: z
       .string()
       .min(3, "FirstName is short")
-      .max(15, "FirstName is too long"),
+      .max(15, "FirstName is too long").optional(),
     LastName: z
       .string()
       .min(3, "FirstName is short")
-      .max(15, "FirstName is too long"),
-    Email: z.string().email("Invalid Email adress"),
+      .max(15, "FirstName is too long").optional(),
+    Email: z.string().email("Invalid Email adress").optional(),
     PhoneNumber: z.string().regex(/^\d+$/, "Invalid phone number").optional(),
     Username: z
       .string()
       .min(3, "FirstName is short")
-      .max(15, "FirstName is too long"),
+      .max(15, "FirstName is too long").optional(),
   });
 
   type FormFields = z.infer<typeof schema>;
@@ -59,6 +59,7 @@ function PersonalInfos() {
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     resolver: zodResolver(schema),
+    defaultValues : userData
   });
 
   const onUpdate: SubmitHandler<FormFields> = async (data) => {
@@ -408,13 +409,11 @@ function AddBio() {
   });
 
   const onUpdatePassowrd: SubmitHandler<FormFields> = async (data) => {
-    console.log(checkConfirmedPassword(data));
     try {
       if (!checkConfirmedPassword(data)) {
         return;
       }
       const res = await UpdatePassword(data);
-      console.log(res);
       if (res.status == 202) {
         SetVerificationMessage(res.data.Message);
 
@@ -423,8 +422,6 @@ function AddBio() {
         }, 5000);
       }
     } catch (error) {
-      // console.log(error.response.data.Error);
-      // console.log(error.response.data.Message);
       if (
         error.response &&
         error.response.data &&
