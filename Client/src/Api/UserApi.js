@@ -18,7 +18,11 @@ export function UpdateUser (body) {
 
 //Update password
 export function UpdatePassword (body) {
-    console.log("ana d5lt lbackend");
-    console.log("body ", body);
     return api.put("/profile/change-password", body)
 }
+
+export function DeleteUser (id) {
+    return api.delete(`/deletUser/${id}`)
+}
+
+export default api;
