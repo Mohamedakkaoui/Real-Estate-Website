@@ -1,5 +1,5 @@
 //importing necessary methods and functions
-const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB, GetMyProfile, GetUserbyIdallInfoDB  } = require('../models/methods/user.Methods.js')
+const { DeleteUserDB, getAllUsersDB,DeleteUserByOwnerIdDB, GetUserbyIdDB, updateProfileDB, GetMyProfile, GetUserbyIdallInfoDB  } = require('../models/methods/user.Methods.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
 const jwt = require('jsonwebtoken');
 const { bufferAndUpload } = require('../helpers/datauri.js');
@@ -86,7 +86,7 @@ exports.updateUserPassword = async (req, res) => {
 }
 
 //Delete user
-exports.DeleteUser = async (req, res) => {
+exports.DeleteCurrentUser = async (req, res) => {
   try {
     const { id } = req.user
     const deleteUser = await DeleteUserDB(id)
@@ -96,6 +96,20 @@ exports.DeleteUser = async (req, res) => {
     return res.status(202).send('deleted Succesfully')
   } catch (error) {
     return res.status(500).json({ message: "Error While deleting User", Error: error.message })
+  }
+}
+
+//deleteUser by OwnerID
+exports.DeleteUser = async(req, res) => {
+  try {
+    const { id } =  req.params
+    const deleteUser = await DeleteUserByOwnerIdDB(id)
+    if (deleteUser.deletedCount == 0) {
+      return res.status(404).send('User Not Found')
+    }
+    return res.status(200).json({Message : "User deleted Successfuly", deleteUser})
+  } catch (error) {
+    return res.status(500).json({ Message: "Error While deleting User", Error: error.message })
   }
 }
 
