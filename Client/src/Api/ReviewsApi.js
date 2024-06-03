@@ -17,4 +17,8 @@ export function GetMYlistingReviews() {
 }
 
 
+export function DeleteReviewForAdmin(id) {
+  return api.delete(`/admin/delete/${id}`)
+}
+
 export default api;
