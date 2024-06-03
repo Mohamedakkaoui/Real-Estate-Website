@@ -116,12 +116,11 @@ exports.MyListingReviewsDB = async (id) => {
       property_id: { $in: ListingsIDs },
     })
       .populate("property_id", "title images price")
-      .populate("owner", "Username Email");
+      .populate("owner", "Username Email")
     return Reviews;
   } catch (error) {
     throw error;
   }
-
 };
 
 // get all reviews
