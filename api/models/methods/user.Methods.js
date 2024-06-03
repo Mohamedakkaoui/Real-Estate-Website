@@ -53,7 +53,7 @@ exports.saveListingForUser = async (userId, listingId) => {
 // get all users
 exports.getAllUsersDB = async () => {
   try {
-    const users = await UserSchema.find().select('FirstName LastName Username Email PhoneNumber ProfilePic isActive -_id')
+    const users = await UserSchema.find().select('FirstName Role LastName Username Email PhoneNumber OwnerId ProfilePic isActive -_id')
     return users
   } catch (error) {
     throw new Error('Failed to fetch users from the database : ' + error)
@@ -73,20 +73,30 @@ exports.GetUserbyIdallInfoDB = async (id) => {
 //method to get user by Id 
 exports.GetUserbyIdDB = async (id) => {
   try {
-    const user = await UserSchema.findById({ _id: id }).select('FirstName LastName watchList Username Email PhoneNumber -_id')
+    const user = await UserSchema.findById({ _id: id }).select('FirstName LastName watchList Username Email ProfilePic PhoneNumber -_id')
     return user
   } catch (error) {
     throw new Error('Couldnt Find User : ' + error)
   }
 }
 
-//method to delete user
+//method to delete user profile
 exports.DeleteUserDB = async (id) => {
   try {
     if (mongoose.Types.ObjectId.isValid(id)) {
       const deltedUser = await UserSchema.deleteOne({ _id: id })
       return deltedUser
     }
+  } catch (error) {
+    throw new Error('Failed to delete user : ' + error)
+  }
+}
+
+//methode to delete user byID 
+exports.DeleteUserByOwnerIdDB = async (id) => {
+  try {
+    const deleteUser = await UserSchema.deleteOne({OwnerId : id})
+    return deleteUser
   } catch (error) {
     throw new Error('Failed to delete user : ' + error)
   }
