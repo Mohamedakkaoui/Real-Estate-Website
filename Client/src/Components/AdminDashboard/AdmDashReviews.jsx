@@ -103,6 +103,7 @@ export function ReviewsTable() {
               <div>
                 <Typography variant="h4" color="blue-gray">
                   Reviews list
+
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
                   See information about all reviews by users.

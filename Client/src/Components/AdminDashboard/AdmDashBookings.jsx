@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PencilIcon } from "@heroicons/react/24/solid";
+
 import {
   Card,
   CardHeader,
@@ -75,6 +76,7 @@ export function BookingsTable() {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
+
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));

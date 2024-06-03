@@ -8,9 +8,10 @@ const {
   Bookings,
   getBookingsDB,
   DeleteBookingDb,
-  MylisitingsBookingsDB,
+  MylisitingsBookingsDB,permissionToBook 
 } = require("../models/methods/booking.Methods");
 const { getListingById } = require("./listing.Controllers");
+
 
 //new booking
 exports.registerNewBooking = async (req, res) => {
@@ -120,6 +121,7 @@ exports.cancelBooking = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ error: "Booking not found" });
     }
+
     booking.status = "cancelled";
     await booking.save();
     return res.status(200).json({ message: "Booking cancelled successfully" });
@@ -211,5 +213,19 @@ exports.MyListingsBookings = async (req, res) => {
     return res
       .status(500)
       .json({ message: "Unable to retrieve bookings. ", Error: error.message });
+  }
+};
+
+// get owner's permission to book a proprety
+
+exports.OwnerPermissionToBook = async (req, res) => {
+  try {
+      const userId=req.user;
+      const propertyId=req.params.propertyId;
+      const result = await permissionToBook(userId,propertyId );
+      res.status(result.status).json(result.body);
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
   }
 };

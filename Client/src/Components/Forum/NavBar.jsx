@@ -189,7 +189,7 @@ function NavBar() {
                   )}
                   {isLoggedIn && <IconDropDown />}
                   <div className="flex items-center ml-4 bg-[#FFA920] rounded-md p-1">
-                    <Button
+                    <div
                       style={{ textTransform: "none" }}
                       className="flex items-center w-40 px-6"
                     >
@@ -214,7 +214,7 @@ function NavBar() {
                           Sell Property
                         </Link>
                       </div>
-                    </Button>
+                    </div>
                   </div>
                 </div>
               </div>

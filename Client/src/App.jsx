@@ -9,6 +9,8 @@ import { AuthProvider } from "./Context/AuthContext";
 import PropertyDetail from "./Pages/PropertyDetail";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import DashboardPage from "./Pages/UserDashboard/DashboardPage";
+import YourPageComponent from './Pages/pageProprety';
+
 function App() {
   return (
     <>
@@ -23,6 +25,10 @@ function App() {
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
+            ></Route>
+            <Route
+              path="/search"
+              element={    <YourPageComponent />}
             ></Route>
             <Route
               path="/users/auth/password-reset"

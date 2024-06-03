@@ -14,6 +14,7 @@ import { toast } from "sonner"
 import moment from "moment"
 import Loading from "../Common/Loading"
 
+
 const TABLE_HEAD = ["Property", "Rating", "User", "Comment", "Date"]
 
 export function TransactionsTable() {
@@ -37,6 +38,7 @@ export function TransactionsTable() {
     getReviews()
   }, [])
 
+
   useEffect(() => {
     if (Reviews.length > 0) {
       const itemsPerPage = 4
@@ -50,6 +52,7 @@ export function TransactionsTable() {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
   };
+
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))

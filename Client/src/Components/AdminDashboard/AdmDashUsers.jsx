@@ -99,11 +99,13 @@ export function MembersTable() {
     <>
       {!tableRows.length == 0 ? (
         <Card className="h-full w-full">
+
           <CardHeader floated={false} shadow={false} className="rounded-none">
             <div className="flex justify-center items-center text-center mb-4">
               <div>
                 <Typography variant="h4" color="blue-gray">
                   Members list
+
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
                   See informations about all members

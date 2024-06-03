@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+
 import {
     Card,
     CardHeader,
@@ -61,7 +62,9 @@ export function Myrevs() {
 
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
+
                 <table className="mt-4 w-full table-auto text-left">
+
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
@@ -91,6 +94,7 @@ export function Myrevs() {
                                     : "p-4 border-b border-blue-gray-50";
                                 const firstImageUrl = property_id?.images?.[0]?.url;
                                 return (
+
                                     <tr key={name}>
                                         <td className={classes}>
                                             <div className="flex items-center gap-4" >
@@ -140,6 +144,7 @@ export function Myrevs() {
                                         </td>
 
                                         <td className={classes}>
+
                                             <Typography
                                                 variant="small"
                                                 color="blue-gray"
@@ -148,7 +153,9 @@ export function Myrevs() {
                                                 {new Date(date).toLocaleDateString()}
                                             </Typography>
                                         </td>
+
                                         <td className={classes}>
+
                                             <Tooltip content="Edit User">
                                                 <IconButton variant="text">
                                                     <PencilIcon className="h-4 w-4" />
