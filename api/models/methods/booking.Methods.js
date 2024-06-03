@@ -1,5 +1,6 @@
 const bookingSchema = require("../schemas/BookingsModel");
 const mongoose = require("mongoose");
+const { FindListingByOwnerIdDB } = require("./listing.Methods");
 
 //new booking
 exports.registerBookingDB = async (data) => {
@@ -98,10 +99,31 @@ exports.MyBookingsDB = async (id) => {
 //get all bookings
 exports.getBookingsDB = async () => {
     try {
-        const bookings = await bookingSchema.find().select('-owner -_id').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
+        const bookings = await bookingSchema.find().select('-owner').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
         return bookings
 
     } catch (error) {
         throw new Error('Failed to get bookings ' + error)
     }
 };
+
+//delete booking 
+exports.DeleteBookingDb = async (id) => {
+  try {
+    const deletedBooking = await bookingSchema.findByIdAndDelete({_id : id})
+    console.log(deletedBooking)
+    return deletedBooking
+  } catch (error) {
+    throw new Error('Failed to delete booking ' + error)
+  }
+}
+
+exports.MylisitingsBookingsDB = async (id) => {
+  try {
+    const Listings = await FindListingByOwnerIdDB(id)
+    const lisitngsIDs = Listings.map((listing) => listing._id)
+    const Booking = await bookingSchema.find({  property_id: { $in: lisitngsIDs }})
+  } catch (error) {
+    throw new Error('Failed to get bookings ' + error)
+  }
+}
