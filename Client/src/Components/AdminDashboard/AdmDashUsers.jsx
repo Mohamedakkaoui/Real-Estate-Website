@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -15,8 +14,12 @@ import {
 import { MdOutlineEmail } from "react-icons/md";
 import { MdOutlinePhone } from "react-icons/md";
 import { getAllUsers } from "../../Api/Authapi";
-import { Dot, Eye , Trash} from "lucide-react";
-const TABLE_HEAD = ["Member", "Contact", "Status", "joined", "Actions"];
+import { Dot, Trash } from "lucide-react";
+import { DeleteUser } from "../../Api/UserApi";
+
+
+
+const TABLE_HEAD = ["Member", "Contact", "Role", "Status", "joined", "Actions"];
 
 async function fetchUsers() {
   try {
@@ -31,10 +34,16 @@ async function fetchUsers() {
 export function MembersTable() {
   const defaultAvatar =
     "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1716681600&semt=ais_user";
+
   const [tableRows, setTableRows] = useState([]);
   const [curentPage, setCurrentPage] = useState(1);
   const [totalPages, SetTotalPages] = useState(1);
   const [Users, SetUsers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
 
   useEffect(() => {
     async function getTableRows() {
@@ -71,6 +80,21 @@ export function MembersTable() {
     setCurrentPage(pageNumber);
   };
 
+  const handleDeleteUser = async (id) => {
+    try {
+      const users = await DeleteUser(id);
+      if (users.status == 200) {
+        SetUsers((prevUsers) =>
+          prevUsers.filter((user) => user.OwnerId !== id)
+        );
+      } else {
+        console.log("couldnt delete  user");
+      }
+    } catch (error) {
+      console.log(error, error.message);
+    }
+  };
+
   return (
     <>
       {!tableRows.length == 0 ? (
@@ -92,10 +116,7 @@ export function MembersTable() {
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-y border-blue-gray-100 bg-[#ffa9202a] p-4"
-                    >
+                    <th key={head} className="bg-[#ffa9202a] p-4">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -120,6 +141,8 @@ export function MembersTable() {
                         PhoneNumber,
                         ProfilePic,
                         isActive,
+                        OwnerId,
+                        Role
                       },
                       index
                     ) => {
@@ -176,13 +199,22 @@ export function MembersTable() {
                             </div>
                           </td>
                           <td className={classes}>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal text-center"
+                            >
+                              {Role}
+                            </Typography>
+                          </td>
+                          <td className={classes}>
                             <div className="mx-auto w-max">
                               <div className="flex px-0">
                                 {" "}
                                 <Dot
                                   className={`${
                                     isActive ? "text-green-500" : "text-red-500"
-                                  }`}
+                                  } size-8`}
                                 />
                                 <Chip
                                   variant="ghost"
@@ -205,15 +237,21 @@ export function MembersTable() {
                             </Typography>
                           </td>
                           <td className={classes}>
-                            <Tooltip >
-                              <IconButton variant="text">
-                                <div className="flex gap-4 justify-center items-center ml-[95px]">
-                                  <PencilIcon className="h-5 w-5" />
-                                  <Eye className="h-5 w-5" />
-                                  <Trash className="h-5 w-5 text-red-500"/>
-                                </div>
-                              </IconButton>
-                            </Tooltip>
+                            <div className="flex justify-center gap-4">
+                              {" "}
+                             
+                              <Tooltip
+                                content="Delete User"
+                                className="bg-red-300 text-white font-semibold border rounded-lg"
+                              >
+                                <IconButton variant="text">
+                                  <Trash
+                                    className="h-6 w-6 text-red-500"
+                                    onClick={() => handleDeleteUser(OwnerId)}
+                                  />
+                                </IconButton>
+                              </Tooltip>
+                            </div>
                           </td>
                         </tr>
                       );
@@ -260,6 +298,7 @@ export function MembersTable() {
       ) : (
         <div>no users are found</div>
       )}
+
     </>
   );
 }
