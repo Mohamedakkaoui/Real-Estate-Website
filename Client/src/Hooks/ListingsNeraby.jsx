@@ -20,8 +20,8 @@ function ListingsNeraby() {
       fetch(geoApiUrl)
         .then((res) => res.json())
         .then((data) => {
-          const city = data.address.city;
-          SetCity(city);
+          const city = data.address.city
+          SetCity(city)
           fetchNearbyListings(city)
         })
         .catch((err) => {
@@ -43,6 +43,7 @@ function ListingsNeraby() {
   const fetchNearbyListings = async (city) => {
     try {
       const res = await GetNerbyListings(city);
+      console.log(res.data)
       SetListings(res.data.Listings);
       SetLoading(false);
     } catch (error) {
@@ -53,6 +54,7 @@ function ListingsNeraby() {
   };
 
   useEffect(() => {
+    console.log(listings)
     findMyCity()
   }, [])
   return { city, listings, loading, error };
