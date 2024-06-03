@@ -7,6 +7,7 @@ const {
   getMyListingsDB,
   FindListingBylocationDB,
   GetListingsBycategeryDB,
+  DeleteListingByobjectId,
 } = require("../models/methods/listing.Methods");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
@@ -34,7 +35,7 @@ exports.getListings = async (req, res) => {
     }
     return res
       .status(200)
-      .json({ Message : "Listings retrved successfully", Listings :  listings});
+      .json({ Message: "Listings retrved successfully", Listings: listings });
   } catch (error) {
     return res
       .status(500)
@@ -55,9 +56,8 @@ exports.addNewListing = async (req, res) => {
       options,
       location,
       city,
-      owner
     } = req.body;
-    // const owner = req.user.id;
+    const owner = req.user.id;
     const images = await bufferAndUploadMultiple(req);
     const Object_id = generateCustomUUID();
     const newProperty = await AddnewListingDB({
@@ -94,6 +94,27 @@ exports.deleteListing = async (req, res) => {
     }
     return res.status(200).json("Listing has been deleted!");
   } catch (err) {
+    return res
+      .status(404)
+      .json({ message: "Unable to Delete property", Error: err.message });
+  }
+};
+
+//Delete listing by object ID
+exports.DeleteListingByObject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const Listingtodelete = await DeleteListingByobjectId(id);
+    if (Listingtodelete.deletedCount == 0) {
+      return res.status(404).send("Property Not Found");
+    }
+    return res
+      .status(200)
+      .json({
+        Message: "Property deleted with success",
+        Result: Listingtodelete,
+      });
+  } catch (error) {
     return res
       .status(404)
       .json({ message: "Unable to Delete property", Error: err.message });
@@ -177,9 +198,13 @@ exports.getMyListings = async (req, res) => {
     const userID = req.user.id;
     const listings = await getMyListingsDB(userID);
     if (listings.length === 0) {
-      return res.status(200).json({ Message: "Listings not found" , Listings : []});
+      return res
+        .status(200)
+        .json({ Message: "Listings not found", Listings: [] });
     }
-    return res.status(200).json({ Message : "Listings retrieved succefully", Listings :listings});
+    return res
+      .status(200)
+      .json({ Message: "Listings retrieved succefully", Listings: listings });
   } catch (error) {
     return res
       .status(500)
@@ -190,8 +215,8 @@ exports.getMyListings = async (req, res) => {
 //get Listing in your city
 exports.GetcityListings = async (req, res) => {
   try {
-    const { city } = req.params;
-    const listings = await FindListingBylocationDB(city);
+    const { city } = req.params; //city comes
+    const listings = await FindListingBylocationDB(city); //issue is here
     if (!listings) {
       return res.status(404).json({ Message: "No listings nearby were Found" });
     }
