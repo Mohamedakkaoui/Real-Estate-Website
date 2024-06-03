@@ -26,11 +26,20 @@ exports.deleteListingDB = async (id) => {
   }
 }
 
+exports.DeleteListingByobjectId = async (id) => {
+  try {
+    const ListingToDelete = await ListingsSchema.deleteOne({Object_id : id})
+    return ListingToDelete
+  } catch (error) {
+    throw new Error('Failed to delete Listing : ' + error)
+  }
+}
+
 
 //get all listed properties
 exports.getAllListingDB = async () => {
   try {
-    const listings = await ListingsSchema.find()
+    const listings = await ListingsSchema.find().populate('owner',  "Username ProfilePic -_id")
     return listings
   } catch (error) {
     throw new Error('Failed to fetch listing from the database : ' + error)
