@@ -20,7 +20,7 @@ function IconDropDown() {
             as="button"
             avatarProps={{
               isBordered: true,
-              src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+              src: UserProfile.ProfilePic,
             }}
             className="transition-transform"
             description={UserProfile.Email}
