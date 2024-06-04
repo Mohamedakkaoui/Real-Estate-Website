@@ -42,10 +42,10 @@ function UserCards() {
   return (
     <div className="flex  justify-between gap-5">
       <div
-        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
+        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px] transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300"
         style={{ width: "49%" }}
       >
-        <div className="details">
+        <div className="details ">
           <div className="text text-lg font-medium text-[#02293e]">
             Total Listings
           </div>
@@ -61,7 +61,7 @@ function UserCards() {
         </div>
       </div>
       <div
-        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
+        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px] transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300"
         style={{ width: "49%" }}
       >
         <div className="details">
@@ -80,7 +80,7 @@ function UserCards() {
         </div>
       </div>
       <div
-        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
+        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px] transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300"
         style={{ width: "49%" }}
       >
         <div className="details">
@@ -99,7 +99,7 @@ function UserCards() {
         </div>
       </div>
       <div
-        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
+        className="flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px] transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300"
         style={{ width: "49%" }}
       >
         <div className="details">
