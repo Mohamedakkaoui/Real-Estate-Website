@@ -3,11 +3,9 @@ const Schema = mongoose.Schema
 
 
 const ListingsSchema = new mongoose.Schema({
-
-  Object_id : {
-    type : String,
+  Object_id: {
+    type: String,
   },
-
   title: {
     type: String,
     required: true
@@ -24,6 +22,10 @@ const ListingsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  city: {
+    type: String,
+    required: true
+  },
   location: {
     type: String,
     required: true
@@ -35,6 +37,15 @@ const ListingsSchema = new mongoose.Schema({
   size: {
     type: Number
   },
+  rooms: {
+    type: Number
+  },
+  bathrooms: {
+    type: Number
+  },
+  accomodation: {
+    type: Number
+  },
   features: {
     type: Array,
   },
@@ -43,16 +54,11 @@ const ListingsSchema = new mongoose.Schema({
   },
   images: [],
   owner: {
-    // type: String
-    // type: Schema.Types.ObjectId,
-    // ref: 'User',
-    // required: true
-
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users',
     required: true
-
   }
+
 });
 
 module.exports = mongoose.model('Listing', ListingsSchema)

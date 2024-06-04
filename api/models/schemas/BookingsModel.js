@@ -4,10 +4,12 @@ const Schema = mongoose.Schema
 const BookingSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
+    ref : 'Users',
     required: true
   },
   listing: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Listing',
     required: true
   },
   startDate: {
@@ -29,9 +31,9 @@ const BookingSchema = new mongoose.Schema({
   },
   owner: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Users',
     required: true
   }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Booking', BookingSchema);

@@ -10,62 +10,58 @@ import {
     Typography,
     Button,
     CardBody,
-    Chip,
     CardFooter,
     Avatar,
     IconButton,
     Tooltip,
-    Input,
 } from "@material-tailwind/react";
+import { getUserReviews } from "../../Api/Authapi";
 
-const TABLE_HEAD = ["Date", "Rating", "Comment", ""];
 
-const TABLE_ROWS = [
-    {
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
-        User: "Spotify",
-        Rating: "2,5",
-        date: "Wed 3:00pm",
-        Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-    },
-    {
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS46pHfJt4LoTx_o31fc57O7rcxH4pplAKsp77QR-YJug&s",
-        User: "Spotify",
-        Rating: "2,5",
-        date: "Wed 3:00pm",
-        Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-    },
-    {
-        img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-        User: "other",
-        Rating: "4,5",
-        date: "Wed 3:00pm",
-        Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-    },
-    {
-        img: "https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png",
-        User: "other",
-        Rating: "4,5",
-        date: "Wed 3:00pm",
-        Comment: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-    },
-];
+const TABLE_HEAD = ["Property", "Rating", "Review", "Date", ""];
+
+async function fetchUserReviews() {
+    try {
+        const response = await getUserReviews();
+        const reviews = response.data;
+        return reviews
+    } catch (error) {
+        console.log('Error fetching user reviews:', error);
+    }
+}
+
 
 export function Myrevs() {
+    const [tableRows, setTableRows] = useState([]);
+
+    useEffect(() => {
+        async function getTableRows() {
+            try {
+                const reviews = await fetchUserReviews();
+                setTableRows(reviews);
+            } catch (error) {
+                console.error('Error fetching user reviews:', error);
+            }
+        }
+
+        getTableRows();
+    }, []);
     return (
+
         <Card className="">
             <CardHeader floated={false} shadow={false} className="rounded-none">
-                <div className="mb-4 flex flex-col justify-between gap-8 ">
+                <div className="flex justify-center items-center text-center mb-4">
                     <div>
-                        <Typography variant="h5" color="blue-gray">
-                            My Reviews
+                        <Typography variant="h4" color="blue-gray">
+                            Reviews list
                         </Typography>
                         <Typography color="gray" className="mt-1 font-normal">
-                            These are details about your shared reviews
+                            See information about all reviews by users.
                         </Typography>
                     </div>
 
                 </div>
+
             </CardHeader>
             <CardBody className="overflow-scroll px-0">
                 <table className="w-full table-auto text-left">
@@ -74,14 +70,14 @@ export function Myrevs() {
                             {TABLE_HEAD.map((head) => (
                                 <th
                                     key={head}
-                                    className="border-y border-blue-gray-100 bg-gray-200  w-1/8 p-4"
+                                    className="border-y border-blue-gray-100 bg-gray-200 p-4"
+
                                 >
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
-                                        className="flex justify-center font-normal leading-none opacity-70"
+                                        className="font-normal text-center leading-none opacity-70"
                                         style={{ fontWeight: 'bold' }}
-
                                     >
                                         {head}
                                     </Typography>
@@ -90,22 +86,13 @@ export function Myrevs() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(
-                            (
-                                {
-                                    img,
-                                    User,
-                                    Rating,
-                                    date,
-                                    Comment,
-                                },
-                                index,
-                            ) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
+                        {tableRows.map(
+                            ({ img, name, email, profilepic, date, comment, property_id, rating }, index) => {
+                                const isLast = index === tableRows.length - 1;
                                 const classes = isLast
-                                    ? "p-4 w-1/4"
-                                    : "p-4 border-b border-blue-gray-50 ";
-
+                                    ? "p-4"
+                                    : "p-4 border-b border-blue-gray-50";
+                                const firstImageUrl = property_id?.images?.[0]?.url;
                                 return (
                                     <tr >
                                         <td className={classes} style={{ width: '10%' }}>
@@ -114,7 +101,7 @@ export function Myrevs() {
                                                 color="blue-gray"
                                                 className="font-normal text-center"
                                             >
-                                                {date}
+                                                {new Date(date).toLocaleDateString()}
                                             </Typography>
                                         </td>
                                         <td className={classes} style={{ width: '10%' }}>
@@ -154,36 +141,20 @@ export function Myrevs() {
                 </table>
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Button variant="outlined" size="sm">
-                    Previous
-                </Button>
-                <div className="flex items-center gap-2">
-                    <IconButton variant="outlined" size="sm">
-                        1
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        2
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        3
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        ...
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        8
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        9
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                        10
-                    </IconButton>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                    Page 1 of 10
+                </Typography>
+                <div className="flex gap-2">
+                    <Button variant="outlined" size="sm">
+                        Previous
+                    </Button>
+                    <Button variant="outlined" size="sm">
+                        Next
+                    </Button>
                 </div>
-                <Button variant="outlined" size="sm">
-                    Next
-                </Button>
             </CardFooter>
         </Card>
-    );
+
+
+    )
 }

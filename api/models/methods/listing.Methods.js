@@ -30,7 +30,7 @@ exports.deleteListingDB = async (id) => {
 //get all listed properties
 exports.getAllListingDB = async () => {
   try {
-    const listings = await ListingsSchema.find()
+    const listings = await ListingsSchema.find().select(' title description images price -_id')
     return listings
   } catch (error) {
     throw new Error('Failed to fetch listing from the database : ' + error)
@@ -59,3 +59,30 @@ exports.UpdateListingDB = async (id, data) => {
 }
 
 
+//get my listings
+exports.getMyListingsDB = async (UserId) => {
+  try {
+    if (mongoose.Types.ObjectId.isValid(UserId)) {
+      const Listings = await ListingsSchema.find({ owner: UserId }).select("title location images -_id")
+      return Listings
+    }
+  } catch (error) {
+    throw new Error('Failed to get property by ID: ' + error)
+  }
+};
+
+exports.FindListingByOwnerIdDB = async (id) => {
+  try {
+    return await ListingsSchema.find({owner : id})
+  } catch (error) {
+    throw new error (error)
+  }
+}
+
+exports.FindListingBylocationDB = async (City) => {
+  try {
+    return await ListingsSchema.find({city : City})
+  } catch (error) {
+    throw new error (error)
+  }
+}

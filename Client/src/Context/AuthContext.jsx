@@ -15,15 +15,15 @@ export const AuthContext = createContext({
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [UserProfile, SetUserProfile] = useState(() => {});
+  const [UserProfile, SetUserProfile] = useState(localStorage.getItem("UserProfile") || null);
   const [isLoading, setIsLoading] = useState(true);
 
   const token = Cookies.get("token");
 
   useEffect(() => {
     const checkAuth = async () => {
+      setIsLoading(true)
       try {
-        setIsLoading(true);
         if (token) {
           setIsLoggedIn(true)
           const decoded = jwtDecode(token);
@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
             const user = res.data.User;
             SetUserProfile(user);
             localStorage.setItem("UserProfile", JSON.stringify(user));
+            setIsLoading(false);
           } else {
             setIsLoggedIn(false);
             SetUserProfile(null);
@@ -52,25 +53,23 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, [token]);
 
-
   useEffect(() => {
     const retrieveUserProfileFromStorage = () => {
       if (!UserProfile && token) {
-        const storedUserProfile = localStorage.getItem('UserProfile');
+        const storedUserProfile = localStorage.getItem("UserProfile");
         if (storedUserProfile) {
           try {
             const parsedUserProfile = JSON.parse(storedUserProfile);
             SetUserProfile(parsedUserProfile);
           } catch (error) {
-            console.error('Error parsing stored user profile:', error)
-            localStorage.removeItem("UserProfile")
+            console.error("Error parsing stored user profile:", error);
+            localStorage.removeItem("UserProfile");
           }
         }
       }
     };
-  
     retrieveUserProfileFromStorage();
-  }, [UserProfile, token]);
+  }, []);
 
   const handleLogin = async (Response) => {
     console.log("test");

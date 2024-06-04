@@ -47,10 +47,10 @@ const UserSchema = new Schema({
   },
   verified: {
     type: Boolean,
-    default: false, // Par défaut, l'email n'est pas vérifié
+    default: false,
   },
   verificationToken: {
-    type: String, // Specify the type as String to store the verification token
+    type: String,
   },
   watchList: [
     {
@@ -64,6 +64,6 @@ const UserSchema = new Schema({
       operationType: { type: String },
     },
   ],
-});
+})
 
 module.exports = mongoose.model("Users", UserSchema);

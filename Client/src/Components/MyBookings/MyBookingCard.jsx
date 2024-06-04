@@ -2,8 +2,6 @@ import React from 'react'
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 
-
-
 function MyBookingCard() {
     return (
         <>
@@ -17,7 +15,6 @@ function MyBookingCard() {
                         <li><span className="font-semibold">From:</span> 18.05.2021</li>
                         <li><span className="font-semibold">To:</span> 20.05.2021</li>
                         <li><span className="font-semibold">Price:</span> 123 MAD</li>
-
                     </ul>
                 </div>
                 <div className="bookings-item-footer flex items-center justify-between px-4 py-2 bg-gray-100">
@@ -25,13 +22,10 @@ function MyBookingCard() {
                     <ul className="flex space-x-2" style={{ gap: '15px' }}>
                         <li><a href="#" className="text-gray-500 hover:text-red-500"><MdModeEdit size={25} /></a></li>
                         <li><a href="#" className="text-gray-500 hover:text-blue-500"><MdDelete size={25} /></a></li>
-
                     </ul>
                 </div>
             </div>
-
         </>
-
     )
 }
 

@@ -21,18 +21,18 @@ function DashboardPage() {
                 <SidebarComp />
             </div>
             <div className='leftsection'>
-                <Routes>
-                    <Route path="Main" element={<MainDashboard />} />
-                    <Route path="Profile" element={<Form />} />
-                    <Route path="new-property" element={<AddListing />} />
-                    <Route path="Bookings" element={<Bookings />} />
-                    <Route path="my-listings" element={<Mylistings />} />
-                    <Route path="Reviews" element={<TransactionsTable />} />
-                    <Route path="My-bookings" element={<MyBookings />} />
-                    <Route path="favourites" element={<Favorites userId={userId} />} />
-                    <Route path="My-Reviews" element={<Myrevs />} />
-                    <Route path="/" element={<Form />} /> {/* Default route */}
-                </Routes>
+            <Routes>
+                <Route path="/Main" element={<MainDashboard />} />
+                <Route path="/Profile" element={<Form />} />
+                <Route path="/new-property" element={<AddListing />} />
+                <Route path="/Bookings" element={<Bookings />} />
+                <Route path="/my-listings" element={<Mylistings />} />
+                <Route path="/Reviews" element={<TransactionsTable />} />
+                <Route path="/My-bookings" element={<MyBookings />} />
+                <Route path="/favourites" element={<Favorites userId={userId} />} />
+                <Route path="/My-Reviews" element={<Myrevs />} />
+                <Route path="/" element={<Form />} /> {/* Default route */}
+            </Routes>
             </div>
         </div>
     );

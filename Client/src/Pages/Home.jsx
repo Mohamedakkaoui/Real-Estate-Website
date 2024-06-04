@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Footer from "../Components/Forum/Footer";
 import NavBar from "../Components/Forum/NavBar";
 import { ContextAuth } from "../Context/AuthContext";

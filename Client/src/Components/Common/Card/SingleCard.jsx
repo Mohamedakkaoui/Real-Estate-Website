@@ -4,17 +4,15 @@ import CardHoverIcons from "./CardIcon";
 import CardLabels from "./CardLabel";
 
 const SingleProductCard = ({
-  id,
-  name,
+  _id,
+  title,
   location,
   price,
-  purpose,
-  number_of_beds,
-  number_of_bathrooms,
-  dimensions,
+  size,
   images,
   basis,
-
+  listingType,
+  city
 }) => {
   return (
     <div
@@ -22,10 +20,10 @@ const SingleProductCard = ({
         } shadow-light dark:border-card-dark border rounded-lg overflow-hidden relative group`}
     >
       <div className="group !opacity-100 overflow-hidden relative">
-        <Link to={`/property-details/${id}`} className="!opacity-100">
+        <Link to={`/property-details/${_id}`} className="!opacity-100">
           <img
             src={images[0]}
-            alt={name}
+            alt={title}
             className="w-full  h-fit md:h-[250px] object-cover group-hover:scale-125 transition-a"
           />
         </Link>
@@ -33,41 +31,41 @@ const SingleProductCard = ({
         <div className="absolute bottom-0 left-0 w-full px-2 py-2 transition-transform bg-gradient-to-t from-black/80 sm:translate-y-10 group-hover:translate-y-0 to-transparent">
           <div className="text-white flex-align-center gap-x-2">
             <BiMap />
-            <p>{location}</p>
+            <p>{city}</p>
           </div>
         </div>
       </div>
-      <CardLabels purpose={purpose} />
+      <CardLabels purpose={listingType} />
       <div className="p-3">
         <Link to="/" className="group-hover:text-primary transition-a">
-          <h1 className="text-lg font-bold capitalize">{name}</h1>
+          <h1 className="text-lg font-bold capitalize">{title}</h1>
         </Link>
         <div className="flex justify-between mt-3">
           <div className="flex-align-center gap-x-2">
             <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
               <BiBed />
             </div>
-            <p className="text-sm">{number_of_beds} Beds</p>
+            <p className="text-sm">3 Beds</p>
           </div>
           <div className="flex-align-center gap-x-2">
             <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
               <BiTab />
             </div>
-            <p className="text-sm">{number_of_bathrooms} Bathrooms</p>
+            <p className="text-sm">2 Bathrooms</p>
           </div>
           <div className="flex-align-center gap-x-2">
             <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
               <BiMapAlt />
             </div>
-            <p className="text-sm">{dimensions}</p>
+            <p className="text-sm">{size} m2</p>
           </div>
         </div>
 
         <div className="mt-4 flex-center-between">
           <h1 className="text-lg font-semibold text-primary">MAD{price}</h1>
-          {/* <Link to={`/property-details/${id}`}>
+          <Link to={`/property-details/${_id}`}>
             <button className="bg-[#02293e] opacity-80 rounded-lg text-white py-2 px-6">DETAILS</button>
-          </Link> */}
+          </Link>
         </div>
 
       </div>

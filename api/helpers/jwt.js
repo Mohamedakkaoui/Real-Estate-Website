@@ -9,7 +9,6 @@ exports.generateToken = (data, expirationDate) => {
 
 exports.verifyToken = (token) => {
     return jwt.verify(token, process.env.jwtKey)
-
 }
 
 
