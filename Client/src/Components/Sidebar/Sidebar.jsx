@@ -43,16 +43,6 @@ function SidebarComp() {
                 <h2>Dashboard</h2>
               </div>
             </Sidebar.Item>
-            <Sidebar.Item
-              as={NavLink}
-              to="/User-Dashboard/messages"
-              className="px-0"
-            >
-              <div className="flex gap-4">
-                <RiMessage3Line size={25} />
-                <h2>Messages</h2>
-              </div>
-            </Sidebar.Item>
           </Sidebar.ItemGroup>
           <p>MANAGE LISTINGS</p>
           <Sidebar.ItemGroup className="mb-10">
