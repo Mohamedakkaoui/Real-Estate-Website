@@ -14,6 +14,7 @@ const SingleProductCard = ({
   listingType,
   city
 }) => {
+  console.log(images)
   return (
     <div
       className={`flex-1 ${basis ? basis : "basis-[18rem]"
