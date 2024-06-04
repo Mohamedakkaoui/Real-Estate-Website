@@ -8,10 +8,12 @@ const {
   FindListingBylocationDB,
   GetListingsBycategeryDB,
   DeleteListingByobjectId,
+  getALLListingByUserIdDB,
 } = require("../models/methods/listing.Methods");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
-const { saveListingForUser } = require("../models/methods/user.Methods.js");
+const { saveListingForUser, GetUserbyIdallInfoDB } = require("../models/methods/user.Methods.js");
+const UserSchema = require("../models/schemas/user.Model.js");
 
 //save listing for user
 exports.saveListingUser = async (req, res) => {
@@ -108,12 +110,10 @@ exports.DeleteListingByObject = async (req, res) => {
     if (Listingtodelete.deletedCount == 0) {
       return res.status(404).send("Property Not Found");
     }
-    return res
-      .status(200)
-      .json({
-        Message: "Property deleted with success",
-        Result: Listingtodelete,
-      });
+    return res.status(200).json({
+      Message: "Property deleted with success",
+      Result: Listingtodelete,
+    });
   } catch (error) {
     return res
       .status(404)
@@ -229,3 +229,21 @@ exports.GetcityListings = async (req, res) => {
       .json({ Message: "Failed to get Listings", Error: error.message });
   }
 };
+
+//get my fav
+exports.getAllFavorite = async (req, res) => {
+  const { id } = req.user;
+  try {
+    const user = await GetUserbyIdallInfoDB(id) 
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    const listings = await getALLListingByUserIdDB(user.watchList.toString())
+    if (!listings) {
+      return res.status(404).send("listings not found")
+    }
+    res.status(200).json({Message : "listings retrieved with success", Listings : listings});
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+}

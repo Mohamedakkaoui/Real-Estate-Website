@@ -195,7 +195,6 @@ const SearchFilters = ({ onSearch }) => {
               </div>
             )}
           </div>
-
           <div className="relative">
             <button
               type="button"
@@ -264,7 +263,6 @@ const SearchFilters = ({ onSearch }) => {
                       />
                       <label className="form-check-label ml-2" htmlFor="Lands">Lands</label>
                     </div>
-                    {/* Add more property types as needed */}
                   </div>
                 </div>
                 <div className="text-end mt-2 pr-2">

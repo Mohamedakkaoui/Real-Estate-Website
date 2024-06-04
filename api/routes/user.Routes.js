@@ -13,8 +13,10 @@ const verifyRoles = require('../middlewares/roles.js')
 const { ValidateID } = require('../middlewares/ValidateID .js')
 
 const { uploadSingle, uploadMultiple } = require('../helpers/uploadhelper.js')
+const { getAllFavorite } = require('../controllers/listing.Controllers.js')
 
 //defining routes
+UserRoute.get('/favorite', isAuthenticated, getAllFavorite)
 UserRoute.route('/profile')
     .put(isAuthenticated, updateUserProfile)
     .get(isAuthenticated, getUserById)

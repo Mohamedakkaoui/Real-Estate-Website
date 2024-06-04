@@ -6,7 +6,6 @@ const ListingsSchema = require('../models/schemas/listing.Model')
 exports.listingFilterOptions = async (req, res) => {
     try {
         let {  minPrice, maxPrice, selectedPropertyTypes, selectedStatus, search} = req.query;
-        console.log(req.query);
         if(selectedStatus == 'All'){selectedStatus='.*'}
 
         const listings = await this.DBgetFiltredListings(  minPrice, maxPrice, selectedPropertyTypes, selectedStatus, search);
