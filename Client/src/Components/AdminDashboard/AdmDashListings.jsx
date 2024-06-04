@@ -48,7 +48,6 @@ export function ListingsTable() {
       try {
         const listings = await fetchlistings();
         SetProperties(listings);
-        console.log(listings[listings.length - 1]);
       } catch (error) {
         console.error("Error fetching listings:", error);
       }

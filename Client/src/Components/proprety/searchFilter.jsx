@@ -18,7 +18,7 @@ const SearchFilters = ({ onSearch }) => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
-  const [selectedPropertyType, setSelectedPropertyType] = useState('');
+  const [selectedPropertyTypes, setSelectedPropertyType] = useState('');
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -93,7 +93,7 @@ const SearchFilters = ({ onSearch }) => {
       const filterParams = {
         minPrice: priceRange[0],
         maxPrice: priceRange[1],
-        selectedPropertyType,
+        selectedPropertyTypes,
         selectedStatus,
         search,
         startDate: dateRange[0],
@@ -215,7 +215,7 @@ const SearchFilters = ({ onSearch }) => {
                         type="radio"
                         name="propertyType"
                         value="All"
-                        checked={selectedPropertyType === 'All'}
+                        checked={selectedPropertyTypes === 'All'}
                         onChange={handlePropertyTypeChange}
                       />
                       <label className="form-check-label ml-2" htmlFor="All">All</label>
@@ -226,7 +226,7 @@ const SearchFilters = ({ onSearch }) => {
                         type="radio"
                         name="propertyType"
                         value="Houses"
-                        checked={selectedPropertyType === 'Houses'}
+                        checked={selectedPropertyTypes === 'Houses'}
                         onChange={handlePropertyTypeChange}
                       />
                       <label className="form-check-label ml-2" htmlFor="Houses">Houses</label>
@@ -237,7 +237,7 @@ const SearchFilters = ({ onSearch }) => {
                         type="radio"
                         name="propertyType"
                         value="Apartment"
-                        checked={selectedPropertyType === 'Apartment'}
+                        checked={selectedPropertyTypes === 'Apartment'}
                         onChange={handlePropertyTypeChange}
                       />
                       <label className="form-check-label ml-2" htmlFor="Apartment">Apartments</label>
@@ -248,7 +248,7 @@ const SearchFilters = ({ onSearch }) => {
                         type="radio"
                         name="propertyType"
                         value="Villa"
-                        checked={selectedPropertyType === 'Villa'}
+                        checked={selectedPropertyTypes === 'Villa'}
                         onChange={handlePropertyTypeChange}
                       />
                       <label className="form-check-label ml-2" htmlFor="Villa">Villa</label>
@@ -259,7 +259,7 @@ const SearchFilters = ({ onSearch }) => {
                         type="radio"
                         name="propertyType"
                         value="Lands"
-                        checked={selectedPropertyType === 'Lands'}
+                        checked={selectedPropertyTypes === 'Lands'}
                         onChange={handlePropertyTypeChange}
                       />
                       <label className="form-check-label ml-2" htmlFor="Lands">Lands</label>
