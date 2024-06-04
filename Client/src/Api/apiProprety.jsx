@@ -13,19 +13,15 @@ const api = axios.create({
 
 export function fetchListings() {
     return api.get('/listings/All')
-    
 }
 
 export function fetchListingsFilter(filterParams) {
-    console.log(filterParams);
     return api.get('/listings/filteredListings',{ params: filterParams })
   
 }
 export async function getFavorites() {
     try {
-        console.log();
         const response = await api.get(`users/favorite/`);
-        console.log(response);
         return response.data;
     } catch (error) {
         console.error('Error getting favorites:', error);

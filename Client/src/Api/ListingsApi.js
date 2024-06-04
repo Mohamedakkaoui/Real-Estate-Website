@@ -13,6 +13,7 @@ export function GetNerbyListings(city) {
 }
 
 export function GetAllListings () {
+  console.log('oksowvnwicbwijcnwijcndfuobdfubefuvb')
   return api.get('/All')
 }
 
