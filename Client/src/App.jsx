@@ -7,9 +7,10 @@ import ResetPassword from "./Pages/ResetPassword";
 import UpdatePassword from "./Pages/UpdatePssword";
 import { AuthProvider } from "./Context/AuthContext";
 import PropertyDetail from "./Pages/PropertyDetail";
-import YourPageComponent from './Pages/pageProprety';
+import Property from './Pages/pageProprety';
 import AdminDashboard from './Pages/AdminDashboard/AdminDashboard';
 import DashboardPage from './Pages/UserDashboard/DashboardPage'
+import About from './Pages/About'
 
 
 function App() {
@@ -23,13 +24,14 @@ function App() {
             <Route path="/users/auth/verify" element={<CheckEmail />} />
             <Route path="/Admin-Dashboard" element={<AdminDashboard/>}></Route>
             <Route path="/User-Dashboard/*" element={<DashboardPage/>}></Route>
+            <Route path="/About" element={<About />} />
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
             ></Route>
             <Route
-              path="/search"
-              element={    <YourPageComponent />}
+              path="/Property"
+              element={    <Property />}
             ></Route>
             <Route
               path="/users/auth/password-reset"

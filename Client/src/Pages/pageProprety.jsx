@@ -6,7 +6,9 @@ import SearchFilters from '../Components/proprety/searchFilter';
 import CardWithImage from '../Components/proprety/Card/CardComponent';
 import MapVertical from '../Components/proprety/mapComponent';
 import CardWithImageLeft from '../Components/proprety/Card/CardComponent';
-const YourPageComponent = () => {
+import Navbar from "../Components/Forum/NavBar";
+import Footer from "../Components/Forum/Footer";
+const Property = () => {
   // Logique et état pour le composant principal
   const [filteredListings, setFilteredListings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -52,7 +54,8 @@ const YourPageComponent = () => {
   };
   
   return (
-    <div>
+    <>
+      <Navbar />
       {/* JSX pour le composant principal */}
       <SearchFilters onSearch={handelSearch}/>
       <div className="flex flex-col lg:flex-row h-screen">
@@ -63,9 +66,10 @@ const YourPageComponent = () => {
       <CardWithImageLeft filteredListings={filteredListings} loading={loading} />
 
       </div>
-      </div>
+      <Footer />
+      </>
   );
 };
 
-export default YourPageComponent;
+export default Property;
 
