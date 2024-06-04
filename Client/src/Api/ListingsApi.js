@@ -12,9 +12,25 @@ export function GetNerbyListings(city) {
   return api.get(`/NearbyListings/${city}`);
 }
 
-export function GetAllListings () {
+export function GetAllListings() {
   return api.get('/All')
 }
+
+//get listing by id
+export function fetchSingleListing(id) {
+  return api.get(`/${id}`)
+}
+
+//update listing
+export function updateListing(id, data) {
+  return api.patch(`/update/${id}`, data)
+}
+
+//save listing
+export function saveListing(id,) {
+  return api.put(`${id}`,)
+}
+
 
 
 export default api;

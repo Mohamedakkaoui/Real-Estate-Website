@@ -30,6 +30,13 @@ const ListingsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+
+  latitude: {
+    type: Number
+  },
+  longitude: {
+    type: Number
+  },
   price: {
     type: Number,
     required: true
@@ -49,6 +56,7 @@ const ListingsSchema = new mongoose.Schema({
   features: {
     type: Array,
   },
+
   rating: {
     type: Number,
   },

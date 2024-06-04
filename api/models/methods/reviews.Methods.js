@@ -1,5 +1,5 @@
-const ReviewSchema = require('../schemas/reviews.Model')
 const mongoose = require('mongoose')
+const ReviewSchema = require('../schemas/reviews.Model')
 const { FindListingByOwnerIdDB } = require('./listing.Methods')
 
 
@@ -25,6 +25,21 @@ exports.GetReviewByIdDB = async (id) => {
     throw new Error(err)
   }
 }
+
+
+//get listing reviews
+exports.GetListingReviewsDB = async (id) => {
+  try {
+    const response = await ReviewSchema.find({ property_id: id }).populate('owner', 'Username ProfilePic -_id').select('-_id -__v -property_id')
+    console.log(response)
+    return response
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+
+
 
 
 //update review 

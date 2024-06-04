@@ -1,6 +1,7 @@
 
 const { CreateReview, GetReviewById, updateReview, deleteReview, getAllReviews,
   getReviewUserAddTop, getUserReviews, getAlltheReviews, GetMyListingsReviews,
+  GetListingReviews,
 } = require('../controllers/reviews.Controllers')
 
 const express = require("express");
@@ -16,6 +17,7 @@ const verifyRoles = require("../middlewares/roles.js");
 
 
 
+ReviewRoute.get("/ListingReviews", GetListingReviews);
 
 ReviewRoute.get("/userReviews", isAuthenticated, getUserReviews);
 

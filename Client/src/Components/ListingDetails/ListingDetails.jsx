@@ -1,20 +1,18 @@
 import React from 'react'
-import { SlSizeFullscreen } from "react-icons/sl";
-import { MdOutlineBedroomChild } from "react-icons/md";
-import { MdOutlineBathroom } from "react-icons/md";
-import { IoPeopleOutline } from "react-icons/io5";
+
 import { Checkbox } from "@material-tailwind/react";
+import { Bath, Proportions, Users, DoorOpen } from "lucide-react";
 
 
 
 function ListingDetails() {
     return (
         <div className="flex gap-4 flex-wrap justify-between ml-3 mr-3">
-            <div className="w-2/5 mr-4" style={{ width: "40%" }}> {/* Left section with 40% width */}
+            <div className="flex flex-col gap-4 w-2/5 mr-4" style={{ width: "40%" }}> {/* Left section with 40% width */}
                 <div>
                     <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Area :</label>
-                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'BLACK', borderRadius: '10px' }}>
-                        <SlSizeFullscreen color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
+                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: '#FFF1DA', borderRadius: '10px' }}>
+                        <Proportions size={30} color='#FFA920' style={{ margin: '10px' }} className="text-gray-500  " /> {/* Icon */}
                         <input
                             type="text"
                             placeholder="Property size"
@@ -25,8 +23,8 @@ function ListingDetails() {
                 </div>
                 <div>
                     <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Rooms :</label>
-                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'black', borderRadius: '10px' }}>
-                        <MdOutlineBedroomChild color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
+                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: '#FFF1DA', borderRadius: '10px' }}>
+                        <DoorOpen size={30} color='#FFA920' style={{ margin: '10px' }} className="text-gray-500  " /> {/* Icon */}
                         <input
                             type="text"
                             placeholder="Property rooms"
@@ -37,8 +35,8 @@ function ListingDetails() {
                 </div>
                 <div>
                     <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Bathrooms :</label>
-                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'black', borderRadius: '10px' }}>
-                        <MdOutlineBathroom color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
+                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: '#FFF1DA', borderRadius: '10px' }}>
+                        <Bath size={30} color='#FFA920' style={{ margin: '10px' }} className="text-gray-500  " /> {/* Icon */}
                         <input
                             type="text"
                             placeholder="Property bathrooms"
@@ -49,13 +47,13 @@ function ListingDetails() {
                 </div>
                 <div>
                     <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Accomodation :</label>
-                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'black', borderRadius: '10px' }}>
-                        <IoPeopleOutline color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
+                    <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: '#FFF1DA', borderRadius: '10px' }}>
+                        <Users size={30} color='#FFA920' style={{ margin: '10px' }} className="text-gray-500  " /> {/* Icon */}
 
                         <input
                             type="text"
                             placeholder="Property accomodation"
-                            style={{ borderRadius: "0  10px 10px 0" }}
+                            style={{ borderRadius: " 10px " }}
                             className="outline-none focus:outline-none flex-1"
                         /> {/* Input field */}
                     </div>
@@ -65,7 +63,7 @@ function ListingDetails() {
                 <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Description :</label>
 
                 <textarea
-                    className="w-full h-full p-2 border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-500"
+                    className="w-full h-[95%] p-2 border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-500"
                     placeholder="Enter your description here..."
                 ></textarea>
             </div>

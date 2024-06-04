@@ -1,7 +1,7 @@
 import React from 'react'
 import { GrFavorite } from "react-icons/gr";
 import { GrLocation } from "react-icons/gr";
-import { IoMdResize } from "react-icons/io";
+import { Proportions } from "lucide-react";
 
 
 
@@ -30,7 +30,7 @@ function FavsCard() {
                         <div className='flex justify-between pt-4' style={{ marginTop: "20px", borderTop: "1px dashed #c7c7c7" }}>
                             <ul className="style-none feature d-flex flex-wrap items-center justify-content-between">
                                 <li className="flex items-center gap-2">
-                                    <IoMdResize />
+                                    <Proportions />
                                     <span className="fs-16">137 M²</span>
                                 </li>
                             </ul>

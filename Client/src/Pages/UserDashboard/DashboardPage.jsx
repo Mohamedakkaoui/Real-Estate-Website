@@ -11,31 +11,33 @@ import Favorites from '../../Components/Favorites/Favorites'
 import { Myrevs } from '../../Components/Myrevs/Myrevs'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MyBookings from '../../Components/MyBookings/MyBookings'
-
+import EditListing from '../../Components/EditListing/EditListing'
 
 function DashboardPage() {
     return (
-        
-            <div className='whole'>
-                <div>
-                    <SidebarComp />
-                </div>
-                <div className='leftsection'>
-                    <Routes>
-                        <Route path="Main" element={<MainDashboard />} />
-                        <Route path="Profile" element={<Form />} />
-                        <Route path="new-property" element={<AddListing />} />
-                        <Route path="Bookings" element={<Bookings />} />
-                        <Route path="my-listings" element={<Mylistings />} />
-                        <Route path="Reviews" element={<TransactionsTable />} />
-                        <Route path="My-bookings" element={<MyBookings />} />
-                        <Route path="favourites" element={<Favorites />} />
-                        <Route path="My-Reviews" element={<Myrevs />} />
-                        <Route path="/" element={<Form />} />
-                    </Routes>
-                </div>
+
+        <div className='whole'>
+            <div>
+                <SidebarComp />
             </div>
-     
+            <div className='leftsection'>
+                <Routes>
+                    <Route path="Main" element={<MainDashboard />} />
+                    <Route path="Profile" element={<Form />} />
+                    <Route path="new-property" element={<AddListing />} />
+                    <Route path="Bookings" element={<Bookings />} />
+                    <Route path="my-listings" element={<Mylistings />} />
+                    <Route path="Reviews" element={<TransactionsTable />} />
+                    <Route path="My-bookings" element={<MyBookings />} />
+                    <Route path="favourites" element={<Favorites />} />
+                    <Route path="My-Reviews" element={<Myrevs />} />
+                    <Route path="/" element={<Form />} />
+                    <Route path="Edit-listing/:propertyId" element={<EditListing />} />
+
+                </Routes>
+            </div>
+        </div>
+
     )
 }
 

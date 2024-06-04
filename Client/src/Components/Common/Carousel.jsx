@@ -5,8 +5,8 @@ import Image from '../../assets/property26.jpg';
 import Image2 from '../../assets/property17.jpg';
 import Image3 from '../../assets/property16.jpg';
 
-const Carousel = () => {
-  const images = [Image, Image2, Image3];
+const Carousel = ({ images }) => {
+  // const images = [Image, Image2, Image3];
   const [currentSlide, setCurrentSlide] = useState(0);
   const carouselRef = useRef(null);
 
@@ -29,8 +29,8 @@ const Carousel = () => {
       <div className="relative overflow-hidden rounded-lg h-full">
         <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
           {images.map((image, index) => (
-            <div key={index} className="flex-shrink-0 w-full h-full">
-              <img src={image} alt={`Slide ${index + 1}`} className="block w-full h-full object-cover" />
+            <div key={image.id || index} className="flex-shrink-0 w-full h-full">
+              <img src={image.url} alt={image.alt || `Slide ${index + 1}`} className="block w-full h-full object-cover" />
             </div>
           ))}
         </div>

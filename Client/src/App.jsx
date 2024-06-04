@@ -9,15 +9,16 @@ import { AuthProvider } from "./Context/AuthContext";
 import PropertyDetail from "./Pages/PropertyDetail";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import DashboardPage from "./Pages/UserDashboard/DashboardPage";
+import './App.css'
 
 function App() {
   return (
-    <>
+    <div className="App">
       <AuthProvider>
         <Router>
           <Routes>
             <Route path="/Home" element={<Home />} />
-            <Route path="/PropertyDetail" element={<PropertyDetail />} />
+            <Route path="/PropertyDetails/:propertyId" element={<PropertyDetail />} />
             <Route path="/users/auth/verify" element={<CheckEmail />} />
             <Route path="/Admin-Dashboard" element={<AdminDashboard />}></Route>
             <Route path="/User-Dashboard/*" element={<DashboardPage />}></Route>
@@ -33,7 +34,7 @@ function App() {
           </Routes>
         </Router>
       </AuthProvider>
-    </>
+    </div>
   );
 }
 
