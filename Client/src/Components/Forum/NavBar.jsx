@@ -57,7 +57,7 @@ function NavBar() {
               </a>
               {/* <!-- Nav Links --> */}
               <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-9">
-                <HoverMenuWithTransition />
+                {/* <HoverMenuWithTransition /> */}
                 <li className="mt-2">
                   <Link to="/Home" className="hover:text-[#FFA920]">
                     Home

@@ -21,4 +21,8 @@ export function DeleteReviewForAdmin(id) {
   return api.delete(`/admin/delete/${id}`)
 }
 
+export function DeleteReview (id) {
+  return api.delete(`/delete/${id}`)
+}
+
 export default api;

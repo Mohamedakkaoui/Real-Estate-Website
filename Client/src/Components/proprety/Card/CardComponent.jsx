@@ -4,6 +4,7 @@ import CardWithImageSlider from './cards';
 // import { fetchListingsFilter } from '../../../api/apiProprety'; // Import fetchListingsFilter
 
 const CardWithImageLeft = ({ filteredListings, loading }) => {
+  console.log(filteredListings)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const [listing,setListings] = useState();
@@ -28,7 +29,7 @@ const CardWithImageLeft = ({ filteredListings, loading }) => {
 
   // Get the listings for the current page
   const paginatedProperties = filteredListings
-    ? filteredListings.slice(
+    ? filteredListings.Listings.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
       )

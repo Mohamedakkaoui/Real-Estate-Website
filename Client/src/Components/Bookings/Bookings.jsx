@@ -82,7 +82,6 @@ export function Bookings() {
 
   const handleBooking = async (id) => {
     try {
-      console.log("entered");
       const response = await DeleteBooking(id);
       if (response.status == 200) {
         SetBookings((prevBookings) =>
