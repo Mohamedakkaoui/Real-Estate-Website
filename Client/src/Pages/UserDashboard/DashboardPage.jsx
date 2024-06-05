@@ -10,7 +10,7 @@ import { TransactionsTable } from '../../Components/Reviews/Reviews'
 import Favorites from '../../Components/Favorites/Favorites'
 import { Myrevs } from '../../Components/Myrevs/Myrevs'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import EditListing from '../../Components/EditListing/EditListing'
+import  EditListing  from '../../Components/EditListing/EditListing'
 
 function DashboardPage() {
 

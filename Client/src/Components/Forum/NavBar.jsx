@@ -64,12 +64,7 @@ function NavBar() {
                   </Link>
                 </li>
                 <li className="mt-2">
-                  <Link to="/PropertyDetail" className="hover:text-[#FFA920]">
-                    Catagory
-                  </Link>
-                </li>
-                <li className="mt-2">
-                  <Link to="/Property" className="hover:text-[#FFA920]">
+                  <Link to="/Properties" className="hover:text-[#FFA920]">
                     Propeties
                   </Link>
                 </li>

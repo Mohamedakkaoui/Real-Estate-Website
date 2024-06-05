@@ -259,7 +259,7 @@ const AddListing = () => {
     const listingSchema = z.object({
         title: z.string().min(3, 'Title must be at least 3 characters long'),
         description: z.string().min(5, 'Description must be at least 5 characters long'),
-        category: z.enum(["Land", "House", "Apartment", "Office", "Villa"]),
+        category: z.enum(["Land", "House", "Apartement", "Office", "Villa"]),
         listingType: z.string().min(3, 'Listing type must be at least 3 characters long'),
         price: z.number({ invalid_type_error: 'Price must be a number' }),
         size: z.number({ invalid_type_error: 'Size must be a number' }).optional(),
@@ -278,7 +278,7 @@ const AddListing = () => {
             size: parseFloat(size),
             features,
             city,
-            location: `aze`,
+            location,
             images: uploadedImages,
             rooms:parseFloat(rooms),
             bathrooms:parseFloat(bathrooms),
@@ -289,11 +289,11 @@ const AddListing = () => {
         console.log('Data to be sent:', data);
 
         try {
-            listingSchema.parse(data);
-            setErrors({});
+            // listingSchema.parse(data);
+            // setErrors({});
 
             // Log the data to be sent
-            console.log('Data to be sent:', data);
+            console.log('this is the Data to be sent:', data);
 
             const result = await addNewListing(data);
             console.log('New property added:', result);
@@ -385,7 +385,7 @@ const AddListing = () => {
                                             <option value="All Types">All Types</option>
                                             <option value="Rent">Rent</option>
                                             <option value="Sale">Sale</option>
-                                            <option value="VacationalRent">Vacation</option>
+                                            <option value="vacation">Vacation</option>
                                         </select>
                                         {errors.listingType && <span className="text-red-500">{errors.listingType}</span>}
                                     </div>
@@ -398,7 +398,7 @@ const AddListing = () => {
                                         >
                                             <option value="All Categories">All Categories</option>
                                             <option value="House">House</option>
-                                            <option value="Apartment">Apartment</option>
+                                            <option value="Apartement">Apartement</option>
                                             <option value="Villa">Villa</option>
                                             <option value="Land">Land</option>
                                             <option value="Office">Office</option>

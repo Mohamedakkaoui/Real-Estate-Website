@@ -12,7 +12,7 @@ const {
 } = require("../models/methods/listing.Methods");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
-const { saveListingForUser } = require("../models/methods/user.Methods.js");
+const { saveListingForUser, GetUserbyIdallInfoDB } = require("../models/methods/user.Methods.js");
 const { GetListingReviewsDB } = require("../models/methods/reviews.Methods.js");
 
 //save listing for user
@@ -57,9 +57,14 @@ exports.addNewListing = async (req, res) => {
       options,
       location,
       city,
+      images,
+      rooms,
+      bathrooms,
+      accomodation,
+      latitude,
+      longitude
     } = req.body;
     const owner = req.user.id;
-    const images = await bufferAndUploadMultiple(req);
     const Object_id = generateCustomUUID();
     const newProperty = await AddnewListingDB({
       title,
@@ -74,6 +79,11 @@ exports.addNewListing = async (req, res) => {
       owner,
       Object_id,
       city,
+      rooms,
+      bathrooms,
+      accomodation,
+      latitude,
+      longitude
     });
     return res
       .status(201)
@@ -243,7 +253,7 @@ exports.getAllFavorite = async (req, res) => {
   try {
     const user = await GetUserbyIdallInfoDB(id)
     if (!user) {
-      return res.status(404).send("User not found");
+      return res.status(404).send("User not found")
     }
     const listings = await getALLListingByUserIdDB(user.watchList.toString())
     if (!listings) {

@@ -69,16 +69,6 @@ exports.validateListing = [
     body('images')
     .optional(),
   
-    // Validate owner
-  
-    body('owner')
-    .trim()
-    .isString()
-    .notEmpty()
-    .withMessage('Owner ID is required'),
-  
-    // Custom middleware to check for validation errors
-  
     (req, res, next) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -86,5 +76,4 @@ exports.validateListing = [
       }
       next();
     }
-  ];
-  
+  ]
