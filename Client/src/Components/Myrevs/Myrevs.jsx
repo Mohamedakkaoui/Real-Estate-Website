@@ -72,7 +72,7 @@ export function Myrevs() {
       const response = await DeleteReview(id);
       if (response.status == 200) {
         SetMyReviews((prevReviews) =>
-            prevReviews.filter((review) => review.Object_id !== id)
+          prevReviews.filter((review) => review.Object_id !== id)
         );
       } else {
         console.log("couldnt delete Property");
@@ -90,7 +90,7 @@ export function Myrevs() {
               Reviews list
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
-              See information about all reviews by users.
+              See informations about your reviews .
             </Typography>
           </div>
         </div>

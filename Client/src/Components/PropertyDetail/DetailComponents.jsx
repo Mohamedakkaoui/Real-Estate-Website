@@ -21,9 +21,10 @@ function DetailComponents({ property, reviews }) {
         {coords && <DetailMap coords={coords} />}
         {listingType === 'vacation' && (
           <>
+            {reviews && <Reviews reviews={reviews} />}
+
             <PostReview />
 
-            {reviews && <Reviews reviews={reviews} />}
           </>
         )}
       </div>

@@ -13,12 +13,18 @@ export function GetMyBookings() {
   return api.get('/myBookings')
 }
 
-export function DeleteBooking (id) {
+
+export function GetMyBookingsDet() {
+  return api.get('/myBookingsDetailed')
+}
+
+
+export function DeleteBooking(id) {
   return api.delete(`/delete/${id}`)
 }
 
-export function MyListingsBokings () {
+export function MyListingsBokings() {
   return api.get('/MylistingsBooking')
-} 
+}
 
 export default api;

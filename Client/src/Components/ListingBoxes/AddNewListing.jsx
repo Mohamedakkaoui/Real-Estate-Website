@@ -247,20 +247,7 @@ const AddListing = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted!');
-        console.log('Listing Title:', listingTitle);
-        console.log('Type:', type);
-        console.log('Listing Price:', listingPrice);
-        console.log('Category:', category);
-        console.log('Keywords:', keywords);
-        console.log('Coordinates:', coordinates);
-        console.log('images:', uploadedImages)
-        setListingTitle('');
-        setType('All Types');
-        setListingPrice('');
-        setCategory('All Categories');
-        setKeywords('');
-        setCoordinates({ lng: '', lat: '' });
+
 
     };
 

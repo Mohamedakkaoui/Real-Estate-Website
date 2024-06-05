@@ -42,14 +42,14 @@ exports.cancelBooking = async (id, data) => {
 };
 //get booking
 exports.getBookingByIdDB = async (id) => {
-    try {
+  try {
 
-        const booking = await bookingSchema.findOne({ _id: id })
-        return booking
+    const booking = await bookingSchema.findOne({ _id: id })
+    return booking
 
-    } catch (error) {
-        throw new Error('Failed to get booking by ID: ' + error)
-    }
+  } catch (error) {
+    throw new Error('Failed to get booking by ID: ' + error)
+  }
 };
 
 //update booking from DB
@@ -88,29 +88,41 @@ exports.checkListingAvailability = async (listingId, startDate, endDate) => {
 //myBookings
 exports.MyBookingsDB = async (id) => {
   try {
-    return await bookingSchema
-      .find({ user: id })
-      .populate("property_id", "title images price")
+    console.log('frrfrrfr');
+    const myBookings = await bookingSchema.find({ user: id }).populate("listing", "title images price")
+    return myBookings
   } catch (error) {
     throw new error(error);
   }
 }
 
+//myBookings detailed
+exports.MyBookingsDBDet = async (id) => {
+  try {
+    console.log('frrfrrfr');
+    const myBookings = await bookingSchema.find({ user: id }).populate("listing", "title images price")
+    return myBookings
+  } catch (error) {
+    throw new error(error);
+  }
+}
+
+
 //get all bookings
 exports.getBookingsDB = async () => {
-    try {
-        const bookings = await bookingSchema.find().select('-owner').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
-        return bookings
+  try {
+    const bookings = await bookingSchema.find().select('-owner').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
+    return bookings
 
-    } catch (error) {
-        throw new Error('Failed to get bookings ' + error)
-    }
+  } catch (error) {
+    throw new Error('Failed to get bookings ' + error)
+  }
 };
 
 //delete booking 
 exports.DeleteBookingDb = async (id) => {
   try {
-    const deletedBooking = await bookingSchema.findByIdAndDelete({_id : id})
+    const deletedBooking = await bookingSchema.findByIdAndDelete({ _id: id })
     return deletedBooking
   } catch (error) {
     throw new Error('Failed to delete booking ' + error)
@@ -119,9 +131,12 @@ exports.DeleteBookingDb = async (id) => {
 
 exports.MylisitingsBookingsDB = async (id) => {
   try {
-    const Listings = await FindListingByOwnerIdDB(id)
-    const lisitngsIDs = Listings.map((listing) => listing._id)
-    const Booking = await bookingSchema.find({  property_id: { $in: lisitngsIDs }})
+    // const Listings = await FindListingByOwnerIdDB(id)
+    // const lisitngsIDs = Listings.map((listing) => listing._id.toString())
+
+    const Booking = await bookingSchema.find({ owner: id }).populate('listing', '-_id').populate('user', '-_id')
+    console.log(Booking);
+    return Booking
   } catch (error) {
     throw new Error('Failed to get bookings ' + error)
   }
@@ -130,53 +145,53 @@ exports.MylisitingsBookingsDB = async (id) => {
 //owner's permission
 
 exports.permissionToBook = async (userId, propertyId, startDate, endDate, totalPrice) => {
-    try {
-        const isAvailable = await checkListingAvailability(propertyId, startDate, endDate);
-        if (!isAvailable) {
-            return { status: 403, body: { error: "Listing is not available for the specified dates." } };
-        }
-
-        const user = await UserSchema.findById(userId);
-        if (!user) {
-            return { status: 401, body: { error: "Unauthorized" } };
-        }
-
-        // Check if user has permission to book properties (Vous pouvez ajouter votre logique ici)
-        if (!user.canBook) {
-            return { status: 403, body: { error: "Forbidden" } };
-        }
-
-        // Check if the user is the owner of the property (Vous pouvez ajouter votre logique ici)
-        const property = await ListingsSchema.findById(propertyId);
-        if (!property) {
-            return { status: 404, body: { error: "Property not found" } };
-        }
-
-        // Notify owner and await confirmation (this could be an email, notification, etc.)
-        // For simplicity, we'll assume the owner always approves the booking
-        const ownerConfirmation = true;
-
-        // If owner confirms, proceed with booking
-        if (ownerConfirmation) {
-            // Mettre à jour le statut de la réservation à "confirmed"
-            const booking = new Booking({
-                listing: propertyId,
-                user: userId,
-                startDate: startDate,
-                endDate: endDate,
-                totalPrice: totalPrice,
-                owner: property.owner,
-                status: 'confirmed' // Mettre à jour le statut de la réservation
-            });
-            await booking.save();
-        } else {
-            return { status: 403, body: { error: "Owner declined the booking" } };
-        }
-
-        return { status: 200, body: { message: "Booking successful" } };
-    } catch (err) {
-        console.error(err);
-        return { status: 500, body: { error: "Internal Server Error" } };
+  try {
+    const isAvailable = await checkListingAvailability(propertyId, startDate, endDate);
+    if (!isAvailable) {
+      return { status: 403, body: { error: "Listing is not available for the specified dates." } };
     }
+
+    const user = await UserSchema.findById(userId);
+    if (!user) {
+      return { status: 401, body: { error: "Unauthorized" } };
+    }
+
+    // Check if user has permission to book properties (Vous pouvez ajouter votre logique ici)
+    if (!user.canBook) {
+      return { status: 403, body: { error: "Forbidden" } };
+    }
+
+    // Check if the user is the owner of the property (Vous pouvez ajouter votre logique ici)
+    const property = await ListingsSchema.findById(propertyId);
+    if (!property) {
+      return { status: 404, body: { error: "Property not found" } };
+    }
+
+    // Notify owner and await confirmation (this could be an email, notification, etc.)
+    // For simplicity, we'll assume the owner always approves the booking
+    const ownerConfirmation = true;
+
+    // If owner confirms, proceed with booking
+    if (ownerConfirmation) {
+      // Mettre à jour le statut de la réservation à "confirmed"
+      const booking = new Booking({
+        listing: propertyId,
+        user: userId,
+        startDate: startDate,
+        endDate: endDate,
+        totalPrice: totalPrice,
+        owner: property.owner,
+        status: 'confirmed' // Mettre à jour le statut de la réservation
+      });
+      await booking.save();
+    } else {
+      return { status: 403, body: { error: "Owner declined the booking" } };
+    }
+
+    return { status: 200, body: { message: "Booking successful" } };
+  } catch (err) {
+    console.error(err);
+    return { status: 500, body: { error: "Internal Server Error" } };
+  }
 }
 
