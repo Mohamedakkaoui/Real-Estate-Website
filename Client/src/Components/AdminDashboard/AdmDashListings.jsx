@@ -3,14 +3,17 @@ import {
   Card,
   CardHeader,
   Typography,
+
   Button,
   CardBody,
   Chip,
   CardFooter,
+
   Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+
 import { getAllListings } from "../../Api/Authapi";
 import { Dot, Eye, Trash } from "lucide-react";
 import { DeleteListing } from "../../Api/ListingsApi";
@@ -91,6 +94,7 @@ export function ListingsTable() {
       console.log(error, error.message);
     }
   };
+
 
   return (
     <>

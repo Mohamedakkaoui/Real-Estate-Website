@@ -7,7 +7,9 @@ import CardWithImage from "../Components/proprety/Card/CardComponent";
 import MapVertical from "../Components/proprety/mapComponent";
 import CardWithImageLeft from "../Components/proprety/Card/CardComponent";
 import { GetAllListings } from "../Api/ListingsApi";
-const YourPageComponent = () => {
+import Navbar from "../Components/Forum/NavBar";
+import Footer from "../Components/Forum/Footer";
+const Property = () => {
 
   const [filteredListings, setFilteredListings] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -94,6 +96,8 @@ const YourPageComponent = () => {
 
 
   return (
+    <>
+    <Navbar />
     <div>
       <SearchFilters onSearch={handelSearch} />
       <div className="flex h-screen">
@@ -103,7 +107,9 @@ const YourPageComponent = () => {
         <CardWithImageLeft className="" filteredlistings={filteredListings} loading={loading} />
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
-export default YourPageComponent;
+export default  Property;

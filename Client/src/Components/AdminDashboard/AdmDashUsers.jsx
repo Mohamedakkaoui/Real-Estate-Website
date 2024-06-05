@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Card,
   CardHeader,
@@ -11,17 +12,15 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-import { MdOutlineEmail } from "react-icons/md";
-import { MdOutlinePhone } from "react-icons/md";
+import { MdOutlineEmail, MdOutlinePhone } from "react-icons/md";
 import { getAllUsers } from "../../Api/Authapi";
 import { Dot, Trash } from "lucide-react";
 import { DeleteUser } from "../../Api/UserApi";
 
-
-
 const TABLE_HEAD = ["Member", "Contact", "Role", "Status", "joined", "Actions"];
 
 async function fetchUsers() {
+
   try {
     const response = await getAllUsers();
     const users = response.data;
@@ -35,11 +34,13 @@ export function MembersTable() {
   const defaultAvatar =
     "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1716681600&semt=ais_user";
 
+
   const [tableRows, setTableRows] = useState([]);
   const [curentPage, setCurrentPage] = useState(1);
   const [totalPages, SetTotalPages] = useState(1);
   const [Users, SetUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
+
 
   const openModal = () => {
     setShowModal(true);
@@ -105,6 +106,7 @@ export function MembersTable() {
               <div>
                 <Typography variant="h4" color="blue-gray">
                   Members list
+
 
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
@@ -303,4 +305,5 @@ export function MembersTable() {
 
     </>
   );
+
 }

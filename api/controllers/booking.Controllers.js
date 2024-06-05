@@ -122,14 +122,27 @@ exports.cancelBooking = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ error: "Booking not found" });
     }
-
     booking.status = "cancelled";
     await booking.save();
     return res.status(200).json({ message: "Booking cancelled successfully" });
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}
+
+
+// get owner's permission to book a proprety
+exports.OwnerPermissionToBook = async (req, res) => {
+  try {
+    const userId = req.user;
+    const propertyId = req.params.propertyId;
+    const result = await permissionToBook(userId, propertyId);
+    res.status(result.status).json(result.body);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
 
 //MyBookings
 exports.getMyBooking = async (req, res) => {
@@ -197,11 +210,12 @@ exports.DeleteBooking = async (req, res) => {
 //get all bookings
 exports.getBookings = async (req, res) => {
   try {
-    const bookings = await getBookingsDB();
+    const bookings = await getBookingsDB()
     if (!bookings) {
-      return res.status(404).json({ message: "No bookings" });
+      return res.status(404).json({ message: 'No bookings' })
     }
-    return res.status(200).json(bookings);
+    return res.status(200).json(bookings)
+
   } catch (err) {
     return res
       .status(500)

@@ -79,6 +79,7 @@ export default function UploadComp({ onUploadComplete }) {
         let _totalSize = 0;
 
         const response = JSON.parse(e.xhr.responseText);
+
         if (response.Images) {
             setUploadedImages(prevImages => [...prevImages, ...response.Images]);
             onUploadComplete(response.Images);

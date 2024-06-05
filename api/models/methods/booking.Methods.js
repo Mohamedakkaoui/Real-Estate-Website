@@ -142,6 +142,7 @@ exports.MylisitingsBookingsDB = async (id) => {
   }
 }
 
+
 //owner's permission
 
 exports.permissionToBook = async (userId, propertyId, startDate, endDate, totalPrice) => {
@@ -194,4 +195,3 @@ exports.permissionToBook = async (userId, propertyId, startDate, endDate, totalP
     return { status: 500, body: { error: "Internal Server Error" } };
   }
 }
-

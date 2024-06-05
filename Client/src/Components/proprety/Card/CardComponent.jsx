@@ -21,9 +21,7 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     const fetchListings = async () => {
       try {
         const response = await fetchListingsFilter();
-        console.log(response);
         setListings(response.data);
-
       } catch (error) {
         console.error('Error fetching listing:', error);
       }
@@ -39,7 +37,6 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     : [];
   useEffect(() => {
     const newCoordinates = paginatedProperties.map(listing => [listing.longitude, listing.latitude]);
-    console.log('rrrrrr', newCoordinates);
     setCoordinates(newCoordinates);
   }, [filteredlistings, setCoordinates, currentPage]);
 
@@ -111,6 +108,7 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
                 <div key={index} className="w-[48%]">
                   <CardWithImageSlider className=""
                     id={index}
+                    objectID={listing.Object_id}
                     title={listing.title}
                     price={listing.price}
                     images={listing.images}
