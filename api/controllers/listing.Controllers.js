@@ -13,6 +13,7 @@ const {
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
 const { saveListingForUser } = require("../models/methods/user.Methods.js");
+const { GetListingReviewsDB } = require("../models/methods/reviews.Methods.js");
 
 //save listing for user
 exports.saveListingUser = async (req, res) => {
@@ -134,10 +135,10 @@ exports.getListingById = async (req, res) => {
     }
     const fetchId = property._id.toString();
 
-    const reviews = await GetListingReviews(fetchId)
+    const reviews = await GetListingReviewsDB(fetchId)
     return res
       .status(200)
-      .json({ message: "reviews retrieved successfully", property: property, reviews: reviews });
+      .json({ message: "data retrieved successfully", property: property, reviews: reviews });
   } catch (err) {
     return res.status(500).json({
       message: "Unable to retrieve data. Please try again later.",
@@ -145,6 +146,9 @@ exports.getListingById = async (req, res) => {
     });
   }
 };
+
+
+
 
 //Update property
 

@@ -72,7 +72,6 @@ exports.AddnewListingDB = async (data) => {
 //update Listing from DB
 exports.UpdateListingDB = async (id, data) => {
   try {
-    console.log('hna');
     return await ListingsSchema.findOneAndUpdate({ Object_id: id }, data, { new: true })
   }
   catch (error) {
@@ -113,7 +112,6 @@ exports.FindListingBylocationDB = async (City) => {
 exports.propertyIdSwitch = async (id) => {
   try {
     const res = await ListingsSchema.find({ Object_id: id }).select('_id')
-    console.log(res);
     return res[0]
   } catch (err) {
     throw new Error(err)
