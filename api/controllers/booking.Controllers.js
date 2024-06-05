@@ -164,9 +164,7 @@ exports.getBooking = async (req, res) => {
 exports.DeleteBooking = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const deleteBooking = await DeleteBookingDb(id);
-    console.log(deleteBooking);
     return res.status(200).json({
       Message: "Property deleted with success",
       Result: deleteBooking,

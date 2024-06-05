@@ -29,7 +29,6 @@ async function fetchlistings() {
   try {
     const response = await getAllListings();
     const listings = response.data.Listings;
-    console.log(listings);
     return listings;
   } catch (error) {
     console.log("Error fetching user reviews:", error);

@@ -111,7 +111,6 @@ exports.getBookingsDB = async () => {
 exports.DeleteBookingDb = async (id) => {
   try {
     const deletedBooking = await bookingSchema.findByIdAndDelete({_id : id})
-    console.log(deletedBooking)
     return deletedBooking
   } catch (error) {
     throw new Error('Failed to delete booking ' + error)

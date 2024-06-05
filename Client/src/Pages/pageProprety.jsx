@@ -39,7 +39,6 @@ const YourPageComponent = () => {
     async function FetchAllListings() {
       try {
         const listings = await GetAllListings()
-        console.log('nqqqqqqqqqqqqqqqqqqqqqqqqq',listings)
         setFilteredListings(listings.data.Listings)
       } catch (error) {
         console.error("Error fetching listings:", error);

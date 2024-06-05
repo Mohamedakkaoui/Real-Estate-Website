@@ -7,7 +7,6 @@ const ListingsSchema = require('../schemas/listing.Model')
 exports.getListingByIdDB = async (id) => {
   try {
     if (mongoose.Types.ObjectId.isValid(id)) {
-      console.log(id)
       const Listing = await ListingsSchema.findOne({ _id: id })
       return Listing
     }
