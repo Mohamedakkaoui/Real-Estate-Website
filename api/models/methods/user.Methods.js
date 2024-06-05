@@ -67,7 +67,7 @@ exports.GetUserbyIdallInfoDB = async (id) => {
 exports.GetUserbyIdDB = async (id) => {
   try {
     const user = await UserSchema.findById({ _id: id }).select(
-      "FirstName LastName watchList Username Email ProfilePic PhoneNumber -_id"
+      "FirstName LastName watchList Username Email ProfilePic Role PhoneNumber -_id"
     );
     return user;
   } catch (error) {
