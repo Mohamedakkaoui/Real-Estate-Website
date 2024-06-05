@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
         if (token) {
           setIsLoggedIn(true)
           const decoded = jwtDecode(token);
-          console.log(decoded)
           const id = decoded.id;
           const res = await getUserById(id);
           if (res.status === 200) {

@@ -35,7 +35,6 @@ export function Myrevs() {
     async function getTableRows() {
       try {
         const reviews = await fetchUserReviews();
-        console.log(reviews)
         SetMyReviews(reviews);
       } catch (error) {
         console.error("Error fetching user reviews:", error);

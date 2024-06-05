@@ -43,7 +43,6 @@ function ListingsNeraby() {
   const fetchNearbyListings = async (city) => {
     try {
       const res = await GetNerbyListings(city);
-      console.log(res.data)
       SetListings(res.data.Listings);
       SetLoading(false);
     } catch (error) {
@@ -54,7 +53,6 @@ function ListingsNeraby() {
   };
 
   useEffect(() => {
-    console.log(listings)
     findMyCity()
   }, [])
   return { city, listings, loading, error };

@@ -19,7 +19,6 @@ exports.listingFilterOptions = async (req, res) => {
 // queries method
 exports.DBgetFiltredListings = async ( minPrice = 0, maxPrice = 1000000, selectedPropertyTypes = '.*', selectedStatus = '.*', search = '.*') => {
     try {
-        console.log(selectedPropertyTypes);
         const queryResult = await ListingsSchema.find({
             $or: [
                 { title: { $regex: new RegExp(search, 'i') } },
@@ -34,7 +33,6 @@ exports.DBgetFiltredListings = async ( minPrice = 0, maxPrice = 1000000, selecte
         // .skip((page - 1) * limits)
         // .limit(limits);
         
-        console.log('Query Result:', queryResult);
         return queryResult;
     } catch (error) {
         console.error('Error in DBgetFiltredListings:', error);

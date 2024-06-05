@@ -23,6 +23,7 @@ function App() {
             <Route path="/users/auth/verify" element={<CheckEmail />} />
             <Route path="/Admin-Dashboard" element={<AdminDashboard />}></Route>
             <Route path="/User-Dashboard/*" element={<DashboardPage />}></Route>
+            <Route path="/Properties" element={<YourPageComponent />}></Route>
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}

@@ -9,7 +9,6 @@ function Favorites() {
       try {
         const data = await getFavorites();
         setFavorites(data.Listings);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching favorite properties:", error);
       }

@@ -48,7 +48,6 @@ exports.updateUserProfile = async (req, res) => {
       return res.status(404).json({ Message: 'no user found' })
     }
     const updatedUser = await updateProfileDB(id, { FirstName, LastName, Username, Email, PhoneNumber }, { new: true })
-    console.log(updatedUser);
     return res.status(202).json({ Message: 'user updated successfully', User : updatedUser})
   }
   catch (error) {

@@ -28,7 +28,6 @@ const TABLE_HEAD = [
 async function fetchBookings() {
   try {
     const response = await MyListingsBokings();
-    console.log(response);
     const bookings = response.data.MyBookings;
     return bookings;
   } catch (error) {
