@@ -14,7 +14,7 @@ function NavBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-
+  
   const openLoginModal = () => {
     setShowLoginModal(true);
     setShowSignUpModal(false);
