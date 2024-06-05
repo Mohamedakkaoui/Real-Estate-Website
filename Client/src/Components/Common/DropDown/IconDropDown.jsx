@@ -12,6 +12,10 @@ import { Link } from "react-router-dom";
 function IconDropDown() {
   const { UserProfile, handleLogout } = ContextAuth();
 
+
+  const isOnDashboard = location.pathname.startsWith('/User-Dashboard') || location.pathname.startsWith('/Admin-Dashboard');
+  const dashboardLink = UserProfile.Role === 'admin' ? '/Admin-Dashboard' : '/User-Dashboard/main';
+
   return (
     <div className="flex items-center gap-4">
       <Dropdown placement="bottom-start">
@@ -33,10 +37,10 @@ function IconDropDown() {
             <p className="font-bold text-black">{UserProfile.Email}</p>
           </DropdownItem>
           <DropdownItem key="Profile">
-            <Link to="/User-Dashboard/profile">Profile</Link>{" "}
+            <Link to={isOnDashboard ? "/Home" : "/User-Dashboard/profile"}>{isOnDashboard ? "Home" : "Profile"}</Link>{" "}
           </DropdownItem>
           <DropdownItem key="Dashbaord">
-            <Link to="/User-Dashboard/main">Dashboard</Link>{" "}
+            <Link to={dashboardLink}>Dashboard</Link>{" "}
           </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleLogout}>
             Log Out
