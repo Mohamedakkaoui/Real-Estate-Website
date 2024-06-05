@@ -1,6 +1,7 @@
 
-const { CreateReview, GetReviewById, updateReview,DeleteReviewsAdmin, deleteReview, getAllReviews,
+const { CreateReview, GetReviewById, updateReview, DeleteReviewsAdmin, deleteReview, getAllReviews,
   getReviewUserAddTop, getUserReviews, getAlltheReviews, GetMyListingsReviews,
+  GetListingReviews,
 } = require('../controllers/reviews.Controllers')
 const { CreateSiteReview, deleteSiteReview, getAllSiteReviews } = require('../controllers/SiteReviews.Controllers.js')
 const express = require("express");
@@ -13,6 +14,13 @@ const verifyRoles = require("../middlewares/roles.js");
 
 
 
+
+
+
+ReviewRoute.get("/ListingReviews", GetListingReviews);
+
+ReviewRoute.get("/userReviews", isAuthenticated, getUserReviews);
+
 ReviewRoute.post("/add", isAuthenticated, CreateReview);
 ReviewRoute.get('/', isAuthenticated, getAlltheReviews)
 ReviewRoute.get('/userReviews', isAuthenticated, getUserReviews)
@@ -23,7 +31,7 @@ ReviewRoute.post('/add', isAuthenticated, CreateReview)
 
 ReviewRoute.get("/MylistingReviews", isAuthenticated, GetMyListingsReviews);
 ReviewRoute.delete('/delete/:id', isAuthenticated, deleteReview)
-ReviewRoute.delete('/admin/delete/:id',isAuthenticated, DeleteReviewsAdmin )//add role fro admin 
+ReviewRoute.delete('/admin/delete/:id', isAuthenticated, DeleteReviewsAdmin)//add role fro admin 
 ReviewRoute.get("/:userID", isAuthenticated, getReviewUserAddTop);
 
 

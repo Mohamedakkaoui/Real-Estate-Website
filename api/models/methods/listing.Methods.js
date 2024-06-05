@@ -6,10 +6,10 @@ const ListingsSchema = require('../schemas/listing.Model')
 //get property by Id 
 exports.getListingByIdDB = async (id) => {
   try {
-    if (mongoose.Types.ObjectId.isValid(id)) {
-      const Listing = await ListingsSchema.findOne({ _id: id })
-      return Listing
-    }
+
+    const Listing = await ListingsSchema.findOne({ Object_id: id }).select(' -__v').populate('owner', 'FirstName LastName Email PhoneNumber ProfilePic -_id')
+    return Listing
+
   } catch (error) {
     throw new Error('Failed to get property by ID: ' + error)
   }
@@ -40,7 +40,7 @@ exports.deleteListingDB = async (id) => {
 
 exports.DeleteListingByobjectId = async (id) => {
   try {
-    const ListingToDelete = await ListingsSchema.deleteOne({Object_id : id})
+    const ListingToDelete = await ListingsSchema.deleteOne({ Object_id: id })
     return ListingToDelete
   } catch (error) {
     throw new Error('Failed to delete Listing : ' + error)
@@ -51,7 +51,7 @@ exports.DeleteListingByobjectId = async (id) => {
 //get all listed properties
 exports.getAllListingDB = async () => {
   try {
-    const listings = await ListingsSchema.find().populate('owner',  "Username ProfilePic -_id")
+    const listings = await ListingsSchema.find().populate('owner', "Username ProfilePic -_id")
     return listings
   } catch (error) {
     throw new Error('Failed to fetch listing from the database : ' + error)
@@ -72,7 +72,7 @@ exports.AddnewListingDB = async (data) => {
 //update Listing from DB
 exports.UpdateListingDB = async (id, data) => {
   try {
-    return await ListingsSchema.findByIdAndUpdate(id, data, { new: true })
+    return await ListingsSchema.findOneAndUpdate({ Object_id: id }, data, { new: true })
   }
   catch (error) {
     return error
@@ -94,16 +94,26 @@ exports.getMyListingsDB = async (UserId) => {
 
 exports.FindListingByOwnerIdDB = async (id) => {
   try {
-    return await ListingsSchema.find({owner : id})
+    return await ListingsSchema.find({ owner: id })
   } catch (error) {
-    throw new error (error)
+    throw new error(error)
   }
 }
 
 exports.FindListingBylocationDB = async (City) => {
   try {
-    return await ListingsSchema.find({city : City})
+    return await ListingsSchema.find({ city: City })
   } catch (error) {
-    throw new error (error)
+    throw new error(error)
+  }
+}
+
+//change property id from public to private
+exports.propertyIdSwitch = async (id) => {
+  try {
+    const res = await ListingsSchema.find({ Object_id: id }).select('_id')
+    return res[0]
+  } catch (err) {
+    throw new Error(err)
   }
 }

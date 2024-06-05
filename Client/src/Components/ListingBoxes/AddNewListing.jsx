@@ -574,7 +574,7 @@ const AddListing = () => {
                             </div>
                         </div>
                         <div className='flex justify-center mb-2'>
-                            <button type="submit" className="bg-green-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" style={{ backgroundColor: '#ffa920' }}>
+                            <button type="submit" className="bg-green-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded inline-flex items-center" style={{ backgroundColor: '#ffa920' }}>
                                 <MdFileUpload />
                                 <span>Add Listing</span>
                             </button>

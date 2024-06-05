@@ -1,6 +1,6 @@
 import React from "react";
 import { Bath, Proportions, Users, DoorOpen } from "lucide-react";
-function Overiew() {
+function Overiew({ property }) {
   return (
     <div className="bg-white shadow-lg shadow-t-xl rounded-lg overflow-hidden border p-4">
       <div className="flex items-center border-b-2 pb-5 w-[95%] m-auto">
@@ -17,7 +17,7 @@ function Overiew() {
             <div className="text-[#FFA920] text-sm font-semibold ">
               Bathrooms
             </div>
-            <div className=" font-semibold ">2</div>
+            <div className=" font-semibold ">{property.bathrooms}</div>
           </div>
         </div>
         <div className="flex my-3">
@@ -27,7 +27,7 @@ function Overiew() {
 
           <div className="grid  grid-cols-1">
             <div className="text-[#FFA920] text-sm font-semibold ">Size</div>
-            <div className=" font-semibold ">480 m²</div>
+            <div className=" font-semibold ">{property.size} m²</div>
           </div>
         </div>
         <div className="flex my-3">
@@ -39,7 +39,7 @@ function Overiew() {
             <div className="text-[#FFA920] text-sm font-semibold ">
               Accomodation
             </div>
-            <div className=" font-semibold ">8</div>
+            <div className=" font-semibold ">{property.accomodation}</div>
           </div>
         </div>
         <div className="flex my-3 ml-2">
@@ -51,7 +51,7 @@ function Overiew() {
             <div className="text-[#FFA920] text-sm font-semibold ">
               Rooms
             </div>
-            <div className=" font-semibold ">9</div>
+            <div className=" font-semibold ">{property.rooms}</div>
           </div>
         </div>
       </div>

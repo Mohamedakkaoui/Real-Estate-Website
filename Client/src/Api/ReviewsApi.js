@@ -16,6 +16,14 @@ export function GetMYlistingReviews() {
   return api.get('/MylistingReviews')
 }
 
+//new review
+
+export function addNewReview(data) {
+  return api.post('/add', data)
+}
+
+
+
 
 export function DeleteReviewForAdmin(id) {
   return api.delete(`/admin/delete/${id}`)

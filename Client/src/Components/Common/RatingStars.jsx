@@ -6,25 +6,27 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme();
 
-export default function BasicRating() {
-  const [value, setValue] = React.useState(2);
+export default function BasicRating({ onRatingChange }) {
 
+
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    if (onRatingChange) {
+      onRatingChange(newValue);
+    }
+  };
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Box
-        sx={{
-          '& > legend': { mt: 2 },
-        }}
-      >
-        <Rating
-          name="simple-controlled"
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        />
-      </Box>
-    </ThemeProvider>
+    <Box
+      sx={{
+        '& > legend': { mt: 2 },
+      }}
+    >
+      <Rating
+        name="simple-controlled"
+        value={value}
+        onChange={handleChange}
+      />
+    </Box>
   );
 }

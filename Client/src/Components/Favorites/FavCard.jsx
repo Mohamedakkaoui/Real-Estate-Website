@@ -14,7 +14,7 @@ function FavsCard({ property }) {
                                 <div className="border-2 border-white px-2 py-1 bg-black text-white text-xs uppercase">FOR {property.listingType}</div>
                                 <GrFavorite className="text-white" />
                             </div>
-                            <img className='rounded-lg mx-auto' src={property.images[0]? property.images[0].url:defaultimage} alt={property.title} />
+                            <img className='rounded-lg mx-auto' src={property.images[0] ? property.images[0].url : defaultimage} alt={property.title} />
                         </div>
                     </div>
                     <div className="property-info" style={{ padding: "10px 25px", maxWidth: '450px' }}>

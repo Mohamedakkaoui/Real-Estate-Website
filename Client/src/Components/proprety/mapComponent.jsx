@@ -1,17 +1,23 @@
 import React, { useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const MapVertical = () => {
-    const mapContainerRef = useRef(null);
 
-    // Sample coordinates for testing
-    const coordinates = [
+
+const MapVertical = ({ coordinates }) => {
+    const mapContainerRef = useRef(null);
+    console.log('hna', coordinates);
+    const coordss = coordinates
+    console.log('haasa', typeof coordss);
+    const coordinates1 = [
         [-6, 32],  // Example coordinate 1
         [-8, 31],  // Example coordinate 2
         [-7, 30]   // Example coordinate 3
     ];
-
+    console.log(typeof coordinates1);
     useEffect(() => {
+        if (!coordinates || coordinates.length === 0) {
+            return; // Don't initialize the map if coordinates are not available
+        }
         mapboxgl.accessToken = 'pk.eyJ1IjoibGFpc3Nhb3VpOTkiLCJhIjoiY2x2b3pkazNrMDA1aTJrbzBmdXpyZm95eiJ9.pXWnyETUBt12-6flzNYCeQ'; // Replace with your access token
 
         const map = new mapboxgl.Map({
@@ -21,10 +27,11 @@ const MapVertical = () => {
             zoom: 5
         });
 
+
         // Construct geojson from coordinates
         const geojson = {
             type: 'FeatureCollection',
-            features: coordinates.map(coord => ({
+            features: coordinates1.map(coord => ({
                 type: 'Feature',
                 geometry: {
                     type: 'Point',
@@ -57,14 +64,12 @@ const MapVertical = () => {
             );
         });
 
-        return () => map.remove(); // Cleanup the map on unmount
-    }, []); // Removed dependency on coordinates for static testing
+        return () => map.remove();
+    }, [coordinates]);
+
 
     return (
-        
-        <div className="h-full flex justify-center items-center">
-            <div ref={mapContainerRef} style={{ width: '100%', height: '80%' }} />
-        </div>
+        <div ref={mapContainerRef} style={{ width: '100%', height: '80vh' }} />
     );
 };
 

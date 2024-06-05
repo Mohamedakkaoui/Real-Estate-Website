@@ -54,7 +54,7 @@ const Property = () => {
   const handelSearch = async ({
     minPrice,
     maxPrice,
-    selectedPropertyTypes, 
+    selectedPropertyTypes,
     selectedStatus,
     search,
     startDate,
@@ -90,9 +90,9 @@ const Property = () => {
     }
   };
 
-if(!filteredListings) {
-  return (<div>ma5damach</div>)
-}
+  if (!filteredListings) {
+    return (<div>ma5damach</div>)
+  }
 
 
 
@@ -101,14 +101,11 @@ if(!filteredListings) {
     <Navbar />
     <div>
       <SearchFilters onSearch={handelSearch} />
-      <div className="flex flex-col lg:flex-row h-screen">
-        <div className="w-full lg:w-2/5">
-          <MapVertical />
-        </div>
-        <CardWithImageLeft
-          filteredlistings={filteredListings}
-          loading={loading}
-        />
+      <div className="flex h-screen">
+        {/* <div className=" w-[40%]">
+          <MapVertical coordinates={coordinates} />
+        </div> */}
+        <CardWithImageLeft className="h-[80hv]" filteredlistings={filteredListings} loading={loading} />
       </div>
     </div>
     <Footer />

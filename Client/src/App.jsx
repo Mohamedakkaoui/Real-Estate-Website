@@ -12,17 +12,17 @@ import DashboardPage from "./Pages/UserDashboard/DashboardPage";
 import YourPageComponent from "./Pages/pageProprety";
 import Property from './Pages/pageProprety';
 import About from './Pages/About'
-
+import './App.css'
 
 
 function App() {
   return (
-    <>
+    <div className="App">
       <AuthProvider>
         <Router>
           <Routes>
             <Route path="/Home" element={<Home />} />
-            <Route path="/PropertyDetail" element={<PropertyDetail />} />
+            <Route path="/PropertyDetails/:propertyId" element={<PropertyDetail />} />
             <Route path="/users/auth/verify" element={<CheckEmail />} />
             <Route path="/Admin-Dashboard" element={<AdminDashboard />}></Route>
             <Route path="/User-Dashboard/*" element={<DashboardPage />}></Route>
@@ -35,6 +35,7 @@ function App() {
             <Route
               path="/Property"
               element={    <Property />}
+
             ></Route>
             <Route
               path="/users/auth/password-reset"
@@ -44,7 +45,7 @@ function App() {
           </Routes>
         </Router>
       </AuthProvider>
-    </>
+    </div>
   );
 }
 

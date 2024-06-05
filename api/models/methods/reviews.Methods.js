@@ -22,7 +22,23 @@ exports.GetReviewByIdDB = async (id) => {
   }
 };
 
-//update review
+
+//get listing reviews
+exports.GetListingReviewsDB = async (id) => {
+  try {
+    const response = await ReviewSchema.find({ property_id: id }).populate('owner', 'Username ProfilePic -_id').select('-_id -__v -property_id')
+    console.log(response)
+    return response
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+
+
+
+
+//update review 
 exports.UpdateReviewDB = async (id, data) => {
   try {
     const review = await ReviewSchema.findByIdAndUpdate(

@@ -12,15 +12,14 @@ const {
 } = require("../models/methods/listing.Methods");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
-const { saveListingForUser, GetUserbyIdallInfoDB } = require("../models/methods/user.Methods.js");
-const UserSchema = require("../models/schemas/user.Model.js");
+const { saveListingForUser } = require("../models/methods/user.Methods.js");
+const { GetListingReviewsDB } = require("../models/methods/reviews.Methods.js");
 
 //save listing for user
 exports.saveListingUser = async (req, res) => {
   try {
     const userId = req.user.id;
     const listingId = req.params.listingId;
-
     const user = await saveListingForUser(userId, listingId);
     return res.status(201).send(user);
   } catch (error) {
@@ -134,26 +133,32 @@ exports.getListingById = async (req, res) => {
         .status(404)
         .json({ message: "No property was found for the provided ID" });
     }
+    const fetchId = property._id.toString();
+
+    const reviews = await GetListingReviewsDB(fetchId)
     return res
       .status(200)
-      .json({ message: "Property retrieved successfully", property: property });
+      .json({ message: "data retrieved successfully", property: property, reviews: reviews });
   } catch (err) {
     return res.status(500).json({
-      message: "Unable to retrieve property. Please try again later.",
+      message: "Unable to retrieve data. Please try again later.",
       Error: err.message,
     });
   }
 };
 
-//Updaate property
+
+
+
+//Update property
 
 exports.updateListing = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
     if (!id) {
       return res.status(400).json({ message: "No property ID was provided." });
     }
-    const images = await bufferAndUploadMultiple(req);
     const {
       title,
       description,
@@ -162,7 +167,9 @@ exports.updateListing = async (req, res) => {
       price,
       size,
       options,
+      images,
       location,
+      latitude, longitude, rooms, bathrooms, accomodation
     } = req.body;
     const data = {
       title,
@@ -173,7 +180,7 @@ exports.updateListing = async (req, res) => {
       size,
       images,
       options,
-      location,
+      location, latitude, longitude, rooms, bathrooms, accomodation
     };
     if (!data) {
       return res.status(400).json({ message: "No Data was provided" });
@@ -234,7 +241,7 @@ exports.GetcityListings = async (req, res) => {
 exports.getAllFavorite = async (req, res) => {
   const { id } = req.user;
   try {
-    const user = await GetUserbyIdallInfoDB(id) 
+    const user = await GetUserbyIdallInfoDB(id)
     if (!user) {
       return res.status(404).send("User not found");
     }
@@ -242,7 +249,7 @@ exports.getAllFavorite = async (req, res) => {
     if (!listings) {
       return res.status(404).send("listings not found")
     }
-    res.status(200).json({Message : "listings retrieved with success", Listings : listings});
+    res.status(200).json({ Message: "listings retrieved with success", Listings: listings });
   } catch (error) {
     res.status(500).send(error.message)
   }

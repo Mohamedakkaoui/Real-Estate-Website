@@ -2,7 +2,7 @@ import React from "react";
 import YassineImg from "../../../assets/yassine.png";
 import { UserCheck, Phone, Mail, Send } from "lucide-react";
 import BackUser from '../../../assets/UsrBack.png'
-function UserInfo() {
+function UserInfo({ owner }) {
   return (
     <div className="max-w-md rounded-lg overflow-hidden shadow-lg  bg-white top-20 ml-4 shadow-r-xl mb-10 sticky pb-4 shadow-t-xl shadow-l-xl">
       <div className="h-full relative">
@@ -14,15 +14,15 @@ function UserInfo() {
           <div className="flex mb-5 mt-5 items-center">
             <Phone className="text-[#FFA920] size-6 mr-3 mt-1" />
             <p className="font-semibold text-xl text-gray-400">Phone :</p>
-            <p className="font-semibold ml-auto">+(212)6181516193</p>
+            <p className="font-semibold ml-auto">+{owner.PhoneNumber}</p>
           </div>
 
           {/* import te icon for the mail */}
           <div className="flex items-center mb-5 mt-7 border-b-2 pb-7">
-            <Mail className="text-[#FFA920] size-6 mr-3 mt-1"/>
+            <Mail className="text-[#FFA920] size-6 mr-3 mt-1" />
             <p className="font-semibold text-lg text-gray-400">Mail :</p>
             <p className=" ml-auto font-semibold">
-              akkaouimohamed00@gmail.com
+              {owner.Email}
             </p>
           </div>
 
@@ -33,17 +33,17 @@ function UserInfo() {
                 View profile
               </button>
             </div>
-            <Send className="ml-auto mr-2 size-8 text-gray-400"/>
+            <Send className="ml-auto mr-2 size-8 text-gray-400" />
           </div>
         </div>
         <div className="w-[80%] ml-[45px] absolute bottom-[200px] transform z-20 shadow-lg rounded-lg  bg-white text-black">
           <div className="flex">
             <div className=" m-3">
-              <img src={YassineImg} alt="" className="size-[90px] rounded-lg" />
+              <img src={owner.ProfilePic} alt="" className="size-[90px] rounded-lg" />
             </div>
             <div className=" m-2 mt-6">
               <div className="text-[#FFA920] font-semibold text-xl">
-                Yassine Alissaoui
+                {owner.FirstName} {owner.LastName}
               </div>
               <div>
                 <span className="text-[#FFA920]">22 </span>

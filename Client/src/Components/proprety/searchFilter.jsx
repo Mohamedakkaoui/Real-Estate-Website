@@ -4,7 +4,7 @@ import { DatePicker, Space } from 'antd';
 import 'antd/dist/reset.css';
 import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from '@chakra-ui/react';
 import './stylecss.css';
-import { fetchListingsFilter } from '../../Api/apiProprety'; 
+import { fetchListingsFilter } from '../../Api/apiProprety';
 import CardWithImageLeft from './Card/CardComponent';
 
 const { RangePicker } = DatePicker;
@@ -119,7 +119,7 @@ const SearchFilters = ({ onSearch }) => {
             onChange={handleSearchInputChange}
           />
           <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <i className="fas fa-search text-white bg-orange-500 p-2 rounded-full"></i>
+            <i className="fas fa-search text-white bg-[#FFA920] p-2 rounded-full"></i>
           </span>
         </div>
 
@@ -133,7 +133,7 @@ const SearchFilters = ({ onSearch }) => {
               For Sale <i className="fas fa-angle-down ms-6"></i>
             </button>
             {forSale && (
-              <div className="dropdown-menu show absolute mt-4 w-60 h-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="dropdown-menu show absolute mt-2 w-60 h-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="widget-wrapper bdrb1 pb-2 pl-2">
                   <h6 className="list-title font-bold text-[#252836]">Listing Status</h6>
                   <div className="radio-element">
@@ -159,7 +159,7 @@ const SearchFilters = ({ onSearch }) => {
                       />
                       <label className="form-check-label ml-2">Sale</label>
                     </div>
-                    <div className="form-check d-flex align-items-center">
+                    <div className="form-check d-flex align-items-center mb-2">
                       <input
                         className="form-check-input"
                         type="radio"
@@ -183,15 +183,13 @@ const SearchFilters = ({ onSearch }) => {
                     </div>
                   </div>
                 </div>
-                <div className="text-end mt-2 pr-2">
+                {/* <div className="text-end mt-2 pr-2">
                   <button
                     type="button"
                     className="done-btn ud-btn btn-thm drop_btn bg-[#252836] text-gray-100 hover:bg-gray-100 hover:text-[#252836] font-bold w-full py-1 w-14 rounded-lg"
-                    onClick={handleDoneButtonClick}
-                  >
-                    Done
+                    onClick={handleDoneButtonClick}>
                   </button>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
@@ -265,14 +263,7 @@ const SearchFilters = ({ onSearch }) => {
                     </div>
                   </div>
                 </div>
-                <div className="text-end mt-2 pr-2">
-                  <button
-                    type="button"
-                    className="done-btn ud-btn btn-thm drop_btn bg-[#252836] text-gray-100 hover:bg-gray-100 hover:text-[#252836] font-bold w-full py-1 w-14 rounded-lg"
-                  >
-                    Done
-                  </button>
-                </div>
+
               </div>
             )}
           </div>
@@ -337,17 +328,17 @@ const SearchFilters = ({ onSearch }) => {
         </div>
 
         {showDatePicker && (
-        <div className="flex gap-4 items-center">
-          <div className="text-center">
-            <RangePicker
-              onChange={onDateRangeChange}
-              className="open-btn mb15 dropdown-toggle show border border-gray-300 rounded-full shadow-sm w-80 h-9 text-lg flex items-center justify-center"
-              format="YYYY-MM-DD"
-              placeholder={['Check In Date', 'Check Out Date']}
-            />
+          <div className="flex gap-4 items-center">
+            <div className="text-center">
+              <RangePicker
+                onChange={onDateRangeChange}
+                className="open-btn mb15 dropdown-toggle show border border-gray-300 rounded-full shadow-sm w-80 h-9 text-lg flex items-center justify-center"
+                format="YYYY-MM-DD"
+                placeholder={['Check In Date', 'Check Out Date']}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
         <div className="flex items-center gap-2">
           <button

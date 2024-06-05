@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import CardWithImageSlider from "./cards";
 import { fetchListingsFilter } from '../../../Api/apiProprety';
+import MapVertical from "../mapComponent";
+
+
+
 const CardWithImageLeft = ({ filteredlistings, loading }) => {
+  const [coordinates, setCoordinates] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const [listing, setListings] = useState();
@@ -16,7 +21,9 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     const fetchListings = async () => {
       try {
         const response = await fetchListingsFilter();
+        console.log(response);
         setListings(response.data);
+
       } catch (error) {
         console.error('Error fetching listing:', error);
       }
@@ -24,58 +31,67 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     fetchListings();
   }, []);
 
+
   const paginatedProperties = filteredlistings
     ? filteredlistings.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      )
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    )
     : [];
+  useEffect(() => {
+    const newCoordinates = paginatedProperties.map(listing => [listing.latitude, listing.longitude]);
+    console.log('rrrrrr', newCoordinates);
+    setCoordinates(newCoordinates);
+  }, [filteredlistings, setCoordinates, currentPage]);
 
   return (
-    <div className="w-full lg:w-3/5 p-0">
-      <div className="mb-4 flex items-center justify-end">
-        <div className="flex justify-center items-center flex-wrap">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            paginatedProperties.map((listing, index) => (
-              <div key={index} className="m-4 w-96">
-                <CardWithImageSlider
-                  id={index}
-                  title={listing.title}
-                  price={listing.price}
-                  images={listing.images}
-                  listingType={listing.listingType}
-                  location={listing.location}
-                />
-              </div>
-            ))
-          )}
+    <>
+      <div className="w-[60%] p-2">
+        <div className="mb-4 flex justify-start">
+          <div className="flex gap-4 justify-center items-center flex-wrap">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              paginatedProperties.map((listing, index) => (
+                <div key={index} className="w-[48%]">
+                  <CardWithImageSlider className=""
+                    id={index}
+                    title={listing.title}
+                    price={listing.price}
+                    images={listing.images}
+                    listingType={listing.listingType}
+                    location={listing.location}
+                  />
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+        {/* Pagination controls */}
+        <div className="flex justify-center items-end">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`bg-[#252836] hover:bg-[#FFA920] text-white font-bold py-2 px-4 rounded mr-2 ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+          >
+            <IoIosArrowBack />
+          </button>
+          <span>{currentPage}</span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`bg-[#252836] hover:bg-[#FFA920] text-white font-bold py-2 px-4 rounded ml-2 ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+          >
+            <IoIosArrowForward />
+          </button>
         </div>
       </div>
-      {/* Pagination controls */}
-      <div className="flex justify-center items-center">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`bg-[#252836] hover:bg-orange-500 text-white font-bold py-2 px-4 rounded mr-2 ${
-            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
-          <IoIosArrowBack />
-        </button>
-        <span>{currentPage}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`bg-[#252836] hover:bg-orange-500 text-white font-bold py-2 px-4 rounded ml-2 ${
-            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
-          <IoIosArrowForward />
-        </button>
+      <div className=" w-[40%]">
+        <MapVertical coordinates={coordinates} />
       </div>
-    </div>
+    </>
   );
 };
 

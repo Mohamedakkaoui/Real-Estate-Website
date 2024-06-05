@@ -1,7 +1,10 @@
 const { addReviewDB, GetReviewByIdDB, getAllReviewsDB, UpdateReviewDB, deleteReviewDB, ReviewsForUser, MyListingReviewsDB,
-  GetReviewOfUser, getAllReviewsfromDB } = require('../models/methods/reviews.Methods')
+  GetReviewOfUser, getAllReviewsfromDB,
+  GetListingReviewsDB,
+} = require('../models/methods/reviews.Methods')
 const mongoose = require('mongoose')
-const generateCustomUUID = require('../Utils/customUuidGenerator.js')
+const generateCustomUUID = require('../Utils/customUuidGenerator.js');
+const { propertyIdSwitch } = require('../models/methods/listing.Methods.js');
 
 
 //Create Review
@@ -9,6 +12,9 @@ exports.CreateReview = async (req, res) => {
   try {
     const { rating, comment, property_id } = req.body;
     const owner = req.user.id;
+    console.log(req.body);
+    const DBproperty_id = await propertyIdSwitch(property_id)
+    console.log(DBproperty_id)
     if (!owner) {
       return res.status(404).send("No user identified");
     }
@@ -17,7 +23,7 @@ exports.CreateReview = async (req, res) => {
       rating,
       comment,
       owner,
-      property_id,
+      property_id: DBproperty_id._id,
       Object_id,
     });
     if (!Review) {
@@ -236,3 +242,24 @@ exports.getAlltheReviews = async (req, res) => {
     return res.status(404).json({ message: 'Couldnt Get Reviews', Error: error.message })
   }
 }
+
+
+//Get listing reviews 
+exports.GetListingReviews = async (req, res) => {
+  try {
+    const reviews = await GetListingReviewsDB(req);
+    if (!reviews) {
+      return res
+        .status(404)
+        .json({ message: "No reviews found" });
+    }
+    return (reviews);
+  } catch (error) {
+    return res
+      .status(404)
+      .json({
+        message: "Unable to retrieve reviews. Please try again later.",
+        error: error.messaeg,
+      });
+  }
+};
