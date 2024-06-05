@@ -1,6 +1,8 @@
 import axios from "axios";
 
+
 const token = document.cookie.split("=")[1];
+
 
 const api = axios.create({
   baseURL: "http://localhost:3500",
@@ -35,6 +37,16 @@ export const saveFavorite = async (userId, propertyId) => {
     console.error("Error saving favorite:", error);
     throw error;
   }
+};
+export const addNewListing = async (data) => {
+    try {
+        const response = await api.post('/listings/add', data);
+        console.log("proprety from backend",response);
+        return response.data;
+    } catch (error) {
+        console.error('Error adding listing:', error.response ? error.response.data : error.message);
+        throw error;
+    }
 };
 
 export default api;

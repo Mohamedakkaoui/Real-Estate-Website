@@ -96,6 +96,7 @@ exports.MyBookingsDB = async (id) => {
   }
 }
 
+
 //get all bookings
 exports.getBookingsDB = async () => {
     try {
@@ -126,6 +127,7 @@ exports.MylisitingsBookingsDB = async (id) => {
     throw new Error('Failed to get bookings ' + error)
   }
 }
+
 
 //owner's permission
 
@@ -179,4 +181,3 @@ exports.permissionToBook = async (userId, propertyId, startDate, endDate, totalP
         return { status: 500, body: { error: "Internal Server Error" } };
     }
 }
-

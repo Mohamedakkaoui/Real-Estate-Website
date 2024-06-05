@@ -10,6 +10,10 @@ import PropertyDetail from "./Pages/PropertyDetail";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import DashboardPage from "./Pages/UserDashboard/DashboardPage";
 import YourPageComponent from "./Pages/pageProprety";
+import Property from './Pages/pageProprety';
+import About from './Pages/About'
+
+
 
 function App() {
   return (
@@ -23,9 +27,14 @@ function App() {
             <Route path="/Admin-Dashboard" element={<AdminDashboard />}></Route>
             <Route path="/User-Dashboard/*" element={<DashboardPage />}></Route>
             <Route path="/Properties" element={<YourPageComponent />}></Route>
+            <Route path="/About" element={<About />} />
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
+            ></Route>
+            <Route
+              path="/Property"
+              element={    <Property />}
             ></Route>
             <Route
               path="/users/auth/password-reset"
