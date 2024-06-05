@@ -7,8 +7,6 @@
 @tailwind utilities;
 
 
-
-
 /* Testing on phone offline */
 
 
@@ -94,6 +92,7 @@ footer a:hover {
 .icon-box:active {
   background-color: #e76f51; /* Slightly darker orange color */
 }
+
 
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected,

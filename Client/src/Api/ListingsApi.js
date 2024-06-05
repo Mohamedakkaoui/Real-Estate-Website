@@ -32,5 +32,13 @@ export function saveListing(id,) {
 }
 
 
+export function GetMyListings() {
+  return api.get('/MyListings')
+}
+
+export function DeleteListing(id) {
+  return api.delete(`/delete/${id}`)
+}
+
 
 export default api;

@@ -16,6 +16,18 @@ exports.getListingByIdDB = async (id) => {
 };
 
 
+exports.getALLListingByUserIdDB = async (id) => {
+  try {
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      const Listing = await ListingsSchema.find({ _id: id })
+      return Listing
+    }
+  } catch (error) {
+    throw new Error('Failed to get property by ID: ' + error)
+  }
+};
+
+
 //method to delete property
 exports.deleteListingDB = async (id) => {
   try {
@@ -26,11 +38,20 @@ exports.deleteListingDB = async (id) => {
   }
 }
 
+exports.DeleteListingByobjectId = async (id) => {
+  try {
+    const ListingToDelete = await ListingsSchema.deleteOne({ Object_id: id })
+    return ListingToDelete
+  } catch (error) {
+    throw new Error('Failed to delete Listing : ' + error)
+  }
+}
+
 
 //get all listed properties
 exports.getAllListingDB = async () => {
   try {
-    const listings = await ListingsSchema.find().select(' title description images price -_id')
+    const listings = await ListingsSchema.find().populate('owner', "Username ProfilePic -_id")
     return listings
   } catch (error) {
     throw new Error('Failed to fetch listing from the database : ' + error)
@@ -80,9 +101,9 @@ exports.FindListingByOwnerIdDB = async (id) => {
   }
 }
 
-exports.FindListingBylocationDB = async (city) => {
+exports.FindListingBylocationDB = async (City) => {
   try {
-    return await ListingsSchema.find({ location: city })
+    return await ListingsSchema.find({ city: City })
   } catch (error) {
     throw new error(error)
   }

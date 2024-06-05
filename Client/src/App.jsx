@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Home from "./Pages/Home";
 import CheckEmail from "./Pages/CheckEmail";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -10,6 +10,7 @@ import PropertyDetail from "./Pages/PropertyDetail";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import DashboardPage from "./Pages/UserDashboard/DashboardPage";
 import './App.css'
+import YourPageComponent from './Pages/pageProprety';
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
+            ></Route>
+            <Route
+              path="/search"
+              element={<YourPageComponent />}
             ></Route>
             <Route
               path="/users/auth/password-reset"

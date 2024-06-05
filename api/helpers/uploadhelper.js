@@ -3,10 +3,8 @@ const { bufferAndUpload, bufferAndUploadMultiple } = require("./datauri");
 
 exports.uploadSingle = async (req, res) => {
     try {
-        console.log(req);
         const { profilePic } = req.body
         const uploadedImage = await bufferAndUpload(profilePic)
-        console.log(uploadedImage);
         const { id } = req.user
         if (!id) {
             return res.status(404).json({ message: 'no user identified!' })
@@ -15,7 +13,6 @@ exports.uploadSingle = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'no user found' });
         }
-        console.log(user);
         const updatedUser = await updateProfileDB(id, { ProfilePic: uploadedImage.url }, { new: true })
         return res.status(200).json('successful picture update')
     }

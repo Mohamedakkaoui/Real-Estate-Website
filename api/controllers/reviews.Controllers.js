@@ -111,7 +111,7 @@ exports.deleteReview = async (req, res) => {
     if (deletedReview.deletedCount == 0) {
       return res.status(404).send("Review not found");
     }
-    return res.status(200).json({ message: "Review deleted successfully" });
+    return res.status(200).json({ Message: "Review deleted successfully" });
   } catch (error) {
     return res
       .status(500)
@@ -122,6 +122,31 @@ exports.deleteReview = async (req, res) => {
   }
 };
 
+
+// delete any review fro admin 
+exports.DeleteReviewsAdmin = async (req, res) => {
+  try {
+    const reviewId = req.params.id;
+    if (!reviewId) {
+      return res.status(400).send("Review ID is required");
+    }
+    const deletedReview = await deleteReviewDB(reviewId);
+    if (!deletedReview) {
+      res.status(400).json({ message: "unable to Delete" });
+    }
+    if (deletedReview.deletedCount == 0) {
+      return res.status(404).send("Review not found");
+    }
+    return res.status(200).json({ Message: "Review deleted successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({
+        error: "Error deleting review. Please try again later.",
+        details: error.message,
+      });
+  }
+};
 //get all reviews
 exports.getAllReviews = async (req, res) => {
   try {
@@ -192,9 +217,9 @@ exports.GetMyListingsReviews = async (req, res) => {
     const { id } = req.user;
     const reviews = await MyListingReviewsDB(id);
     if (!reviews) {
-      return res.status(404).json({ Message: "No reviews were found" });
+      return res.status(404).json({ Message: "No reviews were found" , Reviews : []});
     } else if (reviews.length == 0) {
-      return res.status(200).json({ Message: "No reviews were found" });
+      return res.status(200).json({ Message: "No reviews were found" , Reviews : []});
     }
     return res
       .status(200)

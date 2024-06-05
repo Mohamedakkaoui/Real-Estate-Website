@@ -1,5 +1,5 @@
 //importing necessary methods and functions
-const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB, GetMyProfile } = require('../models/methods/user.Methods.js')
+const { DeleteUserDB, getAllUsersDB,DeleteUserByOwnerIdDB, GetUserbyIdDB, updateProfileDB, GetMyProfile, GetUserbyIdallInfoDB  } = require('../models/methods/user.Methods.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
 const jwt = require('jsonwebtoken');
 const { bufferAndUpload } = require('../helpers/datauri.js');
@@ -36,22 +36,23 @@ exports.updateUserProfile = async (req, res) => {
   try {
     const { id } = req.user
     if (!id) {
-      return res.status(404).json({ message: 'No user identified!' })
+      return res.status(404).json({ Message: 'No user identified!' })
     }
     const data = req.body
     if (!data) {
-      return res.status(404).json({ message: 'No data provided' })
+      return res.status(404).json({ Message: 'No data provided' })
     }
     var { FirstName, LastName, Username, Email, PhoneNumber } = data
     const user = await GetUserbyIdDB(id)
     if (!user) {
-      return res.status(404).json({ message: 'no user found' })
+      return res.status(404).json({ Message: 'no user found' })
     }
     const updatedUser = await updateProfileDB(id, { FirstName, LastName, Username, Email, PhoneNumber }, { new: true })
-    return res.status(202).json({ message: 'user updated successfully' })
+    console.log(updatedUser);
+    return res.status(202).json({ Message: 'user updated successfully', User : updatedUser})
   }
   catch (error) {
-    return res.status(500).json({ message: "User couldnt be updated", Error: error.message })
+    return res.status(500).json({ Message: "User couldnt be updated", Error: error.message })
   }
 }
 
@@ -61,30 +62,31 @@ exports.updateUserPassword = async (req, res) => {
   try {
     const { id } = req.user
     if (!id) {
-      return res.status(400).json({ message: 'no user identified!' })
+      return res.status(400).json({ Message: 'no user identified!' })
     }
-    const { newPassword } = req.body
+    const { Password } = req.body
+    const newPassword = Password
     if (!newPassword || newPassword === '') {
-      return res.status(400).json({ message: 'no password sent!' })
+      return res.status(400).json({ Message: 'no password sent!' })
     }
-    const user = await GetUserbyIdDB(id)
-    const matchedPassword = await VerifyPassword(newPassword, user.Password);
+    const user = await GetUserbyIdallInfoDB (id)
+    const matchedPassword = await VerifyPassword( newPassword, user.Password)
     if (matchedPassword) {
-      return res.status(400).json({ message: 'you used the same old password, please provide a new password!' })
+      return res.status(400).json({ Message: 'you used the same old password, please provide a new password!' })
     }
     else {
-      let Password = await HashPassword(newPassword)
-      await updateProfileDB(id, { Password }, { new: true })
-      return res.status(202).json({ message: 'password modified successfuly!' })
+      let Password = await HashPassword( newPassword)
+      await updateProfileDB(id,  {Password }, { new: true })
+      return res.status(202).json({ Message: 'password modified successfuly!' })
     }
   }
   catch (error) {
-    return res.status(500).json({ message: "Internal server error", Error: error.message })
+    return res.status(500).json({ Message: "Internal server error", Error: error.message })
   }
 }
 
 //Delete user
-exports.DeleteUser = async (req, res) => {
+exports.DeleteCurrentUser = async (req, res) => {
   try {
     const { id } = req.user
     const deleteUser = await DeleteUserDB(id)
@@ -94,6 +96,20 @@ exports.DeleteUser = async (req, res) => {
     return res.status(202).send('deleted Succesfully')
   } catch (error) {
     return res.status(500).json({ message: "Error While deleting User", Error: error.message })
+  }
+}
+
+//deleteUser by OwnerID
+exports.DeleteUser = async(req, res) => {
+  try {
+    const { id } =  req.params
+    const deleteUser = await DeleteUserByOwnerIdDB(id)
+    if (deleteUser.deletedCount == 0) {
+      return res.status(404).send('User Not Found')
+    }
+    return res.status(200).json({Message : "User deleted Successfuly", deleteUser})
+  } catch (error) {
+    return res.status(500).json({ Message: "Error While deleting User", Error: error.message })
   }
 }
 
@@ -136,6 +152,3 @@ exports.getMyProfile = async (req, res) => {
     return res.status(500).json({ Message: "Internal server error", Error: error.message })
   }
 }
-
-
-

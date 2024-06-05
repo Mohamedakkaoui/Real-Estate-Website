@@ -1,7 +1,7 @@
 const {body, validationResult} = require('express-validator')
 
 
-const categories = ["Land", "House", "Apartment", "Office", "Villa"]
+const categories = ["Land", "House", "Apartement", "Office", "Villa"]
 exports.validateListing = [
 
     // Validate title

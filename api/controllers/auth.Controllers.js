@@ -72,7 +72,6 @@ exports.getRegister = async (req, res) => {
 // login user
 exports.getLogin = async (req, res) => {
   try {
-    console.log('ok');
     const { Email, Password } = req.body;
     const userDB = await UserSchema.findOne({ Email });
     if (!userDB) {
@@ -140,7 +139,6 @@ exports.ResetPassword = async (req, res) => {
       return res.status(404).json({ Message: "token ivalid" });
     }
     const { Password, ConfirmPassword } = req.body;
-    console.log(Password, ConfirmPassword);
     if (Password !== ConfirmPassword) {
       return res.status(400).json({ Message: "Password is not Matched" });
     }

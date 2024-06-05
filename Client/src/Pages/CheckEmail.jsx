@@ -19,7 +19,6 @@ const EmailVerificationPage = () => {
     const verifyEmail = async () => {
       try {
         const response = await VerifyEmail(email, token);
-        console.log(response.status === 200);
         if (response.status === 200) {
           setVerificationStatus("success");
           setVerificationMessage(response.data.Message)

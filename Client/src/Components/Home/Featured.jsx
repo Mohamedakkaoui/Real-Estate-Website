@@ -20,7 +20,7 @@ function Featured() {
       <div className="flex flex-wrap gap-4 mt-8">
         {!loading ? listings.slice(0, 3).map((featured) => (
           <SingleProductCard key={featured._id} {...featured} />
-        )) : <div className="flex items-center justify-center h-screen mx-auto"><Loading  /></div>}
+        )) : <div className="flex items-center justify-center mx-auto"><Loading  /></div>}
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ function NavBar() {
               </a>
               {/* <!-- Nav Links --> */}
               <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-9">
-                <HoverMenuWithTransition />
+                {/* <HoverMenuWithTransition /> */}
                 <li className="mt-2">
                   <Link to="/Home" className="hover:text-[#FFA920]">
                     Home
@@ -189,9 +189,9 @@ function NavBar() {
                   )}
                   {isLoggedIn && <IconDropDown />}
                   <div className="flex items-center ml-4 bg-[#FFA920] rounded-md p-1">
-                    <Button
+                    <div
                       style={{ textTransform: "none" }}
-                      className="flex items-center w-40 px-6"
+                      className="flex items-center w-40 py-3 px-2"
                     >
                       <div className="flex items-center">
                         <svg
@@ -211,10 +211,10 @@ function NavBar() {
                           />
                         </svg>
                         <Link to="/User-Dashboard/new-property" className="text-white font-semibold border-l  pl-2">
-                          Sell Property
+                          Add Property
                         </Link>
                       </div>
-                    </Button>
+                    </div>
                   </div>
                 </div>
               </div>

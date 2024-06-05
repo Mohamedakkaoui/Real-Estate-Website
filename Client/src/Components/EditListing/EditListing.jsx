@@ -103,7 +103,7 @@ function EditListing() {
         console.log(property);
     };
     if (!property) {
-        return <div>Loading...</div>; // Render a loading state if the property is not yet set
+        return <div>Loading...</div>
     }
     return (
         <>

@@ -1,17 +1,7 @@
 import axios from "axios";
 
-
-const token = document.cookie.split('=')[1];
-
-
-
 const api = axios.create({
     baseURL: "http://localhost:3500/users",
-    headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token}`,
-
-    },
     withCredentials: true,
 
 });
@@ -21,3 +11,18 @@ export function UploadUserPic(body) {
     return api.post("pic", body);
 }
 
+//update the user info
+export function UpdateUser (body) {
+    return api.put("/profile", body)
+}
+
+//Update password
+export function UpdatePassword (body) {
+    return api.put("/profile/change-password", body)
+}
+
+export function DeleteUser (id) {
+    return api.delete(`/deletUser/${id}`)
+}
+
+export default api;

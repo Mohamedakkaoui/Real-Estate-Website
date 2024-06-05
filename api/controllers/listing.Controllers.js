@@ -7,11 +7,12 @@ const {
   getMyListingsDB,
   FindListingBylocationDB,
   GetListingsBycategeryDB,
+  DeleteListingByobjectId,
+  getALLListingByUserIdDB,
 } = require("../models/methods/listing.Methods");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
 const { saveListingForUser } = require("../models/methods/user.Methods.js");
-const { GetListingReviews } = require("./reviews.Controllers.js");
 
 //save listing for user
 exports.saveListingUser = async (req, res) => {
@@ -34,7 +35,7 @@ exports.getListings = async (req, res) => {
     }
     return res
       .status(200)
-      .json(listings);
+      .json({ Message: "Listings retrved successfully", Listings: listings });
   } catch (error) {
     return res
       .status(500)
@@ -93,6 +94,25 @@ exports.deleteListing = async (req, res) => {
     }
     return res.status(200).json("Listing has been deleted!");
   } catch (err) {
+    return res
+      .status(404)
+      .json({ message: "Unable to Delete property", Error: err.message });
+  }
+};
+
+//Delete listing by object ID
+exports.DeleteListingByObject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const Listingtodelete = await DeleteListingByobjectId(id);
+    if (Listingtodelete.deletedCount == 0) {
+      return res.status(404).send("Property Not Found");
+    }
+    return res.status(200).json({
+      Message: "Property deleted with success",
+      Result: Listingtodelete,
+    });
+  } catch (error) {
     return res
       .status(404)
       .json({ message: "Unable to Delete property", Error: err.message });
@@ -180,11 +200,14 @@ exports.getMyListings = async (req, res) => {
   try {
     const userID = req.user.id;
     const listings = await getMyListingsDB(userID);
-    console.log(listings);
     if (listings.length === 0) {
-      return res.status(404).json({ Message: "Listings not found" });
+      return res
+        .status(200)
+        .json({ Message: "Listings not found", Listings: [] });
     }
-    return res.status(200).json(listings);
+    return res
+      .status(200)
+      .json({ Message: "Listings retrieved succefully", Listings: listings });
   } catch (error) {
     return res
       .status(500)
@@ -195,8 +218,8 @@ exports.getMyListings = async (req, res) => {
 //get Listing in your city
 exports.GetcityListings = async (req, res) => {
   try {
-    const { city } = req.params;
-    const listings = await FindListingBylocationDB(city);
+    const { city } = req.params; //city comes
+    const listings = await FindListingBylocationDB(city); //issue is here
     if (!listings) {
       return res.status(404).json({ Message: "No listings nearby were Found" });
     }
@@ -209,3 +232,21 @@ exports.GetcityListings = async (req, res) => {
       .json({ Message: "Failed to get Listings", Error: error.message });
   }
 };
+
+//get my fav
+exports.getAllFavorite = async (req, res) => {
+  const { id } = req.user;
+  try {
+    const user = await GetUserbyIdallInfoDB(id)
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    const listings = await getALLListingByUserIdDB(user.watchList.toString())
+    if (!listings) {
+      return res.status(404).send("listings not found")
+    }
+    res.status(200).json({ Message: "listings retrieved with success", Listings: listings });
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+}

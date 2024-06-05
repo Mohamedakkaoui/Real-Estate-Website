@@ -9,7 +9,6 @@ const api = axios.create({
 });
 
 export function getAllReviews() {
-  console.log("entered");
   return api.get("/");
 }
 
@@ -25,5 +24,13 @@ export function addNewReview(data) {
 
 
 
+
+export function DeleteReviewForAdmin(id) {
+  return api.delete(`/admin/delete/${id}`)
+}
+
+export function DeleteReview (id) {
+  return api.delete(`/delete/${id}`)
+}
 
 export default api;
