@@ -133,7 +133,7 @@ export function ListingsTable() {
             </tr>
           </thead>
           <tbody>
-            {tableRows.map(
+            {tableRows.reverse().map(
               (
                 {
                   price,
@@ -157,7 +157,7 @@ export function ListingsTable() {
                     <td className={classes} style={{ width: "30%" }}>
                       <div className="flex items-center gap-4">
                         <Avatar
-                          src={images.length == 0 ? images[0] : defaultImage}
+                          src={(images.length > 0 && images[0].url )? images[0].url : defaultImage}
                           alt={title}
                           style={{ width: "150px", height: "120px" }}
                         />
@@ -226,7 +226,7 @@ export function ListingsTable() {
                         color="blue-gray"
                         className="font-normal text-center"
                       >
-                        {createdAt || "date"}
+                        {new Date(createdAt).toLocaleDateString() || "date"}
                       </Typography>
                     </td>
                     <td className={classes}>

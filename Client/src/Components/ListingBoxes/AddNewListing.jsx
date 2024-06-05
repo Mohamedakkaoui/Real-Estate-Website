@@ -282,7 +282,9 @@ const AddListing = () => {
             images: uploadedImages,
             rooms:parseFloat(rooms),
             bathrooms:parseFloat(bathrooms),
-            accomodation:parseFloat(accomodation)
+            accomodation:parseFloat(accomodation),
+            latitude : coordinates.lat,
+            longitude : coordinates.lng
         };
 
         // Log the data to be sent

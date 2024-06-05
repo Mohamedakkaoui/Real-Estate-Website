@@ -1,22 +1,10 @@
-import {isAuth} from './IsAuth'
-import { Navigate , Outlet } from 'react-router-dom'
+import { ContextAuth } from '../Context/AuthContext'
+import Unauthorized from './Unauthorized'
 
-const PrivateRoute = () => {
-  
+const PrivateRoute = ({element : Component}) => {
+  const {  isLoggedIn} = ContextAuth()
     return (
-      isAuth() 
-          ? <Outlet /> 
-          :<> 
-              <Navigate to='/Register'/>
-          </> 
+      isLoggedIn ? <Component/> : <Unauthorized/>
     )
   }
-  export default PrivateRoute
-
-
-export const UserRoute = () => {
-  
-  return (
-    isAuth() ?  <> <Navigate to='/Home' />  </> : <Outlet />
-  )
-}
+export default PrivateRoute

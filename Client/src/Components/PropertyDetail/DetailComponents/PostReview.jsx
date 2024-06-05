@@ -6,8 +6,7 @@ import { addNewReview } from "../../../Api/ReviewsApi";
 
 
 function PostReview() {
-  const { propertyId } = useParams();
-
+  const { propertyId } = useParams()
   const [ratingValue, setRatingValue] = useState(0);
 
   const handleRatingChange = (newRating) => {

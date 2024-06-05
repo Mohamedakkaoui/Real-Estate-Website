@@ -1,15 +1,15 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
-import StarRating from './StarsRating';
+import StarRating from "./StarsRating";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 function Reviews({ reviews }) {
   const [displayedReviews, setDisplayedReviews] = useState(3);
 
   const handleShowMore = () => {
     // Increase the number of displayed reviews by 3
-    setDisplayedReviews(prev => prev + 3);
+    setDisplayedReviews((prev) => prev + 3);
   };
 
   return (
@@ -17,7 +17,7 @@ function Reviews({ reviews }) {
       <div className="flex items-center border-b-2 pb-5 w-[95%] m-auto">
         <FaStar className="text-[#FFA920] mr-2 size-5" />
         <span className="text-black text-xl font-semibold">
-          Reviews{' '}
+          Reviews{" "}
           <span className="text-gray-500 font-semibold text-sm">
             ({reviews.length} reviews)
           </span>
@@ -27,7 +27,11 @@ function Reviews({ reviews }) {
         {reviews.slice(0, displayedReviews).map((review, index) => (
           <article key={index} className="mt-5 flex pb-5 border-b-2">
             <div className="w-[15%]  mr-2">
-              <img className="rounded-[100%] w-full " src={review.owner.ProfilePic} alt=""></img>
+              <img
+                className="rounded-[100%] w-full "
+                src={review.owner.ProfilePic}
+                alt=""
+              ></img>
             </div>
             <div className=" w-[100%]">
               <div className="flex justify-between pt-2 mb-2">
@@ -35,7 +39,8 @@ function Reviews({ reviews }) {
                   @{review.owner.Username}
                 </h4>
                 <div className="flex ">
-                  <StarRating rating={review.rating} /> {/* Replace the SVG stars with the StarRating component */}
+                  <StarRating rating={review.rating} />{" "}
+                  {/* Replace the SVG stars with the StarRating component */}
                   <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
                     {review.rating}
                   </p>
@@ -52,10 +57,10 @@ function Reviews({ reviews }) {
               </p>
               <footer className="flex justify-end ">
                 <p className=" mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  {new Date(review.date).toLocaleDateString()}                      </p>
+                  {new Date(review.date).toLocaleDateString()}{" "}
+                </p>
               </footer>
             </div>
-
           </article>
         ))}
         {displayedReviews < reviews.length && (
@@ -65,11 +70,12 @@ function Reviews({ reviews }) {
               className="w-max mt-3 bg-primary hover:bg-[#FFF1DA] text-white hover:text-primary font-bold py-2 px-4 rounded"
             >
               Show More
-            </button></div>
+            </button>
+          </div>
         )}
       </div>
     </div>
   );
 }
 
-export default Reviews
+export default Reviews;

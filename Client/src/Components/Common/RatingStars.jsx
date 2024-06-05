@@ -4,7 +4,7 @@ import Rating from '@mui/material/Rating';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-const theme = createTheme();
+const theme = createTheme({});
 
 export default function BasicRating({ onRatingChange }) {
 
