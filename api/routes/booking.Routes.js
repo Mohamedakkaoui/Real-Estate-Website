@@ -11,10 +11,10 @@ const { getBookingById, registerNewBooking, updateBooking, cancelBooking,OwnerPe
 
 
 //defining routes
+bookingRoute.post('/new', isAuthenticated, registerNewBooking)
 bookingRoute.get("/myBookings", isAuthenticated, getMyBooking)
 bookingRoute.get('/', isAuthenticated, getBookings)
 bookingRoute.get('/:id', isAuthenticated, getBookingById)
-bookingRoute.post('/new', isAuthenticated, registerNewBooking)
 bookingRoute.patch('/:id', isAuthenticated, updateBooking)
 bookingRoute.patch('/:id', isAuthenticated, cancelBooking)
 bookingRoute.delete('/delete/:id', DeleteBooking)

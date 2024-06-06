@@ -167,9 +167,7 @@ exports.logout = async (req, res) => {
     }
     try {
       const decodedToken = await verifyToken(token);
-
       await UserSchema.findByIdAndUpdate(decodedToken.id, { isActive: false });
-
       return res
         .status(200)
         .json({ Success: true, Message: "Logged out successfully" });

@@ -7,7 +7,7 @@ const ListingsSchema = require('../schemas/listing.Model')
 exports.getListingByIdDB = async (id) => {
   try {
 
-    const Listing = await ListingsSchema.findOne({ Object_id: id }).select(' -__v').populate('owner', 'FirstName LastName Email PhoneNumber ProfilePic -_id')
+    const Listing = await ListingsSchema.findOne({ Object_id: id }).select(' -__v').populate('owner', 'FirstName LastName Email PhoneNumber ProfilePic _id')
     return Listing
 
   } catch (error) {

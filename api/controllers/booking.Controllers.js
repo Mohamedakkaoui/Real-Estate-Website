@@ -10,36 +10,38 @@ const {
   DeleteBookingDb,
   MylisitingsBookingsDB,permissionToBook 
 } = require("../models/methods/booking.Methods");
+const { getListingByIdDB, getALLListingByUserIdDB } = require("../models/methods/listing.Methods");
+
 const { getListingById } = require("./listing.Controllers");
 
 
 //new booking
 exports.registerNewBooking = async (req, res) => {
   try {
-    const listing = getListingById();
-    const listingId = listing._id;
     const user = req.user.id;
-    const { startDate, endDate } = req.body;
-    const isAvailable = await checkListingAvailability(
-      listingId,
-      startDate,
-      endDate
-    );
-    if (!isAvailable) {
-      return res
-        .status(200)
-        .json({ Message: "Listing is not available for the specified dates." });
-    }
-    const totalPrice = await priceCalc(startDate, endDate, listing.price);
-    const owner = listing.owner;
+    const { startDate, endDate, ID,   totalPrice} = req.body;
+    const Listing = await getALLListingByUserIdDB(ID)
+    // const isAvailable = await checkListingAvailability(
+    //   ID,
+    //   startDate,
+    //   endDate
+    // );
+    // if (!isAvailable) {
+    //   return res
+    //     .status(200)
+    //     .json({ Message: "Listing is not available for the specified dates." });
+    // }
+    console.log(Listing[0].owner.toString())
+    const owner = Listing[0].owner;
     const data = {
       user,
-      listing: listingId,
+      listing: ID,
       startDate,
       endDate,
       totalPrice,
       owner,
     };
+    console.log(data)
     const newBooking = await registerBookingDB(data);
     return res
       .status(201)

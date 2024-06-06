@@ -35,6 +35,8 @@ server.options("/reviews/MylistingReviews",cors())
 server.options("/listings", cors())
 server.options('/booking', cors())
 server.options('/booking/MylistingsBooking', cors())
+server.options('/booking/new', cors())
+
 // Helmet middleware for securing HTTP headers
 // server.use(helmet());
 
