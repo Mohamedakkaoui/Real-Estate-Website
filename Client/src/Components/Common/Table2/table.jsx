@@ -92,6 +92,12 @@ export default function Table2({ Listings }) {
           <span className="ml-2">{Username}</span>
         </div>
       );
+    } else if (columnKey === "createdAt") {
+      <span className="text-start">
+          <span className="text-lg font-semibold">
+            {new Date(cellValue).toLocaleDateString()}
+          </span>
+        </span>
     }
     return cellValue;
   };
@@ -175,5 +181,5 @@ export default function Table2({ Listings }) {
         className="mt-3"
       />
     </div>
-  );
+  )
 }

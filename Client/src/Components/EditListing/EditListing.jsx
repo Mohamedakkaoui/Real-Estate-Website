@@ -15,8 +15,11 @@ import { fetchSingleListing, updateListing } from "../../Api/ListingsApi";
 import UpdateMap from "../MapComp/LocationUpdate";
 import { Checkbox } from "@material-tailwind/react";
 import { Bath, Proportions, Users, DoorOpen } from "lucide-react";
+import MessageBox from "../MessageBox";
 
 function EditListing() {
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
   const { propertyId } = useParams()
   const [property, setProperty] = useState(null)
   const [images, setImages] = useState([])
@@ -42,7 +45,6 @@ function EditListing() {
 
   const [coordinates, setCoordinates] = useState({ lng: "", lat: "" });
   const [newCoordinates, setNewCoordinates] = useState({ lng: "", lat: "" });
-
   const [uploadedImages, setUploadedImages] = useState([]);
 
   const handleUploadComplete = (newimages) => {
@@ -61,7 +63,15 @@ function EditListing() {
     e.preventDefault();
     try {
       const response = await updateListing(propertyId, property);
-      console.log("Listing updated successfully:", response.data);
+      if (response) {
+        setShowMessage(true);
+        setMessage('Property edited successfully!');
+        setTimeout(() => {
+          setShowMessage(false);
+          setMessage('');
+        }, 2000);
+      }
+
     } catch (error) {
       console.error("Error updating listing:", error);
     }
@@ -517,6 +527,7 @@ function EditListing() {
           </form>
         </div>
       </div>
+      {showMessage && <MessageBox message={message} />}
     </>
   );
 }

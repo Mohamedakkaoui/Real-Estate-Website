@@ -436,7 +436,7 @@ export const reviews = [
     id: 2,
     name: "Jane Smith",
     review: "I had a wonderful experience with this agency.",
-    rating: 4,
+    rating: 2,
   },
   {
     id: 3,
@@ -444,7 +444,7 @@ export const reviews = [
     review: "Very professional and helpful.",
     rating: 5,
   },
-  // Add more reviews as needed
+ 
 ];
 
 export const teamMembers = [

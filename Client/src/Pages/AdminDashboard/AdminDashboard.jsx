@@ -4,7 +4,7 @@ import AdminHeader from '../../Components/AdminDashboard/AdminHeader';
 function AdminDashboard() {
 
     return (
-        <div className=''>
+        <div >
             <AdminHeader />
         </div >
     )

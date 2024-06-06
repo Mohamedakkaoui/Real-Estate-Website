@@ -237,6 +237,7 @@ import { MdOutlineBathroom } from "react-icons/md";
 import { IoPeopleOutline } from "react-icons/io5";
 import { Checkbox } from "@material-tailwind/react";
 import { z } from "zod";
+import MessageBox from '../MessageBox';
 
 const AddListing = () => {
     const [listingTitle, setListingTitle] = useState('');
@@ -255,6 +256,13 @@ const AddListing = () => {
     const [accomodation, setAccomodation] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [errors, setErrors] = useState({});
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+
+
+
+
+
 
     const listingSchema = z.object({
         title: z.string().min(3, 'Title must be at least 3 characters long'),
@@ -282,21 +290,21 @@ const AddListing = () => {
             images: uploadedImages,
             rooms: parseFloat(rooms),
             bathrooms: parseFloat(bathrooms),
-            accomodation: parseFloat(accomodation)
+            accomodation: parseFloat(accomodation),
+            latitude: coordinates.lat,
+            longitude: coordinates.lng
         };
 
-        // Log the data to be sent
-        console.log('Data to be sent:', data);
-
         try {
-            // listingSchema.parse(data);
-            // setErrors({});
-
-            // Log the data to be sent
-            console.log('this is the Data to be sent:', data);
-
             const result = await addNewListing(data);
-            console.log('New property added:', result);
+            if (result) {
+                setShowMessage(true);
+                setMessage('Property added successfully!');
+                setTimeout(() => {
+                    setShowMessage(false);
+                    setMessage('');
+                }, 2000);
+            }
 
             // Reset form fields after successful submission
             setListingTitle('');
@@ -421,6 +429,7 @@ const AddListing = () => {
                                             type="text"
                                             placeholder="Enter address"
                                             style={{ borderRadius: "10px" }}
+                                            value={location}
                                             onChange={(e) => setLocation(e.target.value)}
                                         />
                                         {errors.size && <span className="text-red-500">{errors.location}</span>}
@@ -582,6 +591,8 @@ const AddListing = () => {
                     </form>
                 </div>
             </div>
+            {showMessage && <MessageBox message={message} />}
+
         </>
     );
 };

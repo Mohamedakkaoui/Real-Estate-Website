@@ -109,7 +109,7 @@ export function TransactionsTable() {
                         <td className={classes}>
                           <div className="flex items-center gap-4">
                             <Avatar
-                              src={review.property_id.images[0]}
+                              src={review.property_id.images[0].url}
                               alt=""
                               size="md"
                               style={{ width: "150px", height: "120px" }}

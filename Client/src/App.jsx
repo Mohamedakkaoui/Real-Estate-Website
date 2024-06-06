@@ -12,6 +12,7 @@ import DashboardPage from "./Pages/UserDashboard/DashboardPage";
 import Property from './Pages/pageProprety';
 import About from './Pages/About'
 import './App.css'
+import PrivateRoute from "./Utils/UserRoutes";
 
 
 function App() {
@@ -23,12 +24,12 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/PropertyDetails/:propertyId" element={<PropertyDetail />} />
             <Route path="/users/auth/verify" element={<CheckEmail />} />
-            <Route path="/Admin-Dashboard" element={<AdminDashboard />}></Route>
-            <Route path="/User-Dashboard/*" element={<DashboardPage />}></Route>
-            <Route path="/About" element={<About />} />
+            <Route path="/Admin-Dashboard" element={<PrivateRoute element={AdminDashboard} />}></Route>
+            <Route path="/User-Dashboard/*" element={<PrivateRoute element={DashboardPage}/>}></Route>
+            <Route path="/About" element={<About/>} />
             <Route
               path="/users/auth/reset-password-email"
-              element={<ResetPassword />}
+              element={<ResetPassword/>}
             ></Route>
             <Route
               path="/Properties"

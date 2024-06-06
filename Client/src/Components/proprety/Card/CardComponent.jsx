@@ -100,13 +100,13 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     <>
       <div className="w-[60%] p-2">
         <div className="mb-4 flex justify-start">
-          <div className="flex gap-4 justify-center items-center flex-wrap">
+          <div className="flex gap-4 flex-start items-center flex-wrap">
             {loading ? (
               <p>Loading...</p>
             ) : (
               paginatedProperties.map((listing, index) => (
-                <div key={index} className="w-[48%]">
-                  <CardWithImageSlider className=""
+                <div key={index} className="w-[49%]">
+                  <CardWithImageSlider className="w-full"
                     id={index}
                     objectID={listing.Object_id}
                     title={listing.title}

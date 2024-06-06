@@ -12,7 +12,7 @@ function Featured() {
             <input
               type="checkbox"
               className="mr-3 rounded-sm "
-
+              disabled checked
               style={{ borderColor: "orange", backgroundColor: "orange" }}
             />
             <label htmlFor="rooms">Self check-in</label>
@@ -22,7 +22,7 @@ function Featured() {
             <label htmlFor="rooms">laundry facilities</label>
           </div>
           <div>
-            <input type="checkbox" className="mr-3 rounded-sm " disabled />
+            <input type="checkbox" className="mr-3 rounded-sm " checked style={{ borderColor: "orange", backgroundColor: "orange" }} disabled />
             <label htmlFor="rooms" className="text-center">
               Entertainment provisions
             </label>
@@ -31,11 +31,11 @@ function Featured() {
 
         <div className="grid grid-cols-3  my-3">
           <div>
-            <input type="checkbox" className="mr-3 rounded-sm" disabled />
+            <input type="checkbox" className="mr-3 rounded-sm" checked style={{ borderColor: "orange", backgroundColor: "orange" }} disabled />
             <label htmlFor="rooms">Equipped kitchen</label>
           </div>
           <div>
-            <input type="checkbox" className="mr-3 rounded-sm" disabled />
+            <input type="checkbox" className="mr-3 rounded-sm" checked style={{ borderColor: "orange", backgroundColor: "orange" }} disabled />
             <label htmlFor="rooms">Parking availability</label>
           </div>
           <div>
@@ -46,15 +46,15 @@ function Featured() {
 
         <div className="grid grid-cols-3  my-3">
           <div>
-            <input type="checkbox" className="mr-3 rounded-sm" disabled />
+            <input type="checkbox" className="mr-3 rounded-sm" checked style={{ borderColor: "orange", backgroundColor: "orange" }} disabled />
             <label htmlFor="rooms">Bathroom amenities</label>
           </div>
           <div>
-            <input type="checkbox" className="mr-3 rounded-sm" disabled />
+            <input type="checkbox" className="mr-3 rounded-sm" checked style={{ borderColor: "orange", backgroundColor: "orange" }} disabled />
             <label htmlFor="rooms">Internet access (WIFI)</label>
           </div>
           <div>
-            <input type="checkbox" className="mr-3 rounded-sm" disabled />
+            <input type="checkbox" className="mr-3 rounded-sm" checked style={{ borderColor: "orange", backgroundColor: "orange" }} disabled />
             <label htmlFor="rooms">Safety equipment</label>
           </div>
         </div>
