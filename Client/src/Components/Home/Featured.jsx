@@ -1,14 +1,12 @@
 import React from 'react'
 import SingleProductCard from "../Common/Card/SingleCard";
 import ListingsNeraby from '../../Hooks/ListingsNeraby';
-import { GetAllListings } from '../../Api/ListingsApi';
 import Loading from '../Common/Loading';
 
 
 function Featured() {
 
   const { city, listings, loading, error } = ListingsNeraby()
-  console.log(listings);
   //another condiiton if the arrya legth is 0
 
   return (

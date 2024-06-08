@@ -13,16 +13,17 @@ export const property = [
     contact: "+256 775 358738",
     dimensions: "3000 sq ft",
     description:
-    "Nestled in the heart of lush greenery, the Villa on Marrakech offers a serene escape into luxury. This exquisite property combines rustic charm with modern elegance, featuring expansive living spaces bathed in natural light. Each of the three spacious bedrooms is a haven of comfort, while the two lavish bathrooms boast high-end fixtures and serene spa-like ambience. The villa's meticulously landscaped grounds include a tranquil garden, perfect for afternoon strolls or early morning meditation. Whether you're looking to entertain or unwind, this villa ensures every moment is steeped in luxury and comfort. Experience the pinnacle of sophisticated living in this stunning estate, where every detail is crafted for excellence.",
-    images: [ "/images/property (25).jpg", "/images/property (26).jpg",],
+      "Nestled in the heart of lush greenery, the Villa on Marrakech offers a serene escape into luxury. This exquisite property combines rustic charm with modern elegance, featuring expansive living spaces bathed in natural light. Each of the three spacious bedrooms is a haven of comfort, while the two lavish bathrooms boast high-end fixtures and serene spa-like ambience. The villa's meticulously landscaped grounds include a tranquil garden, perfect for afternoon strolls or early morning meditation. Whether you're looking to entertain or unwind, this villa ensures every moment is steeped in luxury and comfort. Experience the pinnacle of sophisticated living in this stunning estate, where every detail is crafted for excellence.",
+    images: ["/images/property (25).jpg", "/images/property (26).jpg",],
     owner: {
       name: "Ranya Laasri",
       listings: 22,
       phone: "0627618729",
       email: "ranyalaasri@gmail.com",
-      image: "./images/ranya.png",}
+      image: "./images/ranya.png",
+    }
   },
-  
+
   {
     id: 2,
     name: "Awesome family home",
@@ -36,7 +37,7 @@ export const property = [
     dimensions: "3000 sq ft",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero beatae sit voluptas dolorum vel eligendi consectetur alias in veniam nostrum reiciendis cum labore fugiat ut ipsum quidem earum eaque voluptatem enim possimus, est, saepe explicabo. Reiciendis veritatis maiores dolore quidem doloremque obcaecati quis commodi dolorum. Corporis ad provident officia aut iusto ea, voluptatibus architecto debitis pariatur qui! Nisi esse voluptas veniam, quia provident rerum iure quis quasi, odio quos dolores obcaecati nam nostrum nesciunt ipsum similique recusandae? Neque, animi? Voluptates facere rerum labore eos nulla! Ut, nesciunt facere fugit optio quaerat neque id fuga necessitatibus, pariatur eius tenetur? Esse ipsa numquam distinctio vero reprehenderit, libero architecto itaque, optio quibusdam cupiditate cum, deleniti ad. Sapiente, placeat voluptates a recusandae voluptatum cupiditate nulla vel ut. Eveniet eum obcaecati illo saepe, recusandae natus incidunt quas molestias maxime vel? Possimus perspiciatis, repellat maxime molestias quos perferendis! Impedit consectetur natus alias laudantium sunt ipsam nostrum! Eius quasi officiis, labore sunt itaque porro laudantium, suscipit ipsa dicta magni quibusdam totam? Exercitationem doloribus, debitis, eligendi facere odio a nesciunt nam suscipit quia ullam sequi, illum repudiandae! Hic nobis inventore maxime. Explicabo quod inventore excepturi adipisci provident quidem ab doloremque amet nostrum, ullam fugiat debitis eius aspernatur atque.",
-      images: ["/images/property (26).jpg", "/images/property (26).jpg",]
+    images: ["/images/property (26).jpg", "/images/property (26).jpg",]
   },
   {
     id: 3,
@@ -51,8 +52,8 @@ export const property = [
     dimensions: "3000 sq ft",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero beatae sit voluptas dolorum vel eligendi consectetur alias in veniam nostrum reiciendis cum labore fugiat ut ipsum quidem earum eaque voluptatem enim possimus, est, saepe explicabo. Reiciendis veritatis maiores dolore quidem doloremque obcaecati quis commodi dolorum. Corporis ad provident officia aut iusto ea, voluptatibus architecto debitis pariatur qui! Nisi esse voluptas veniam, quia provident rerum iure quis quasi, odio quos dolores obcaecati nam nostrum nesciunt ipsum similique recusandae? Neque, animi? Voluptates facere rerum labore eos nulla! Ut, nesciunt facere fugit optio quaerat neque id fuga necessitatibus, pariatur eius tenetur? Esse ipsa numquam distinctio vero reprehenderit, libero architecto itaque, optio quibusdam cupiditate cum, deleniti ad. Sapiente, placeat voluptates a recusandae voluptatum cupiditate nulla vel ut. Eveniet eum obcaecati illo saepe, recusandae natus incidunt quas molestias maxime vel? Possimus perspiciatis, repellat maxime molestias quos perferendis! Impedit consectetur natus alias laudantium sunt ipsam nostrum! Eius quasi officiis, labore sunt itaque porro laudantium, suscipit ipsa dicta magni quibusdam totam? Exercitationem doloribus, debitis, eligendi facere odio a nesciunt nam suscipit quia ullam sequi, illum repudiandae! Hic nobis inventore maxime. Explicabo quod inventore excepturi adipisci provident quidem ab doloremque amet nostrum, ullam fugiat debitis eius aspernatur atque.",
-      score: 4.9, reviews: 41,   
-      images: ["/images/property (27).jpg", "/images/property (27).jpg", ]
+    score: 4.9, reviews: 41,
+    images: ["/images/property (27).jpg", "/images/property (27).jpg",]
   },
   {
     id: 4,
@@ -67,8 +68,8 @@ export const property = [
     dimensions: "3000 sq ft",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero beatae sit voluptas dolorum vel eligendi consectetur alias in veniam nostrum reiciendis cum labore fugiat ut ipsum quidem earum eaque voluptatem enim possimus, est, saepe explicabo. Reiciendis veritatis maiores dolore quidem doloremque obcaecati quis commodi dolorum. Corporis ad provident officia aut iusto ea, voluptatibus architecto debitis pariatur qui! Nisi esse voluptas veniam, quia provident rerum iure quis quasi, odio quos dolores obcaecati nam nostrum nesciunt ipsum similique recusandae? Neque, animi? Voluptates facere rerum labore eos nulla! Ut, nesciunt facere fugit optio quaerat neque id fuga necessitatibus, pariatur eius tenetur? Esse ipsa numquam distinctio vero reprehenderit, libero architecto itaque, optio quibusdam cupiditate cum, deleniti ad. Sapiente, placeat voluptates a recusandae voluptatum cupiditate nulla vel ut. Eveniet eum obcaecati illo saepe, recusandae natus incidunt quas molestias maxime vel? Possimus perspiciatis, repellat maxime molestias quos perferendis! Impedit consectetur natus alias laudantium sunt ipsam nostrum! Eius quasi officiis, labore sunt itaque porro laudantium, suscipit ipsa dicta magni quibusdam totam? Exercitationem doloribus, debitis, eligendi facere odio a nesciunt nam suscipit quia ullam sequi, illum repudiandae! Hic nobis inventore maxime. Explicabo quod inventore excepturi adipisci provident quidem ab doloremque amet nostrum, ullam fugiat debitis eius aspernatur atque.",
-      score: 4.9, reviews: 41,
-      images: ["/images/property (28).jpg","/images/property (28).jpg",]
+    score: 4.9, reviews: 41,
+    images: ["/images/property (28).jpg", "/images/property (28).jpg",]
   },
   {
     id: 5,
@@ -83,8 +84,8 @@ export const property = [
     dimensions: "3000 sq ft",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero beatae sit voluptas dolorum vel eligendi consectetur alias in veniam nostrum reiciendis cum labore fugiat ut ipsum quidem earum eaque voluptatem enim possimus, est, saepe explicabo. Reiciendis veritatis maiores dolore quidem doloremque obcaecati quis commodi dolorum. Corporis ad provident officia aut iusto ea, voluptatibus architecto debitis pariatur qui! Nisi esse voluptas veniam, quia provident rerum iure quis quasi, odio quos dolores obcaecati nam nostrum nesciunt ipsum similique recusandae? Neque, animi? Voluptates facere rerum labore eos nulla! Ut, nesciunt facere fugit optio quaerat neque id fuga necessitatibus, pariatur eius tenetur? Esse ipsa numquam distinctio vero reprehenderit, libero architecto itaque, optio quibusdam cupiditate cum, deleniti ad. Sapiente, placeat voluptates a recusandae voluptatum cupiditate nulla vel ut. Eveniet eum obcaecati illo saepe, recusandae natus incidunt quas molestias maxime vel? Possimus perspiciatis, repellat maxime molestias quos perferendis! Impedit consectetur natus alias laudantium sunt ipsam nostrum! Eius quasi officiis, labore sunt itaque porro laudantium, suscipit ipsa dicta magni quibusdam totam? Exercitationem doloribus, debitis, eligendi facere odio a nesciunt nam suscipit quia ullam sequi, illum repudiandae! Hic nobis inventore maxime. Explicabo quod inventore excepturi adipisci provident quidem ab doloremque amet nostrum, ullam fugiat debitis eius aspernatur atque.",
-      score: 4.9, reviews: 41,
-      images: ["/images/property (29).jpg","/images/property (29).jpg",]
+    score: 4.9, reviews: 41,
+    images: ["/images/property (29).jpg", "/images/property (29).jpg",]
   },
   {
     id: 6,
@@ -99,7 +100,7 @@ export const property = [
     dimensions: "3000 sq ft",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero beatae sit voluptas dolorum vel eligendi consectetur alias in veniam nostrum reiciendis cum labore fugiat ut ipsum quidem earum eaque voluptatem enim possimus, est, saepe explicabo. Reiciendis veritatis maiores dolore quidem doloremque obcaecati quis commodi dolorum. Corporis ad provident officia aut iusto ea, voluptatibus architecto debitis pariatur qui! Nisi esse voluptas veniam, quia provident rerum iure quis quasi, odio quos dolores obcaecati nam nostrum nesciunt ipsum similique recusandae? Neque, animi? Voluptates facere rerum labore eos nulla! Ut, nesciunt facere fugit optio quaerat neque id fuga necessitatibus, pariatur eius tenetur? Esse ipsa numquam distinctio vero reprehenderit, libero architecto itaque, optio quibusdam cupiditate cum, deleniti ad. Sapiente, placeat voluptates a recusandae voluptatum cupiditate nulla vel ut. Eveniet eum obcaecati illo saepe, recusandae natus incidunt quas molestias maxime vel? Possimus perspiciatis, repellat maxime molestias quos perferendis! Impedit consectetur natus alias laudantium sunt ipsam nostrum! Eius quasi officiis, labore sunt itaque porro laudantium, suscipit ipsa dicta magni quibusdam totam? Exercitationem doloribus, debitis, eligendi facere odio a nesciunt nam suscipit quia ullam sequi, illum repudiandae! Hic nobis inventore maxime. Explicabo quod inventore excepturi adipisci provident quidem ab doloremque amet nostrum, ullam fugiat debitis eius aspernatur atque.",
-    images: ["/images/property (30).jpg","/images/property (30).jpg",]
+    images: ["/images/property (30).jpg", "/images/property (30).jpg",]
   },
   {
     id: 7,
@@ -354,7 +355,7 @@ export const property = [
     dimensions: "3000 sq ft",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero beatae sit voluptas dolorum vel eligendi consectetur alias in veniam nostrum reiciendis cum labore fugiat ut ipsum quidem earum eaque voluptatem enim possimus, est, saepe explicabo. Reiciendis veritatis maiores dolore quidem doloremque obcaecati quis commodi dolorum. Corporis ad provident officia aut iusto ea, voluptatibus architecto debitis pariatur qui! Nisi esse voluptas veniam, quia provident rerum iure quis quasi, odio quos dolores obcaecati nam nostrum nesciunt ipsum similique recusandae? Neque, animi? Voluptates facere rerum labore eos nulla! Ut, nesciunt facere fugit optio quaerat neque id fuga necessitatibus, pariatur eius tenetur? Esse ipsa numquam distinctio vero reprehenderit, libero architecto itaque, optio quibusdam cupiditate cum, deleniti ad. Sapiente, placeat voluptates a recusandae voluptatum cupiditate nulla vel ut. Eveniet eum obcaecati illo saepe, recusandae natus incidunt quas molestias maxime vel? Possimus perspiciatis, repellat maxime molestias quos perferendis! Impedit consectetur natus alias laudantium sunt ipsam nostrum! Eius quasi officiis, labore sunt itaque porro laudantium, suscipit ipsa dicta magni quibusdam totam? Exercitationem doloribus, debitis, eligendi facere odio a nesciunt nam suscipit quia ullam sequi, illum repudiandae! Hic nobis inventore maxime. Explicabo quod inventore excepturi adipisci provident quidem ab doloremque amet nostrum, ullam fugiat debitis eius aspernatur atque.",
-    images:[ "/images/property (15).jpg",]
+    images: ["/images/property (15).jpg",]
   },
   {
     id: 24,
@@ -431,12 +432,14 @@ export const reviews = [
     name: "John Doe",
     review: "Great service and friendly staff!",
     rating: 5,
+    image: "1.jpg"
   },
   {
     id: 2,
     name: "Jane Smith",
     review: "I had a wonderful experience with this agency.",
     rating: 2,
+    image: "2.jpg"
   },
   {
     id: 3,
@@ -444,7 +447,7 @@ export const reviews = [
     review: "Very professional and helpful.",
     rating: 5,
   },
- 
+
 ];
 
 export const teamMembers = [

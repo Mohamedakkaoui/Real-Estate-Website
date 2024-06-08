@@ -23,7 +23,6 @@ function PropertyDetail() {
         setProperty(property);
         setImages(property.images);
         setReviews(reviews);
-        console.log(property)
       } catch (error) {
         console.error('Error fetching listings:', error);
       }

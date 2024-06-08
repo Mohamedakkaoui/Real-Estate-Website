@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const token = Cookies.get("token");
-
   useEffect(() => {
     const checkAuth = async () => {
       setIsLoading(true)
@@ -102,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-1;
+
 export function ContextAuth() {
   return useContext(AuthContext);
 }

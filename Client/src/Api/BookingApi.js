@@ -27,4 +27,9 @@ export function MyListingsBokings() {
   return api.get('/MylistingsBooking')
 }
 
+
+
+export function AddnewBooking (body) {
+  return api.post('/new', body)
+}
 export default api;

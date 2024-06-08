@@ -238,6 +238,8 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { Checkbox } from "@material-tailwind/react";
 import { z } from "zod";
 import MessageBox from '../MessageBox';
+import { Bath, Proportions, Users, DoorOpen } from "lucide-react";
+
 
 const AddListing = () => {
     const [listingTitle, setListingTitle] = useState('');
@@ -487,11 +489,22 @@ const AddListing = () => {
                             </div>
                             <div className="widget-content" style={{ padding: "5px", borderTop: "1px solid #ccc" }}>
                                 <div className="flex gap-4 flex-wrap justify-between ml-3 mr-3">
-                                    <div className="w-2/5 mr-4" style={{ width: "40%" }}> {/* Left section with 40% width */}
+                                    <div className="flex flex-col gap-4 w-2/5 mr-4" style={{ width: "40%" }}> {/* Left section with 40% width */}
                                         <div>
                                             <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Size:</label>
-                                            <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'BLACK', borderRadius: '10px' }}>
-                                                <SlSizeFullscreen color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
+                                            <div
+                                                className="flex items-center rounded-md h-10 "
+                                                style={{
+                                                    backgroundColor: "#FFF1DA",
+                                                    borderRadius: "10px",
+                                                }}
+                                            >
+                                                <Proportions
+                                                    size={30}
+                                                    color="#FFA920"
+                                                    style={{ margin: "10px" }}
+                                                    className="text-gray-500  "
+                                                />
                                                 <input
                                                     type="text"
                                                     placeholder="Property size"
@@ -505,8 +518,19 @@ const AddListing = () => {
                                         </div>
                                         <div>
                                             <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Rooms :</label>
-                                            <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'black', borderRadius: '10px' }}>
-                                                <MdOutlineBedroomChild color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
+                                            <div
+                                                className="flex items-center rounded-md h-10 "
+                                                style={{
+                                                    backgroundColor: "#FFF1DA",
+                                                    borderRadius: "10px",
+                                                }}
+                                            >
+                                                <DoorOpen
+                                                    size={30}
+                                                    color="#FFA920"
+                                                    style={{ margin: "10px" }}
+                                                    className="text-gray-500  "
+                                                />
                                                 <input
                                                     type="text"
                                                     placeholder="Property rooms"
@@ -520,9 +544,19 @@ const AddListing = () => {
                                         </div>
                                         <div>
                                             <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Bathrooms :</label>
-                                            <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'black', borderRadius: '10px' }}>
-                                                <MdOutlineBathroom color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
-                                                <input
+                                            <div
+                                                className="flex items-center rounded-md h-10 "
+                                                style={{
+                                                    backgroundColor: "#FFF1DA",
+                                                    borderRadius: "10px",
+                                                }}
+                                            >
+                                                <Bath
+                                                    size={30}
+                                                    color="#FFA920"
+                                                    style={{ margin: "10px" }}
+                                                    className="text-gray-500  "
+                                                /> <input
                                                     type="text"
                                                     placeholder="Property bathrooms"
                                                     style={{ borderRadius: "10px" }}
@@ -534,15 +568,25 @@ const AddListing = () => {
                                         </div>
                                         <div>
                                             <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Accomodation :</label>
-                                            <div className="flex items-center rounded-md h-10 " style={{ backgroundColor: 'black', borderRadius: '10px' }}>
-                                                <IoPeopleOutline color='white' style={{ margin: '5px' }} className="text-gray-500  " /> {/* Icon */}
-
+                                            <div
+                                                className="flex items-center rounded-md h-10 "
+                                                style={{
+                                                    backgroundColor: "#FFF1DA",
+                                                    borderRadius: "10px",
+                                                }}
+                                            >
+                                                <Users
+                                                    size={30}
+                                                    color="#FFA920"
+                                                    style={{ margin: "10px" }}
+                                                    className="text-gray-500  "
+                                                />{" "}
                                                 <input
                                                     type="text"
                                                     placeholder="Property accomodation"
                                                     value={accomodation}
                                                     onChange={(e) => setAccomodation(e.target.value)}
-                                                    style={{ borderRadius: "0  10px 10px 0" }}
+                                                    style={{ borderRadius: "10px " }}
                                                     className="outline-none focus:outline-none flex-1"
                                                 /> {/* Input field */}
                                             </div>

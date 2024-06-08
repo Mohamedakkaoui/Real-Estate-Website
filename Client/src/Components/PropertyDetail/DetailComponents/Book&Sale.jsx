@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { AddnewBooking } from '../../../Api/BookingApi';
 
-function BookAndSale() {
+function BookAndSale({ Price, ID }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numberOfDates, setNumberOfDates] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(Price);
+
 
   const calculateNumberOfDates = () => {
     const diffInMs = Math.abs(endDate - startDate);
@@ -13,27 +16,55 @@ function BookAndSale() {
     setNumberOfDates(diffInDays);
   };
 
+  const calculateTotalPrice = () => {
+    setTotalPrice(Price * numberOfDates);
+  };
+
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`; 
+  };
+
+  const handleBooking = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await AddnewBooking({
+        ID,
+        startDate: formatDate(startDate),
+        endDate: formatDate(endDate),
+        totalPrice,
+      });
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
     calculateNumberOfDates();
   }, [startDate, endDate]);
 
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [numberOfDates]);
+
   return (
-    <div className="card max-w-md rounded overflow-hidden shadow-lg p-5 bg-white  top-20 ml-4 shadow-r-xl mb-10">
+    <div className="card max-w-md rounded overflow-hidden shadow-lg p-5 bg-white top-20 ml-4 shadow-r-xl mb-10">
       <div className="w-[95%] m-auto">
-        {/* first section  */}
         <div className="flex justify-between items-center mb-4">
           <div>
             <p className="text-2xl font-semibold">The Bill</p>
           </div>
           <div className="flex">
-            <p className="text-xl font-semibold pr-1">MAD 661</p>
+            <p className="text-xl font-semibold pr-1">{Price} MAD</p>
             <p>/night</p>
           </div>
         </div>
-        {/* second section  */}
-        <div className="flex gap-2 justify-center justify-items-center">
+        <div className="flex gap-2 justify-center">
           <div>
-            <label htmlFor="Check In" className="">Check IN</label>
+            <label htmlFor="Check In" className="">Check In</label>
             <div>
               <DatePicker
                 selected={startDate}
@@ -44,7 +75,7 @@ function BookAndSale() {
             </div>
           </div>
           <div>
-            <label htmlFor="CHeck Out">Check Out</label>
+            <label htmlFor="Check Out">Check Out</label>
             <div>
               <DatePicker
                 selected={endDate}
@@ -55,26 +86,22 @@ function BookAndSale() {
             </div>
           </div>
         </div>
-        {/* third section  */}
-
-        <button className="bg-[#ffa9202a] py-2 px-6 rounded-lg mt-5 w-full text-[#FFA920] font-semibold text-lg mb-6">
+        <button onClick={handleBooking} className="bg-[#ffa9202a] py-2 px-6 rounded-lg mt-5 w-full text-[#FFA920] font-semibold text-lg mb-6">
           Reserve
         </button>
-
-        {/* fourth section  */}
         <div className="grid grid-cols-2 items-center mb-5">
-          <p className="font-semibold">MAD 850 X {numberOfDates}</p>
-          <p className="grid-column-end-2 text-end font-semibold">MAD 5,200</p>
+          <p className="font-semibold">MAD {Price} X {numberOfDates}</p>
+          <p className="text-end font-semibold">{totalPrice} MAD </p>
         </div>
         <div className="grid grid-cols-2 items-center pb-5 border-b-2">
-          <p className="font-semibold">Discount</p>
-          <p className="grid-column-end-2 text-end text-green-400 font-semibold">
+          <p className="font-semibold">RYMZ Discount</p>
+          <p className="text-end text-green-400 font-semibold">
             -MAD 125
           </p>
         </div>
         <div className="grid grid-cols-2 items-center mb-5 mt-5">
-          <p className="font-semibold text-lg">Total before Taxes</p>
-          <p className="grid-column-end-2 text-end font-semibold">MAD 5,200</p>
+          <p className="font-semibold text-lg">Total Price</p>
+          <p className="text-end font-semibold text-2xl text-[#FFA920]">{totalPrice - 125} MAD</p>
         </div>
       </div>
     </div>
