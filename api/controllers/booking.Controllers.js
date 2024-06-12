@@ -1,3 +1,5 @@
+const generateCustomUUID = require("../Utils/customUuidGenerator");
+const { mailsender } = require("../middlewares/nodemailer");
 const {
   registerBookingDB,
   updateBookingDB,
@@ -8,20 +10,24 @@ const {
   Bookings,
   getBookingsDB,
   DeleteBookingDb,
-  MylisitingsBookingsDB, permissionToBook,
-  MyBookingsDBDet
+  MylisitingsBookingsDB,
+  permissionToBook,
+  MyBookingsDBDet,
 } = require("../models/methods/booking.Methods");
-const { getListingByIdDB, getALLListingByUserIdDB } = require("../models/methods/listing.Methods");
-
+const {
+  getListingByIdDB,
+  getALLListingByUserIdDB,
+} = require("../models/methods/listing.Methods");
+const { GetUserbyIdallInfoDB } = require("../models/methods/user.Methods");
 const { getListingById } = require("./listing.Controllers");
-
 
 //new booking
 exports.registerNewBooking = async (req, res) => {
   try {
     const user = req.user.id;
-    const { startDate, endDate, ID,   totalPrice} = req.body;
-    const Listing = await getALLListingByUserIdDB(ID)
+    const User = await GetUserbyIdallInfoDB(user);
+    const { startDate, endDate, ID, totalPrice } = req.body;
+    const Listing = await getALLListingByUserIdDB(ID);
     // const isAvailable = await checkListingAvailability(
     //   ID,
     //   startDate,
@@ -33,7 +39,9 @@ exports.registerNewBooking = async (req, res) => {
     //     .json({ Message: "Listing is not available for the specified dates." });
     // }
     const owner = Listing[0].owner;
+    const Object_id = generateCustomUUID();
     const data = {
+      Object_id,
       user,
       listing: ID,
       startDate,
@@ -42,6 +50,20 @@ exports.registerNewBooking = async (req, res) => {
       owner,
     };
     const newBooking = await registerBookingDB(data);
+    // mailsender(
+    //   User.Email,
+    //   "ConfirmationForReserve",
+    //   Listing[0].title,
+    //   Listing[0].city,
+    //   startDate,
+    //   endDate,
+    //   totalPrice,
+    //   Object_id,
+    //   Listing[0].location,
+    //   User.Username,
+    //   User.Email,
+    //   User.PhoneNumber
+    // );
     return res
       .status(201)
       .json({ message: "New booking added!", result: newBooking });
@@ -128,8 +150,7 @@ exports.cancelBooking = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
-}
-
+};
 
 // get owner's permission to book a proprety
 exports.OwnerPermissionToBook = async (req, res) => {
@@ -142,7 +163,7 @@ exports.OwnerPermissionToBook = async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
 //MyBookings
 exports.getMyBooking = async (req, res) => {
@@ -175,7 +196,6 @@ exports.getMyBookingDet = async (req, res) => {
       .json({ Message: "Error getting my bookings", Error: error.message });
   }
 };
-
 
 exports.getBooking = async (req, res) => {
   try {
@@ -210,12 +230,11 @@ exports.DeleteBooking = async (req, res) => {
 //get all bookings
 exports.getBookings = async (req, res) => {
   try {
-    const bookings = await getBookingsDB()
+    const bookings = await getBookingsDB();
     if (!bookings) {
-      return res.status(404).json({ message: 'No bookings' })
+      return res.status(404).json({ message: "No bookings" });
     }
-    return res.status(200).json(bookings)
-
+    return res.status(200).json(bookings);
   } catch (err) {
     return res
       .status(500)
@@ -228,18 +247,15 @@ exports.MyListingsBookings = async (req, res) => {
   try {
     const { id } = req.user;
     const bookings = await MylisitingsBookingsDB(id);
-    console.log('hna', bookings);
     if (bookings.length == 0) {
       return res
         .status(204)
         .json({ Message: "fetch succesfully but not Booking found" });
     }
-    return res
-      .status(200)
-      .json({
-        Message: "my bookings retrieved successflly",
-        Bookings: bookings,
-      });
+    return res.status(200).json({
+      Message: "my bookings retrieved successflly",
+      Bookings: bookings,
+    });
   } catch (error) {
     return res
       .status(500)

@@ -10,11 +10,11 @@ import {
   Chip,
   Tooltip,
   getKeyValue,
+  Pagination
 } from "@nextui-org/react";
 import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
-import { EyeIcon } from "./EyeIcon";
-import { GetMyBookings, GetMyBookingsDet } from "../../../Api/BookingApi";
+import { GetMyBookingsDet } from "../../../Api/BookingApi";
 
 const statusColorMap = {
   confirmed: "success",
@@ -31,21 +31,24 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export default function TableDash() {
-  const [Bookings, SetBookings] = useState([]);
+const TableDash = () => {
+  const [bookings, setBookings] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   useEffect(() => {
     const getBookings = async () => {
       try {
         const resMyBookings = await GetMyBookingsDet();
-        const Bookings = resMyBookings.data.MyBookings;
-        SetBookings(Bookings);
+        const bookings = resMyBookings.data.MyBookings;
+        setBookings(bookings);
       } catch (error) {
         console.log(error);
       }
     };
     getBookings();
   }, []);
+
   const renderCell = React.useCallback((booking, columnKey) => {
     const cellValue = booking[columnKey];
 
@@ -53,7 +56,6 @@ export default function TableDash() {
       const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
       return new Date(dateString).toLocaleDateString(undefined, options);
     };
-
 
     switch (columnKey) {
       case "listing":
@@ -67,7 +69,6 @@ export default function TableDash() {
       case "totalPrice":
         return (
           <div className="flex flex-col">
-            {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
             <p className="text-bold text-sm capitalize text-default-400">
               {booking.totalPrice} MAD
             </p>
@@ -87,7 +88,6 @@ export default function TableDash() {
       case "startDate":
         return (
           <div className="flex flex-col">
-            {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
             <p className="text-bold text-sm capitalize text-default-400">
               {formatDate(booking.startDate)}
             </p>
@@ -96,7 +96,6 @@ export default function TableDash() {
       case "endDate":
         return (
           <div className="flex flex-col">
-            {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
             <p className="text-bold text-sm capitalize text-default-400">
               {formatDate(booking.endDate)}
             </p>
@@ -105,11 +104,6 @@ export default function TableDash() {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
             <Tooltip content="Edit ">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
@@ -127,34 +121,53 @@ export default function TableDash() {
     }
   }, []);
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const currentBookings = bookings.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
-    <div>
-      {Bookings.length === 0 ? (
+    <div className="table-container">
+      {bookings.length === 0 ? (
         <div>No bookings available</div>
       ) : (
-        <Table aria-label="Example table with custom cells">
-          <TableHeader columns={columns}>
-            {(column) => (
-              <TableColumn
-                key={column.uid}
-                align={column.uid === "actions" ? "center" : "start"}
-              >
-                {column.name}
-              </TableColumn>
-            )}
-          </TableHeader>
-          <TableBody items={Bookings}>
-            {(item) => (
-              <TableRow key={item._id}>
-                {(columnKey) => (
-                  <TableCell>{renderCell(item, columnKey)}</TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+        <>
+          <Table aria-label="Example table with custom cells">
+            <TableHeader columns={columns}>
+              {(column) => (
+                <TableColumn
+                  key={column.uid}
+                  align={column.uid === "actions" ? "center" : "start"}
+                >
+                  {column.name}
+                </TableColumn>
+              )}
+            </TableHeader>
+            <TableBody items={currentBookings}>
+              {(item) => (
+                <TableRow key={item._id}>
+                  {(columnKey) => (
+                    <TableCell>{renderCell(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <div className="pagination-container">
+            <Pagination
+              total={Math.ceil(bookings.length / itemsPerPage)}
+              initialPage={1}
+              onChange={(page) => handlePageChange(page)}
+            />
+          </div>
+        </>
       )}
     </div>
   );
-
 }
+
+export default TableDash;

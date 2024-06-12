@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { AddnewBooking } from '../../../Api/BookingApi';
-
+import { Toaster } from 'sonner'
+import { toast } from 'sonner';
 function BookAndSale({ Price, ID }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -29,13 +30,17 @@ function BookAndSale({ Price, ID }) {
 
   const handleBooking = async () => {
     try {
-      const token = localStorage.getItem('token');
+      // const token = localStorage.getItem('token');
       const response = await AddnewBooking({
         ID,
         startDate: formatDate(startDate),
         endDate: formatDate(endDate),
-        totalPrice,
+        totalPrice : (totalPrice - 125),
       });
+      console.log(response.status)
+      if (response.status == 201) {
+        toast.success(response.data.message)
+      }
       console.log(response.data.message);
     } catch (error) {
       console.log(error.response.data.message);
@@ -51,6 +56,7 @@ function BookAndSale({ Price, ID }) {
   }, [numberOfDates]);
 
   return (
+    <>
     <div className="card max-w-md rounded overflow-hidden shadow-lg p-5 bg-white top-20 ml-4 shadow-r-xl mb-10">
       <div className="w-[95%] m-auto">
         <div className="flex justify-between items-center mb-4">
@@ -105,6 +111,16 @@ function BookAndSale({ Price, ID }) {
         </div>
       </div>
     </div>
+    <Toaster
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            toast: "bg-green-400",
+            title: "text-white",
+          },
+        }}
+      />
+    </>
   );
 }
 
