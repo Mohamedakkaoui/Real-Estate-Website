@@ -61,17 +61,17 @@ function SingleListing({ listing }) {
                                                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                     <ul className="flex flex-col gap-2 flex-wrap justify-between px-4">
                                                         <li>
-                                                            <a href="#" className="flex items-center text-gray-600 hover:text-gray-800" style={{ gap: '7px' }}>
+                                                            <a href={`/PropertyDetails/${listing.Object_id}`} className="flex items-center text-gray-600 hover:text-gray-800" style={{ gap: '7px' }}>
                                                                 <AiFillEye /> View
                                                             </a>
                                                         </li>
 
                                                         <li>
-                                                            <a href="#" className="flex items-center text-gray-600 hover:text-gray-800" style={{ gap: '7px' }}>
+                                                            <a href={`/User-Dashboard/edit-listing/${listing.Object_id}`} className="flex items-center text-gray-600 hover:text-gray-800" style={{ gap: '7px' }}>
                                                                 <MdEdit /> Edit                                                            </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" className="flex items-center text-[#fc5c65] hover:text-[#d63031]" style={{ gap: '7px' }}>
+                                                            <a href="" className="flex items-center text-[#fc5c65] hover:text-[#d63031]" style={{ gap: '7px' }}>
                                                                 <MdDelete /> Delete
                                                             </a>
                                                         </li>
@@ -82,7 +82,6 @@ function SingleListing({ listing }) {
                                     </div>
                                 </div>
                                 <div className="flex items-center text-sm mt-1" style={{ gap: '5px' }}>
-                                    <GrLocation color="grey" />
                                     <i className="fas fa-map-marker-alt"></i>
                                     <span className='text-grey'>
                                         {listing.location || '70 Bright St New York, USA'}
@@ -93,7 +92,7 @@ function SingleListing({ listing }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

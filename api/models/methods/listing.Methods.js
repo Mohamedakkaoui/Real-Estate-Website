@@ -84,7 +84,7 @@ exports.UpdateListingDB = async (id, data) => {
 exports.getMyListingsDB = async (UserId) => {
   try {
     if (mongoose.Types.ObjectId.isValid(UserId)) {
-      const Listings = await ListingsSchema.find({ owner: UserId }).select("title location images -_id")
+      const Listings = await ListingsSchema.find({ owner: UserId }).select("title location images Object_id -_id")
       return Listings
     }
   } catch (error) {

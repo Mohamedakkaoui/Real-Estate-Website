@@ -28,7 +28,8 @@ const TABLE_HEAD = [
 async function fetchBookings() {
   try {
     const response = await MyListingsBokings();
-    const bookings = response.data.MyBookings;
+    const bookings = response.data.Bookings;
+    console.log(bookings);
     return bookings;
   } catch (error) {
     console.log("Error fetching users bookings:", error);
@@ -47,8 +48,8 @@ export function Bookings() {
   useEffect(() => {
     async function getTableRows() {
       try {
-        const bookings = await fetchBookings();
-        SetBookings(bookings);
+        const fetchedBookings = await fetchBookings();
+        SetBookings(fetchedBookings);
       } catch (error) {
         console.error("Error fetching bookings:", error);
       }
@@ -65,6 +66,7 @@ export function Bookings() {
       const endIndex = startIndex + itemsPerPage;
       setTableRows(Bookings.slice(startIndex, endIndex));
     }
+    // console.log('s', Bookings);
   }, [Bookings, curentPage]);
 
   const handlePrevPage = () => {
@@ -204,13 +206,12 @@ export function Bookings() {
                         <div className="mx-auto w-max">
                           <div className="flex">
                             <Dot
-                              className={`${
-                                status === "confirmed"
-                                  ? "text-green-400"
-                                  : status === "pending"
+                              className={`${status === "confirmed"
+                                ? "text-green-400"
+                                : status === "pending"
                                   ? "text-yellow-400"
                                   : "text-red-500"
-                              } size-8`}
+                                } size-8`}
                             />
                             <Chip
                               variant="ghost"
@@ -219,16 +220,15 @@ export function Bookings() {
                                 status === "confirmed"
                                   ? "confirmed"
                                   : status === "pending"
-                                  ? "pending"
-                                  : "cancelled"
+                                    ? "pending"
+                                    : "cancelled"
                               }
-                              className={`${
-                                status === "confirmed"
-                                  ? "text-green-400"
-                                  : status === "pending"
+                              className={`${status === "confirmed"
+                                ? "text-green-400"
+                                : status === "pending"
                                   ? "text-yellow-400"
                                   : "text-red-500"
-                              } pl-0`}
+                                } pl-0`}
                             />
                           </div>
                         </div>

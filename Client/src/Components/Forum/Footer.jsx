@@ -30,7 +30,7 @@ function Footer() {
         <div className="container mx-auto px-6 py-12">
           <div className="flex flex-col lg:flex-row  justify-between items-center pb-1 mx-8">
             <div className="pb-7">
-              <img src={Logo} alt="" />
+              <img src={Logo} alt="" className="w-[50%]" />
             </div>
             <div className="flex gap-8">
               <FacebookIcon className="cursor-pointer text-white hover:text-[#FFA920]" />

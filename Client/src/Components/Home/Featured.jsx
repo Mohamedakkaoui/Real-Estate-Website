@@ -6,8 +6,9 @@ import Loading from '../Common/Loading';
 
 function Featured() {
 
-  const { city, listings, loading, error} = ListingsNeraby()
-  
+  const { city, listings, loading, error } = ListingsNeraby()
+  //another condiiton if the arrya legth is 0
+
   return (
 
     <div className="pt-10 pb-16 w-[90%]  mx-auto mt-10">
@@ -18,7 +19,7 @@ function Featured() {
       <div className="flex flex-wrap gap-4 mt-8">
         {!loading ? listings.reverse().slice(0, 3).map((featured) => (
           <SingleProductCard key={featured._id} {...featured} />
-        )) : <div className="flex items-center justify-center mx-auto"><Loading  /></div>}
+        )) : <div className="flex items-center justify-center mx-auto"><Loading /></div>}
       </div>
     </div>
   );

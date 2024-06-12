@@ -14,7 +14,7 @@ import {
 import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
 import { EyeIcon } from "./EyeIcon";
-import { GetMyBookings } from "../../../Api/BookingApi";
+import { GetMyBookings, GetMyBookingsDet } from "../../../Api/BookingApi";
 
 const statusColorMap = {
   confirmed: "success",
@@ -37,7 +37,7 @@ export default function TableDash() {
   useEffect(() => {
     const getBookings = async () => {
       try {
-        const resMyBookings = await GetMyBookings();
+        const resMyBookings = await GetMyBookingsDet();
         const Bookings = resMyBookings.data.MyBookings;
         SetBookings(Bookings);
       } catch (error) {
@@ -46,27 +46,30 @@ export default function TableDash() {
     };
     getBookings();
   }, []);
+  const renderCell = React.useCallback((booking, columnKey) => {
+    const cellValue = booking[columnKey];
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+    const formatDate = (dateString) => {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
 
     switch (columnKey) {
       case "listing":
         return (
           <User
-            avatarProps={{ radius: "lg", src: "" }}
-            description=""
-            name={cellValue}
-          >
-            ""
-          </User>
+            avatarProps={{ radius: "lg", src: booking.listing.images[0]?.url }}
+            description={booking.listing.price}
+            name={booking.listing.title}
+          />
         );
       case "totalPrice":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
+            {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
             <p className="text-bold text-sm capitalize text-default-400">
-              {user.totalPrice}
+              {booking.totalPrice} MAD
             </p>
           </div>
         );
@@ -74,7 +77,7 @@ export default function TableDash() {
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[booking.status]}
             size="sm"
             variant="flat"
           >
@@ -84,18 +87,18 @@ export default function TableDash() {
       case "startDate":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
+            {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
             <p className="text-bold text-sm capitalize text-default-400">
-              {user.startDate}
+              {formatDate(booking.startDate)}
             </p>
           </div>
         );
       case "endDate":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
+            {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
             <p className="text-bold text-sm capitalize text-default-400">
-              {user.endDate}
+              {formatDate(booking.endDate)}
             </p>
           </div>
         );
@@ -107,12 +110,12 @@ export default function TableDash() {
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content="Edit user">
+            <Tooltip content="Edit ">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Delete ">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon />
               </span>
@@ -142,7 +145,7 @@ export default function TableDash() {
           </TableHeader>
           <TableBody items={Bookings}>
             {(item) => (
-              <TableRow key={item.listing}>
+              <TableRow key={item._id}>
                 {(columnKey) => (
                   <TableCell>{renderCell(item, columnKey)}</TableCell>
                 )}
@@ -153,4 +156,5 @@ export default function TableDash() {
       )}
     </div>
   );
+
 }

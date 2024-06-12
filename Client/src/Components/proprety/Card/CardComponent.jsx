@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import CardWithImageSlider from "./cards";
 import { fetchListingsFilter } from '../../../Api/apiProprety';
-import MapVertical from "../mapComponent";
-
-
+import mapboxgl from 'mapbox-gl';
 
 const CardWithImageLeft = ({ filteredlistings, loading }) => {
+  const mapContainerRef = useRef(null);
+
   const [coordinates, setCoordinates] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -29,7 +29,6 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     fetchListings();
   }, []);
 
-
   const paginatedProperties = filteredlistings
     ? filteredlistings.slice(
       (currentPage - 1) * itemsPerPage,
@@ -37,23 +36,79 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
     )
     : [];
   useEffect(() => {
-    const newCoordinates = paginatedProperties.map(listing => [listing.latitude, listing.longitude]);
+    const newCoordinates = paginatedProperties.map(listing => [listing.longitude, listing.latitude]);
     setCoordinates(newCoordinates);
   }, [filteredlistings, setCoordinates, currentPage]);
+
+
+
+  useEffect(() => {
+    console.log('azertyuio', coordinates);
+    if (!coordinates || coordinates.length === 0) {
+      return; // Don't initialize the map if coordinates are not available
+    }
+    mapboxgl.accessToken = 'pk.eyJ1IjoibGFpc3Nhb3VpOTkiLCJhIjoiY2x2b3pkazNrMDA1aTJrbzBmdXpyZm95eiJ9.pXWnyETUBt12-6flzNYCeQ'; // Replace with your access token
+
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-6, 32], // Initial center of the map
+      zoom: 5
+    });
+
+    // Construct geojson from coordinates
+    const geojson = {
+      type: 'FeatureCollection',
+      features: coordinates.map(coord => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: coord
+        }
+      }))
+    };
+
+    map.on('load', () => {
+      map.loadImage(
+        'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png',
+        (error, image) => {
+          if (error) throw error;
+          map.addImage('custom-marker', image);
+          map.addSource('points', {
+            type: 'geojson',
+            data: geojson
+          });
+          map.addLayer({
+            id: 'points',
+            type: 'symbol',
+            source: 'points',
+            layout: {
+              'icon-image': 'custom-marker',
+              'icon-size': 0.1,
+              'icon-allow-overlap': true
+            }
+          });
+        }
+      );
+    });
+
+    return () => map.remove();
+
+  }, [coordinates]);
 
   return (
     <>
       <div className="w-[60%] p-2">
         <div className="mb-4 flex justify-start">
-          <div className="flex gap-4 justify-center items-center flex-wrap">
+          <div className="flex gap-4 flex-start items-center flex-wrap">
             {loading ? (
               <p>Loading...</p>
             ) : (
               paginatedProperties.map((listing, index) => (
-                <div key={index} className="w-[48%]">
-                  <CardWithImageSlider className=""
+                <div key={index} className="w-[49%]">
+                  <CardWithImageSlider className="w-full"
                     id={index}
-                    objectID = {listing.Object_id}
+                    objectID={listing.Object_id}
                     title={listing.title}
                     price={listing.price}
                     images={listing.images}
@@ -86,8 +141,8 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
           </button>
         </div>
       </div>
-      <div className=" w-[40%]">
-        <MapVertical coordinates={coordinates} />
+      <div className="w-[40%]">
+        <div ref={mapContainerRef} style={{ width: '100%', height: '80vh' }} />
       </div>
     </>
   );

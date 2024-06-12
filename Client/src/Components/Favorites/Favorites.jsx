@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import FavsCard from "./FavCard";
 import { getFavorites } from "../../Api/apiProprety";
+import { FiHeart } from "react-icons/fi";
+
+
+
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -28,6 +32,7 @@ function Favorites() {
             paddingBottom: "5px",
           }}
         >
+          <FiHeart />
           <h4>Favorites</h4>
         </div>
         <div className="flex flex-wrap gap-4">

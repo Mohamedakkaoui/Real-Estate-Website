@@ -8,7 +8,8 @@ const {
   Bookings,
   getBookingsDB,
   DeleteBookingDb,
-  MylisitingsBookingsDB,permissionToBook 
+  MylisitingsBookingsDB, permissionToBook,
+  MyBookingsDBDet
 } = require("../models/methods/booking.Methods");
 const { getListingByIdDB, getALLListingByUserIdDB } = require("../models/methods/listing.Methods");
 
@@ -132,15 +133,15 @@ exports.cancelBooking = async (req, res) => {
 
 // get owner's permission to book a proprety
 exports.OwnerPermissionToBook = async (req, res) => {
-    try {
-        const userId=req.user;
-        const propertyId=req.params.propertyId;
-        const result = await permissionToBook(userId,propertyId );
-        res.status(result.status).json(result.body);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+  try {
+    const userId = req.user;
+    const propertyId = req.params.propertyId;
+    const result = await permissionToBook(userId, propertyId);
+    res.status(result.status).json(result.body);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 
 //MyBookings
@@ -158,6 +159,23 @@ exports.getMyBooking = async (req, res) => {
       .json({ Message: "Error getting my bookings", Error: error.message });
   }
 };
+
+//MyBookings detailed
+exports.getMyBookingDet = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const mybookings = await MyBookingsDBDet(id);
+    return res.status(200).json({
+      Message: "my bookings retrieved successflly",
+      MyBookings: mybookings,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ Message: "Error getting my bookings", Error: error.message });
+  }
+};
+
 
 exports.getBooking = async (req, res) => {
   try {
@@ -191,13 +209,54 @@ exports.DeleteBooking = async (req, res) => {
 
 //get all bookings
 exports.getBookings = async (req, res) => {
-    try {
-        const bookings = await getBookingsDB()
-        if (!bookings) {
-            return res.status(404).json({ message: 'No bookings' })
-        }
-        return res.status(200).json(bookings)
-    } catch (err) {
-        return res.status(500).json({ message: 'Unable to retrieve bookings. ', Error: err.message })
+  try {
+    const bookings = await getBookingsDB()
+    if (!bookings) {
+      return res.status(404).json({ message: 'No bookings' })
     }
-}
+    return res.status(200).json(bookings)
+
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Unable to retrieve bookings. ", Error: err.message });
+  }
+};
+
+//get my lisitings bookings
+exports.MyListingsBookings = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const bookings = await MylisitingsBookingsDB(id);
+    console.log('hna', bookings);
+    if (bookings.length == 0) {
+      return res
+        .status(204)
+        .json({ Message: "fetch succesfully but not Booking found" });
+    }
+    return res
+      .status(200)
+      .json({
+        Message: "my bookings retrieved successflly",
+        Bookings: bookings,
+      });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Unable to retrieve bookings. ", Error: error.message });
+  }
+};
+
+// get owner's permission to book a proprety
+
+exports.OwnerPermissionToBook = async (req, res) => {
+  try {
+    const userId = req.user;
+    const propertyId = req.params.propertyId;
+    const result = await permissionToBook(userId, propertyId);
+    res.status(result.status).json(result.body);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

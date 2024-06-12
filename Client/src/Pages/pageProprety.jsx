@@ -11,7 +11,6 @@ import Navbar from "../Components/Forum/NavBar";
 import Footer from "../Components/Forum/Footer";
 const Property = () => {
 
-  // Logique et état pour le composant principal
   const [filteredListings, setFilteredListings] = useState(null);
   const [loading, setLoading] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
@@ -91,7 +90,7 @@ const Property = () => {
   };
 
   if (!filteredListings) {
-    return (<div>ma5damach</div>)
+    return (<div>Loading...</div>)
   }
 
 
@@ -105,7 +104,7 @@ const Property = () => {
         {/* <div className=" w-[40%]">
           <MapVertical coordinates={coordinates} />
         </div> */}
-        <CardWithImageLeft className="h-[80hv]" filteredlistings={filteredListings} loading={loading} />
+        <CardWithImageLeft className="" filteredlistings={filteredListings} loading={loading} />
       </div>
     </div>
     <Footer />

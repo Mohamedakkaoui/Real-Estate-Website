@@ -31,12 +31,15 @@ function UserCards() {
         SetTotalReviews(reviews.length);
         const resMyBookings = await GetMyBookings();
         const Bookings = resMyBookings.data.MyBookings;
+        if (!Bookings) {
+          console.log(resMyBookings.data.Message);
+        }
         SetmyBookings(Bookings.length);
       } catch (error) {
         console.log(error, error.message);
       }
     };
-     totalListings();
+    totalListings();
   }, []);
 
   return (
@@ -90,7 +93,7 @@ function UserCards() {
           <div className="title text-4xl font-bold mt-2 text-gray-400">
             {UserProfile.watchList ? UserProfile.watchList.length : 0}
           </div>
-          <div className="text-sm mt-4"> +12 newly added listings</div>
+          <div className="text-sm mt-4"> +1 newly added listings</div>
         </div>
         <div className="icon text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-[#FFA920] rounded-full">
