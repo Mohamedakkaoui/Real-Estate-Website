@@ -165,7 +165,6 @@ exports.getListingById = async (req, res) => {
 exports.updateListing = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     if (!id) {
       return res.status(400).json({ message: "No property ID was provided." });
     }

@@ -21,7 +21,6 @@ function EditListing() {
   const [property, setProperty] = useState(null)
   const [images, setImages] = useState([])
   const [mapCoordinates, setMapCoordinates] = useState({ lng: "", lat: "" })
-  console.log(images);
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
@@ -32,7 +31,6 @@ function EditListing() {
         setProperty(property);
         setImages(property.images);
         setMapCoordinates({ lng: property.longitude, lat: property.latitude });
-        console.log(property);
       } catch (error) {
         console.error("Error fetching listings:", error);
       }
@@ -69,12 +67,10 @@ function EditListing() {
   const handlePicDelete = (id) => {
     const updatedImages = [...images]; // Create a copy of the images array
     updatedImages.splice(id, 1); // Remove the element at the specified index
-    console.log(updatedImages);
     setImages(updatedImages); // Update the state with the new array
   };
   const handleCoordinatesChange = useCallback((coords) => {
     if (coords) {
-      console.log(coords);
       const { lat, lng } = coords;
       setProperty((prevState) => ({
         ...prevState,
@@ -90,7 +86,6 @@ function EditListing() {
       ...prevState,
       [name]: value,
     }));
-    console.log(property);
   };
   if (!property) {
     return <div>Loading...</div>;

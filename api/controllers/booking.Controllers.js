@@ -31,7 +31,6 @@ exports.registerNewBooking = async (req, res) => {
     //     .status(200)
     //     .json({ Message: "Listing is not available for the specified dates." });
     // }
-    console.log(Listing[0].owner.toString())
     const owner = Listing[0].owner;
     const data = {
       user,
@@ -41,7 +40,6 @@ exports.registerNewBooking = async (req, res) => {
       totalPrice,
       owner,
     };
-    console.log(data)
     const newBooking = await registerBookingDB(data);
     return res
       .status(201)

@@ -5,15 +5,12 @@ import mapboxgl from 'mapbox-gl';
 
 const MapVertical = ({ coordinates }) => {
     const mapContainerRef = useRef(null);
-    console.log('hna', coordinates);
     const coordss = coordinates
-    console.log('haasa', typeof coordss);
     const coordinates1 = [
         [-6, 32],  // Example coordinate 1
         [-8, 31],  // Example coordinate 2
         [-7, 30]   // Example coordinate 3
     ];
-    console.log(typeof coordinates1);
     useEffect(() => {
         if (!coordinates || coordinates.length === 0) {
             return; // Don't initialize the map if coordinates are not available
