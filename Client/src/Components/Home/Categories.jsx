@@ -3,15 +3,20 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./Categories.css";
 import { GetAllListings } from "../../Api/ListingsApi";
-import LandImg from '../../assets/land.jpg'
-import ApartmentImg from '../../assets/Apartment.jpg'
-import OfficeImg from '../../assets/Office.jpg'
-import ViilaImg from '../../assets/Villai.jpg'
-import Houseimg from '../../assets/House.jpg'
+import LandImg from '../../assets/land.jpg';
+import ApartmentImg from '../../assets/Apartment.jpg';
+import OfficeImg from '../../assets/Office.jpg';
+import ViilaImg from '../../assets/Villai.jpg';
+import Houseimg from '../../assets/House.jpg';
 import Loading from "../Common/Loading";
 
-
-const options = [{Type : "Land", Image : LandImg}, {Type : "House", Image : Houseimg}, {Type : "Apartement", Image : ApartmentImg }, {Type : "Office", Image : OfficeImg}, {Type : "Villa", Image : ViilaImg}];
+const options = [
+  { Type: "Land", Image: LandImg },
+  { Type: "House", Image: Houseimg },
+  { Type: "Appartement", Image: ApartmentImg },
+  { Type: "Office", Image: OfficeImg },
+  { Type: "Villa", Image: ViilaImg }
+];
 
 const Categories = () => {
   const [listings, setListings] = useState([]);
@@ -36,7 +41,7 @@ const Categories = () => {
         const res = await GetAllListings();
         const data = res.data.Listings;
         options.forEach((option) => {
-          const categorylistings = data.filter((el) => el.category == option.Type);
+          const categorylistings = data.filter((el) => el.category === option.Type);
           ListingwithCategoryes.push({
             category: option,
             listings: categorylistings,
@@ -52,30 +57,29 @@ const Categories = () => {
     GetCategoriesAndListings()
   }, []);
 
-
   return (
-    <div className="pt-10 pb-16 w-[90%]  mx-auto mt-10 hide-scrollbar">
+    <div className="pt-10 pb-16 w-[90%] mx-auto mt-10 hide-scrollbar">
       <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-4">
         <div className="md:col-span-1">
-          <h1 className="sub-heading">categories</h1>
+          <h1 className="sub-heading">Categories</h1>
           <h1 className="heading">
-            find your dream house by searching our popular categories
+            Find your dream house by searching our popular categories
           </h1>
           <p className="mt-3">
             Explore a wide selection of properties across different categories
             tailored to meet your housing needs. From cozy apartments to
             spacious family homes, find the perfect place to call your own.
           </p>
-          <button className="mt-4 bg-[#FFA920] text-white font-semibold  rounded-lg px-5 py-3">
-            all categories
-          </button>
+          <Link to={"/Properties"} className="opacity-100">
+            <button className="mt-4 bg-[#FFA920] text-white font-semibold rounded-lg px-5 py-3">
+              All Categories
+            </button>
+          </Link>
         </div>
-        <div className="md:col-span-3 ">
+        <div className="md:col-span-3">
           <div className="justify-end flex-align-center gap-x-3">
             <button
-              className={`btn btn-secondary !p-2 ${
-                !isScroll && "opacity-50 cursor-not-allowed"
-              }`}
+              className={`btn btn-secondary !p-2 ${!isScroll && "opacity-50 cursor-not-allowed"}`}
               onClick={() => scrollContainer("left")}
             >
               <FiChevronLeft />
@@ -92,17 +96,17 @@ const Categories = () => {
             className="gap-3 mt-4 overflow-auto flex-align-center scroll-smooth hide-scrollbar"
             ref={categoryContainer}
           >
-            {Loading ? listings.map((object, index) => (
+            {loading ? <div className="flex items-center justify-center mx-auto mt-20"><Loading /></div> : listings.map((object, index) => (
               <div
                 key={index}
                 className="relative flex-shrink-0 w-[300px] group rounded-lg overflow-hidden"
               >
                 <div className="overflow-hidden rounded-lg">
-                  <Link className="!opacity-100">
+                  <Link to={`/Properties?propertyType=${object.category.Type}`} className="!opacity-100">
                     <img
                       src={object.category.Image}
                       alt={object.category.Type}
-                      className="w-full  h-[300px] object-cover group-hover:scale-125 transition-a"
+                      className="w-full h-[300px] object-cover group-hover:scale-125 transition-a"
                     />
                   </Link>
                 </div>
@@ -111,7 +115,7 @@ const Categories = () => {
                   <p>{object.listings.length} properties</p>
                 </div>
               </div>
-            )) : <div className="flex items-center justify-center mx-auto mt-20"><Loading  /></div>}
+            ))}
           </div>
         </div>
       </div>
