@@ -37,41 +37,44 @@ const TableDash = () => {
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [Canceled, SetCanceled] = useState(false);
-
-  const itemsPerPage = 4
+  const [loading, setLoading] = useState(true);
   
+  const itemsPerPage = 4;
+
   const getBookings = async () => {
+    setLoading(true);
     try {
       const resMyBookings = await GetMyBookingsDet();
       const bookings = resMyBookings.data.MyBookings;
       setBookings(bookings);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getBookings();
-  }, [bookings]);
+  }, [Canceled]);
 
-  const handlebookingCancel = async (id) => {
+  const handleBookingCancel = async (id) => {
     try {
       const response = await CancelBooking(id);
-      if (Response.status == 200) {
+      if (response.status === 200) {
         toast.success(response.data.message);
         setBookings((prevBookings) =>
           prevBookings.map((booking) =>
             booking._id === id ? { ...booking, status: "cancelled" } : booking
           )
         );
-        SetCanceled(true);
       } else {
-        toast.error(response.data.message);
+        toast.warning(response.data.message);
       }
     } catch (error) {
-      SetCanceled(true);
-      toast.error(error.response.data.message);
+      toast.warning(error.response.data.message);
       console.log("Error cancelling booking:", error);
+      SetCanceled(true);
     }
   };
 
@@ -141,7 +144,7 @@ const TableDash = () => {
             </Tooltip>
             <Tooltip color="danger" content="Cancel">
               <span
-                onClick={() => handlebookingCancel(booking._id)}
+                onClick={() => handleBookingCancel(booking._id)}
                 className="text-lg text-danger cursor-pointer active:opacity-50"
               >
                 <DeleteIcon />
@@ -165,10 +168,32 @@ const TableDash = () => {
 
   return (
     <div className="table-container">
-      {bookings.length === 0 ? (
+      {loading ? (
         <div className="flex items-center justify-center h-full">
           <Loading />
         </div>
+      ) : bookings.length === 0 ? (
+        <table className="w-full border-collapse">
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th
+                  key={column.uid}
+                  className="border-b-2 border-gray-200 p-4 text-left"
+                >
+                  {column.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan={columns.length} className="p-4 text-center">
+                No bookings available
+              </td>
+            </tr>
+          </tbody>
+        </table>
       ) : (
         <>
           <Table aria-label="Example table with custom cells">
