@@ -5,6 +5,9 @@ import { AddnewBooking, GetListingsBookings } from "../../../Api/BookingApi";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
 import moment from "moment";
+import { ContextAuth } from "../../../Context/AuthContext";
+import Login from "../../Modal/Login";
+import SignUp from "../../Modal/SignUp";
 
 function BookAndSale({ Price, ID, ObjectID }) {
   const [startDate, setStartDate] = useState(new Date());
@@ -12,6 +15,21 @@ function BookAndSale({ Price, ID, ObjectID }) {
   const [numberOfDates, setNumberOfDates] = useState(1);
   const [totalPrice, setTotalPrice] = useState(Price);
   const [disabledDateRanges, setDisabledDateRanges] = useState([]);
+  const [showSignUpModal, setShowSignUpModal] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const { isLoggedIn } = ContextAuth()
+
+  const openSignUpModal = (e) => {
+    e.preventDefault()
+    setShowSignUpModal(true);
+    setShowLoginModal(false)
+  }
+  const openLoginModal = (e) => {
+    e.preventDefault()
+    setShowLoginModal(true);
+    setShowSignUpModal(false);
+  };
+
 
   // Function to calculate number of dates between startDate and endDate
   const calculateNumberOfDates = () => {
@@ -81,7 +99,6 @@ function BookAndSale({ Price, ID, ObjectID }) {
       return;
     }
     try {
-      console.log(ObjectID)
       const response = await AddnewBooking({
         ID,
         ObjectID,
@@ -155,7 +172,7 @@ function BookAndSale({ Price, ID, ObjectID }) {
             </div>
           </div>
           <button
-            onClick={handleBooking}
+            onClick={isLoggedIn ? handleBooking : openSignUpModal}
             className="bg-[#ffa9202a] py-2 px-6 rounded-lg mt-5 w-full text-[#FFA920] font-semibold text-lg mb-6"
           >
             Reserve
@@ -179,6 +196,14 @@ function BookAndSale({ Price, ID, ObjectID }) {
         </div>
       </div>
       <Toaster position="top-center" />
+      {!isLoggedIn && <SignUp show={showSignUpModal}
+        onClose={() => setShowSignUpModal(false)}
+        onSwitchToLogin={openLoginModal}/>}
+      {!isLoggedIn && <Login
+        show={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToSignUp={openSignUpModal}
+      />}
     </>
   );
 }
