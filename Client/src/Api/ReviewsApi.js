@@ -33,4 +33,9 @@ export function DeleteReview (id) {
   return api.delete(`/delete/${id}`)
 }
 
+
+export function GetWebsiteReviews () {
+  return api.get('/admin/Reviews')
+}
+
 export default api;
