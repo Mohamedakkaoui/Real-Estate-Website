@@ -9,12 +9,14 @@ import {
   User,
   Chip,
   Tooltip,
-  getKeyValue,
-  Pagination
+  Pagination,
 } from "@nextui-org/react";
 import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
-import { GetMyBookingsDet } from "../../../Api/BookingApi";
+import { CancelBooking, GetMyBookingsDet } from "../../../Api/BookingApi";
+import { Toaster, toast } from "sonner";
+import { Link } from "react-router-dom";
+import Loading from "../Loading";
 
 const statusColorMap = {
   confirmed: "success",
@@ -34,37 +36,65 @@ const columns = [
 const TableDash = () => {
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [Canceled, SetCanceled] = useState(false);
+
+  const itemsPerPage = 4
+  
+  const getBookings = async () => {
+    try {
+      const resMyBookings = await GetMyBookingsDet();
+      const bookings = resMyBookings.data.MyBookings;
+      setBookings(bookings);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getBookings = async () => {
-      try {
-        const resMyBookings = await GetMyBookingsDet();
-        const bookings = resMyBookings.data.MyBookings;
-        setBookings(bookings);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getBookings();
-  }, []);
+  }, [bookings]);
+
+  const handlebookingCancel = async (id) => {
+    try {
+      const response = await CancelBooking(id);
+      if (Response.status == 200) {
+        toast.success(response.data.message);
+        setBookings((prevBookings) =>
+          prevBookings.map((booking) =>
+            booking._id === id ? { ...booking, status: "cancelled" } : booking
+          )
+        );
+        SetCanceled(true);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      SetCanceled(true);
+      toast.error(error.response.data.message);
+      console.log("Error cancelling booking:", error);
+    }
+  };
 
   const renderCell = React.useCallback((booking, columnKey) => {
     const cellValue = booking[columnKey];
-
     const formatDate = (dateString) => {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
       return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
     switch (columnKey) {
       case "listing":
         return (
-          <User
-            avatarProps={{ radius: "lg", src: booking.listing.images[0]?.url }}
-            description={booking.listing.price}
-            name={booking.listing.title}
-          />
+          <Link to={`/PropertyDetails/${booking.listing.Object_id}`}>
+            <User
+              avatarProps={{
+                radius: "lg",
+                src: booking.listing.images[0]?.url,
+              }}
+              description={`${booking.listing.price}/Night`}
+              name={booking.listing.title}
+            />
+          </Link>
         );
       case "totalPrice":
         return (
@@ -82,7 +112,7 @@ const TableDash = () => {
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            {booking.status}
           </Chip>
         );
       case "startDate":
@@ -109,8 +139,11 @@ const TableDash = () => {
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete ">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+            <Tooltip color="danger" content="Cancel">
+              <span
+                onClick={() => handlebookingCancel(booking._id)}
+                className="text-lg text-danger cursor-pointer active:opacity-50"
+              >
                 <DeleteIcon />
               </span>
             </Tooltip>
@@ -133,7 +166,9 @@ const TableDash = () => {
   return (
     <div className="table-container">
       {bookings.length === 0 ? (
-        <div>No bookings available</div>
+        <div className="flex items-center justify-center h-full">
+          <Loading />
+        </div>
       ) : (
         <>
           <Table aria-label="Example table with custom cells">
@@ -166,8 +201,17 @@ const TableDash = () => {
           </div>
         </>
       )}
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            toast: `${Canceled ? "bg-red-400" : "bg-green-400"}`,
+            title: "text-white",
+          },
+        }}
+      />
     </div>
   );
-}
+};
 
 export default TableDash;
