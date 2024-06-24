@@ -13,6 +13,7 @@ const {
   MylisitingsBookingsDB,
   permissionToBook,
   MyBookingsDBDet,
+  GetListingBookingsDB
 } = require("../models/methods/booking.Methods");
 const {
   getListingByIdDB,
@@ -140,15 +141,19 @@ exports.updateBooking = async (req, res) => {
 // cancel a booking
 exports.cancelBooking = async (req, res) => {
   try {
-    const booking = this.getBookingById;
+    const { id } = req.params;
+    const booking = await getBookingByIdDB(id);
     if (!booking) {
       return res.status(404).json({ error: "Booking not found" });
     }
-    booking.status = "cancelled";
+    if (booking.status == "canceled") {
+      return res.status(406).json({message : "Booking already canceled"})
+    }
+    booking.status = "canceled";
     await booking.save();
-    return res.status(200).json({ message: "Booking cancelled successfully" });
+    return res.status(200).json({ message: "Booking canceled successfully" });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error", message  :  "Booking couldnt be canceled" });
   }
 };
 
@@ -276,3 +281,19 @@ exports.OwnerPermissionToBook = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+//Get all booking controllers 
+exports.GetListingsBooking = async (req, res) => {
+  try {
+    const { id } = req.params
+    const bookings = await GetListingBookingsDB(id)
+    if (!bookings) {
+      return res.status(404).json({Message : "No booking were found"})
+    }
+    return res.status(200).json({Message : "Booking retrieved with success", Bookings : bookings})
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({error  :"Internal server Error " , Message : err.data.message})
+  }
+}
