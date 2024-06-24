@@ -14,8 +14,8 @@ function MainDashboard() {
         <p>We are glad to see you again!</p>
       </div>
       <UserCards />
-      <div className="flex  w-full mx-auto gap-6 mt-9">
-        <div className=" w-[60%]">
+      <div className="flex w-full mx-auto gap-6 mt-9">
+        <div className=" w-[75%]">
           <TableDash />
         </div>
         <div className="w-[40%]">
