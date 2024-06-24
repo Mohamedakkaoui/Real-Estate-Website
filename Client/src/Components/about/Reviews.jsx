@@ -1,9 +1,22 @@
-import React from 'react';
-import Slider from 'react-slick';
-import { reviews } from "../../Data/DummyData";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import SingleReviewCard from "./SingleReviewCard";
+import { GetWebsiteReviews } from "../../Api/ReviewsApi";
 
 const Reviews = () => {
+  const [reviews, SetReviews] = useState([]);
+
+  useEffect(() => {
+    const GetReviews = async () => {
+      const res = await GetWebsiteReviews()
+      if (res.status == 200) {
+        SetReviews(res.data.Reviews)
+      }
+      console.log(res.data.Message)
+    }
+    GetReviews()
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -42,8 +55,8 @@ const Reviews = () => {
       </div>
       <Slider {...settings} className="py-12">
         {reviews.map((review) => (
-          <div key={review.id} className="px-2">
-            <SingleReviewCard {...review} />
+          <div key={review._id} className="px-2">
+            <SingleReviewCard review = {review} />
           </div>
         ))}
       </Slider>
@@ -51,5 +64,4 @@ const Reviews = () => {
   );
 };
 
-export default Reviews;
-
+export default Reviews;

@@ -11,8 +11,8 @@ export const focus = [
   {
     id: 2,
     icon : <LuKeySquare/>,
-    name: "Sell a Property",
-    text: "Maximize your property's value and find the right buyer with our comprehensive sales support and market insights.",
+    name: "Sell Your Property",
+    text: "Get the best value for your property with our expert sales team.",
   },
   {
     id: 4,

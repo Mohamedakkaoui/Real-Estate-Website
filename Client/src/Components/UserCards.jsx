@@ -40,7 +40,7 @@ function UserCards() {
       }
     };
     totalListings();
-  }, []);
+  }, [TotalListings, totalreviews, myBookings]);
 
   return (
     <div className="flex  justify-between gap-5">
