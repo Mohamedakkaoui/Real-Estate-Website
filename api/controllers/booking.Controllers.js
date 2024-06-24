@@ -27,8 +27,8 @@ exports.registerNewBooking = async (req, res) => {
   try {
     const user = req.user.id;
     const User = await GetUserbyIdallInfoDB(user);
-    const { startDate, endDate, ID, totalPrice } = req.body;
-    const Listing = await getALLListingByUserIdDB(ID);
+    const { startDate, endDate,ID, ObjectID, totalPrice } = req.body;
+    const Listing = await getALLListingByUserIdDB(ObjectID);
     // const isAvailable = await checkListingAvailability(
     //   ID,
     //   startDate,

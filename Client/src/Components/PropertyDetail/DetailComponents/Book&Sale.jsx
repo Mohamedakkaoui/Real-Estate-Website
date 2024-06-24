@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 import { toast } from "sonner";
 import moment from "moment";
 
-function BookAndSale({ Price, ID }) {
+function BookAndSale({ Price, ID, ObjectID }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numberOfDates, setNumberOfDates] = useState(1);
@@ -81,8 +81,10 @@ function BookAndSale({ Price, ID }) {
       return;
     }
     try {
+      console.log(ObjectID)
       const response = await AddnewBooking({
         ID,
+        ObjectID,
         startDate: formatDate(startDate),
         endDate: formatDate(endDate),
         totalPrice: totalPrice - 125,
@@ -94,6 +96,7 @@ function BookAndSale({ Price, ID }) {
         await handleDisablingdates();
       }
     } catch (error) {
+      console.log(error)
       console.log(error.response.data.message);
     }
   };

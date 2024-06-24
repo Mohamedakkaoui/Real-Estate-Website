@@ -38,7 +38,7 @@ function DetailComponents({ property, reviews }) {
         )}
       </div>
       <div className="w-[40%] sticky -top-0">
-        {listingType === "vacation" && <BookAndSale Price={price} ID={_id} />}
+        {listingType === "vacation" && <BookAndSale Price={price} ID={_id} ObjectID = {Object_id} />}
         {/* {owner && <UserInfo owner={owner} />} */}
       </div>
     </div>
