@@ -9,8 +9,18 @@ import Reviews from "./DetailComponents/Reviews";
 import PostReview from "./DetailComponents/PostReview";
 
 function DetailComponents({ property, reviews }) {
-
-  const { description, features, location, owner, price, latitude, longitude, listingType, Object_id, _id } = property || {};
+  const {
+    description,
+    features,
+    location,
+    owner,
+    price,
+    latitude,
+    longitude,
+    listingType,
+    Object_id,
+    _id,
+  } = property || {};
   const coords = latitude && longitude ? [longitude, latitude] : null;
   return (
     <div className="flex  w-[80%] m-auto gap-6">
@@ -19,22 +29,20 @@ function DetailComponents({ property, reviews }) {
         <Description description={description} />
         <Featured features={features} />
         {coords && <DetailMap coords={coords} />}
-        {listingType === 'vacation' && (
+        {listingType === "vacation" && (
           <>
             {reviews && <Reviews reviews={reviews} />}
 
             <PostReview />
-
           </>
         )}
       </div>
       <div className="w-[40%] sticky -top-0">
-        {listingType === 'vacation' && (
-          <BookAndSale Price={price} ID={_id} />)}
-        {owner && <UserInfo owner={owner} />}
+        {listingType === "vacation" && <BookAndSale Price={price} ID={_id} />}
+        {/* {owner && <UserInfo owner={owner} />} */}
       </div>
     </div>
-  )
+  );
 }
 
 export default DetailComponents;
