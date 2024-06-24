@@ -10,7 +10,7 @@ import CardWithImageLeft from './Card/CardComponent';
 const { RangePicker } = DatePicker;
 
 const SearchFilters = ({ onSearch }) => {
-  const [forSale, setForSale] = useState(false);
+  const [forBuy, setForBuy] = useState(false);
   const [propertyTypeDropdown, setPropertyTypeDropdown] = useState(false);
   const [priceRangeDropdown, setPriceRangeDropdown] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
@@ -26,8 +26,8 @@ const SearchFilters = ({ onSearch }) => {
     setSearch(e.target.value);
   };
 
-  const toggleForSaleDropdown = () => {
-    setForSale(!forSale);
+  const toggleForBuyDropdown = () => {
+    setForBuy(!forBuy);
     if (propertyTypeDropdown) setPropertyTypeDropdown(false);
     if (priceRangeDropdown) setPriceRangeDropdown(false);
   };
@@ -58,7 +58,7 @@ const SearchFilters = ({ onSearch }) => {
 
   const togglePropertyTypeDropdown = () => {
     setPropertyTypeDropdown(!propertyTypeDropdown);
-    if (forSale) setForSale(false);
+    if (forBuy) setForBuy(false);
     if (priceRangeDropdown) setPriceRangeDropdown(false);
   };
 
@@ -69,8 +69,8 @@ const SearchFilters = ({ onSearch }) => {
 
   const togglePriceRangeDropdown = () => {
     setPriceRangeDropdown(!priceRangeDropdown);
-    if (forSale || propertyTypeDropdown) {
-      setForSale(false);
+    if (forBuy || propertyTypeDropdown) {
+      setForBuy(false);
       setPropertyTypeDropdown(false);
     }
   };
@@ -127,12 +127,12 @@ const SearchFilters = ({ onSearch }) => {
           <div className="relative">
             <button
               type="button"
-              className={`open-btn mb15 dropdown-toggle show border border-gray-300 rounded-lg text-[#252836] shadow-sm w-36 h-9 text-lg ${forSale ? 'active' : ''}`}
-              onClick={toggleForSaleDropdown}
+              className={`open-btn mb15 dropdown-toggle show border border-gray-300 rounded-lg text-[#252836] shadow-sm w-36 h-9 text-lg ${forBuy ? 'active' : ''}`}
+              onClick={toggleForBuyDropdown}
             >
-              For Sale <i className="fas fa-angle-down ms-6"></i>
+              For Buy <i className="fas fa-angle-down ms-6"></i>
             </button>
-            {forSale && (
+            {forBuy && (
               <div className="dropdown-menu show absolute mt-2 w-60 h-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="widget-wrapper bdrb1 pb-2 pl-2">
                   <h6 className="list-title font-bold text-[#252836]">Listing Status</h6>
@@ -153,11 +153,11 @@ const SearchFilters = ({ onSearch }) => {
                         className="form-check-input"
                         type="radio"
                         name="listingStatus"
-                        value="Sale"
-                        checked={selectedStatus === 'Sale'}
+                        value="Buy"
+                        checked={selectedStatus === 'Buy'}
                         onChange={handleRadioChange}
                       />
-                      <label className="form-check-label ml-2">Sale</label>
+                      <label className="form-check-label ml-2">Buy</label>
                     </div>
                     <div className="form-check d-flex align-items-center mb-2">
                       <input
@@ -222,22 +222,22 @@ const SearchFilters = ({ onSearch }) => {
                         className="form-check-input"
                         type="radio"
                         name="propertyType"
-                        value="Houses"
-                        checked={selectedPropertyTypes === 'Houses'}
+                        value="House"
+                        checked={selectedPropertyTypes === 'House'}
                         onChange={handlePropertyTypeChange}
                       />
-                      <label className="form-check-label ml-2" htmlFor="Houses">Houses</label>
+                      <label className="form-check-label ml-2" htmlFor="House">House</label>
                     </div>
                     <div className="form-check d-flex align-items-center mb-2">
                       <input
                         className="form-check-input"
                         type="radio"
                         name="propertyType"
-                        value="Apartment"
-                        checked={selectedPropertyTypes === 'Apartment'}
+                        value="Appartement"
+                        checked={selectedPropertyTypes === 'Appartement'}
                         onChange={handlePropertyTypeChange}
                       />
-                      <label className="form-check-label ml-2" htmlFor="Apartment">Apartments</label>
+                      <label className="form-check-label ml-2" htmlFor="Apartment">Appartement</label>
                     </div>
                     <div className="form-check d-flex align-items-center mb-2">
                       <input
@@ -255,11 +255,11 @@ const SearchFilters = ({ onSearch }) => {
                         className="form-check-input"
                         type="radio"
                         name="propertyType"
-                        value="Lands"
-                        checked={selectedPropertyTypes === 'Lands'}
+                        value="Land"
+                        checked={selectedPropertyTypes === 'Land'}
                         onChange={handlePropertyTypeChange}
                       />
-                      <label className="form-check-label ml-2" htmlFor="Lands">Lands</label>
+                      <label className="form-check-label ml-2" htmlFor="Land">Land</label>
                     </div>
                   </div>
                 </div>

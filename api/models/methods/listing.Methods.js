@@ -16,17 +16,16 @@ exports.getListingByIdDB = async (id) => {
 };
 
 
-exports.getALLListingByUserIdDB = async (id) => {
+exports.getALLListingByUserIdDB = async (watchList) => {
   try {
-    if (mongoose.Types.ObjectId.isValid(id)) {
-      const Listing = await ListingsSchema.find({ _id: id })
-      return Listing
-    }
+    console.log('Fetching listings for watchList:', watchList);
+    const listings = await ListingsSchema.find({ Object_id: { $in: watchList } });
+    console.log('Fetched listings:', listings);
+    return listings;
   } catch (error) {
-    throw new Error('Failed to get property by ID: ' + error)
+    throw new Error('Failed to get properties: ' + error);
   }
 };
-
 
 //method to delete property
 exports.deleteListingDB = async (id) => {

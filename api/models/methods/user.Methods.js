@@ -20,27 +20,33 @@ exports.saveListingForUser = async (userId, listingId) => {
     if (!user) {
       throw new Error("User not found");
     }
-    // Vérifier si le listingId existe réellement dans la base de données
-    if (mongoose.Types.ObjectId.isValid(listingId)) {
-      const listing = await ListingsSchema.findOne({ _id: listingId });
-      if (listing == null) {
-        return { error: "Listing not found in the data base" };
-      }
-    } else {
-      return { error: "id not valide " };
+
+    console.log('Current watchList before adding:', user.watchList);
+
+    if (!user.watchList) {
+      user.watchList = [];
     }
 
-    const watchlist = user.watchList;
-    const idStrings = watchlist.map((obj) => obj.toString());
-    if (idStrings.includes(listingId)) {
-      return { error: " item alread registred in the watchlist!" };
+    const listing = await ListingsSchema.findOne({ Object_id: listingId });
+    if (!listing) {
+      return { error: "Listing not found in the database" };
     }
 
-    user.watchList.push(listingId); // Assuming you want to save the listing ID
+    if (user.watchList.includes(listingId)) {
+      return { error: "Item already registered in the watchlist!" };
+    }
+
+    user.watchList.push(listingId);
+    console.log('Updated watchList after adding:', user.watchList);
+
     await user.save();
     return user;
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error:', error);
+    throw new Error('Failed to save listing: ' + error.message);
+  }
 };
+
 // get all users
 exports.getAllUsersDB = async () => {
   try {
@@ -62,7 +68,6 @@ exports.GetUserbyIdallInfoDB = async (id) => {
     throw new Error("Couldnt Find User : " + error);
   }
 };
-
 //method to get user by Id
 exports.GetUserbyIdDB = async (id) => {
   try {

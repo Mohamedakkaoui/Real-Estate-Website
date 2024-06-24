@@ -52,12 +52,10 @@ const UserSchema = new Schema({
   verificationToken: {
     type: String,
   },
-  watchList: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Listing'
-    },
-  ],
+  watchList: {
+    type: [String], 
+    default: [], 
+  },
   Notifications: [
     {
       listingID: { type: mongoose.Schema.Types.ObjectId, ref: "Listing" },
