@@ -15,13 +15,14 @@ import {
   Building2,
   CalendarCheck2,
   MessageSquareCode,
-  SquareUser,
+  SquareUser, SquarePlus
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import IconDropDown from "../Common/DropDown/IconDropDown";
 import FormatDate from "../../Utils/FormatDate";
 import AdminForm from "./Form/AdminForm";
 import LogoImg from "../../assets/logo2.png";
+import AddListing from "../ListingBoxes/AddNewListing";
 function AdminHeader() {
   const [activeTab, setActiveTab] = useState("main");
   const [mainContent, setMainContent] = useState("main");
@@ -78,31 +79,38 @@ function AdminHeader() {
           <div className="flex flex-col space-y-2">
             <button
               onClick={() => handleTabClick("main")}
-              className={`p-2 flex gap-2 text-left mb-2 ${
-                activeTab === "main"
-                  ? "font-semibold text-white bg-[#FFA920] rounded-md"
-                  : ""
-              }`}
+              className={`p-2 flex gap-2 text-left mb-2 ${activeTab === "main"
+                ? "font-semibold text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
             >
               <Shapes /> Main
             </button>
             <button
+              onClick={() => handleTabClick("newListing")}
+              className={`p-2 flex gap-2 text-left ${activeTab === "newListing"
+                ? "font-semibold text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
+            >
+              <SquarePlus />
+              New Listing
+            </button>
+            <button
               onClick={() => handleTabClick("Profile")}
-              className={`p-2 flex gap-2 text-left ${
-                activeTab === "Profile"
-                  ? "font-semibold text-white bg-[#FFA920] rounded-md"
-                  : ""
-              }`}
+              className={`p-2 flex gap-2 text-left ${activeTab === "Profile"
+                ? "font-semibold text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
             >
               <SquareUser /> Profile
             </button>
             <button
               onClick={() => handleTabClick("users")}
-              className={`p-2 flex gap-2 text-left ${
-                activeTab === "users"
-                  ? "font-semibold text-white bg-[#FFA920] rounded-md"
-                  : ""
-              }`}
+              className={`p-2 flex gap-2 text-left ${activeTab === "users"
+                ? "font-semibold text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
             >
               <UsersRound />
               Users
@@ -110,33 +118,30 @@ function AdminHeader() {
 
             <button
               onClick={() => handleTabClick("listings")}
-              className={`p-2 flex gap-2 text-left  ${
-                activeTab === "listings"
-                  ? "font-semibold  text-white bg-[#FFA920] rounded-md"
-                  : ""
-              }`}
+              className={`p-2 flex gap-2 text-left  ${activeTab === "listings"
+                ? "font-semibold  text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
             >
               <Building2 />
               Listings
             </button>
             <button
               onClick={() => handleTabClick("bookings")}
-              className={`p-2 flex gap-2 text-left mb-3 ${
-                activeTab === "bookings"
-                  ? "font-semibold  text-white bg-[#FFA920] rounded-md"
-                  : ""
-              }`}
+              className={`p-2 flex gap-2 text-left mb-3 ${activeTab === "bookings"
+                ? "font-semibold  text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
             >
               <CalendarCheck2 />
               Bookings
             </button>
             <button
               onClick={() => handleTabClick("reviews")}
-              className={`p-2 flex gap-2 text-left mb-3 ${
-                activeTab === "reviews"
-                  ? "font-semibold  text-white bg-[#FFA920] rounded-md"
-                  : ""
-              }`}
+              className={`p-2 flex gap-2 text-left mb-3 ${activeTab === "reviews"
+                ? "font-semibold  text-white bg-[#FFA920] rounded-md"
+                : ""
+                }`}
             >
               <MessageSquareCode /> Reviews
             </button>
@@ -172,6 +177,7 @@ function AdminHeader() {
               reviews={TotalReviews}
             />
           )}
+          {mainContent === "newListing" && <AddListing />}
           {mainContent === "users" && <MembersTable />}
           {mainContent === "listings" && <ListingsTable />}
           {mainContent === "bookings" && <BookingsTable />}

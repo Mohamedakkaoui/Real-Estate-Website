@@ -231,10 +231,7 @@ import { MdFileUpload } from "react-icons/md";
 import { BsHouseAdd } from "react-icons/bs";
 import { MdOutlinePermMedia } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
-import { SlSizeFullscreen } from "react-icons/sl";
-import { MdOutlineBedroomChild } from "react-icons/md";
-import { MdOutlineBathroom } from "react-icons/md";
-import { IoPeopleOutline } from "react-icons/io5";
+import { LuCalendarDays } from "react-icons/lu";
 import { Checkbox } from "@material-tailwind/react";
 import { z } from "zod";
 import MessageBox from '../MessageBox';
@@ -255,6 +252,7 @@ const AddListing = () => {
     const [images, setImages] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [bathrooms, setBathrooms] = useState([]);
+    const [buildYear, setBuildyear] = useState([]);
     const [accomodation, setAccomodation] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [errors, setErrors] = useState({});
@@ -294,7 +292,8 @@ const AddListing = () => {
             bathrooms: parseFloat(bathrooms),
             accomodation: parseFloat(accomodation),
             latitude: coordinates.lat,
-            longitude: coordinates.lng
+            longitude: coordinates.lng,
+            buildYear
         };
 
         try {
@@ -324,6 +323,7 @@ const AddListing = () => {
             setRooms('');
             setBathrooms('');
             setAccomodation('');
+            setBuildyear('');
         } catch (error) {
             if (error instanceof z.ZodError) {
                 const formattedErrors = {};
@@ -587,6 +587,30 @@ const AddListing = () => {
                                                     value={accomodation}
                                                     onChange={(e) => setAccomodation(e.target.value)}
                                                     style={{ borderRadius: "10px " }}
+                                                    className="outline-none focus:outline-none flex-1"
+                                                /> {/* Input field */}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="email" className="block text-sm text-gray-600 mb-1">Build Year :</label>
+                                            <div
+                                                className="flex items-center rounded-md h-10 "
+                                                style={{
+                                                    backgroundColor: "#FFF1DA",
+                                                    borderRadius: "10px",
+                                                }}
+                                            >
+                                                <LuCalendarDays
+                                                    size={30}
+                                                    color="#FFA920"
+                                                    style={{ margin: "10px" }}
+                                                    className="text-gray-500  "
+                                                /> <input
+                                                    type="text"
+                                                    placeholder="Property year of build"
+                                                    style={{ borderRadius: "10px" }}
+                                                    value={buildYear}
+                                                    onChange={(e) => setBuildyear(e.target.value)}
                                                     className="outline-none focus:outline-none flex-1"
                                                 /> {/* Input field */}
                                             </div>
