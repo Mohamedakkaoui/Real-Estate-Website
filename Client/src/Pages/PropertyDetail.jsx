@@ -15,6 +15,7 @@ function PropertyDetail() {
   const [property, setProperty] = useState([null]);
   const [reviews, setReviews] = useState([])
   const [images, setImages] = useState([]);
+
   useEffect(() => {
     async function getPropertyDetails() {
       try {

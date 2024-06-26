@@ -1,56 +1,45 @@
 import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "../Components/proprety/stylecss.css";
+import { useLocation } from "react-router-dom";
 import { fetchListingsFilter, fetchListings } from "../Api/apiProprety";
 import SearchFilters from "../Components/proprety/searchFilter";
-import CardWithImage from "../Components/proprety/Card/CardComponent";
-import MapVertical from "../Components/proprety/mapComponent";
 import CardWithImageLeft from "../Components/proprety/Card/CardComponent";
-import { GetAllListings } from "../Api/ListingsApi";
 import Navbar from "../Components/Forum/NavBar";
 import Footer from "../Components/Forum/Footer";
-const Property = () => {
 
+const Property = () => {
   const [filteredListings, setFilteredListings] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [priceRange, setPriceRange] = useState([0, 1000000]);
-  const [selectedStatus, setSelectedStatus] = useState("");
-  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
-  const [search, setSearch] = useState("");
-  // const handleResponse = (response) => {
-  //   setFilteredListings(response.data);
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   const fetchAllListings = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await fetchListings();
-  //       setFilteredListings(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error('Error fetching listings:', error);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchAllListings();
-  // }, []);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const propertyType = searchParams.get('propertyType');
+  const status = searchParams.get('status');
 
   useEffect(() => {
-    async function FetchAllListings() {
+    async function fetchProperties() {
       try {
-        const listings = await GetAllListings()
-        setFilteredListings(listings.data.Listings)
+        setLoading(true);
+        let response;
+        if (propertyType || status) {
+          response = await fetchListingsFilter({
+            selectedPropertyTypes: propertyType ? [propertyType] : [],
+            selectedStatus: status || ''
+          });
+        } else {
+          response = await fetchListings();
+        }
+        setFilteredListings(response.data.Listings || response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching listings:", error);
+        setLoading(false);
       }
     }
-    FetchAllListings();
-  }, []);
+    fetchProperties();
+  }, [propertyType, status]);
 
-
-  const handelSearch = async ({
+  const handleSearch = async ({
     minPrice,
     maxPrice,
     selectedPropertyTypes,
@@ -61,16 +50,6 @@ const Property = () => {
   }) => {
     try {
       setLoading(true);
-      console.log("Filter Params:", {
-        minPrice,
-        maxPrice,
-        selectedPropertyTypes,
-        selectedStatus,
-        search,
-        startDate,
-        endDate,
-      });
-
       const response = await fetchListingsFilter({
         minPrice,
         maxPrice,
@@ -80,7 +59,6 @@ const Property = () => {
         startDate,
         endDate,
       });
-
       setFilteredListings(response.data);
       setLoading(false);
     } catch (error) {
@@ -89,27 +67,26 @@ const Property = () => {
     }
   };
 
-  if (!filteredListings) {
-    return (<div>Loading...</div>)
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-
+  if (!filteredListings || filteredListings.length === 0) {
+    return <div>No properties found</div>;
+  }
 
   return (
     <>
-    <Navbar />
-    <div>
-      <SearchFilters onSearch={handelSearch} />
-      <div className="flex h-screen">
-        {/* <div className=" w-[40%]">
-          <MapVertical coordinates={coordinates} />
-        </div> */}
-        <CardWithImageLeft className="" filteredlistings={filteredListings} loading={loading} />
+      <Navbar />
+      <div>
+        <SearchFilters onSearch={handleSearch} />
+        <div className="flex h-screen">
+          <CardWithImageLeft filteredlistings={filteredListings} loading={loading} />
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };
 
-export default  Property;
+export default Property;

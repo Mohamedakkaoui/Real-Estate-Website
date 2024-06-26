@@ -27,10 +27,16 @@ export function updateListing(id, data) {
 }
 
 //save listing
-export function saveListing(id,) {
-  return api.put(`${id}`,)
+export async function saveListing(id) {
+  try {
+    const response = await api.put(`/${id}`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error saving listing:", error);
+    throw error;
+  }
 }
-
 
 export function GetMyListings() {
   return api.get('/MyListings')

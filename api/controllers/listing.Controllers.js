@@ -21,9 +21,14 @@ exports.saveListingUser = async (req, res) => {
     const userId = req.user.id;
     const listingId = req.params.listingId;
     const user = await saveListingForUser(userId, listingId);
-    return res.status(201).send(user);
+    if (user.error) {
+      return res.status(400).json(user);
+    }
+    console.log('Updated user:', user);
+    return res.status(201).json({ message: 'Listing saved successfully', user });
   } catch (error) {
-    return res.status(500).json({ Message: "Internal Server Error" });
+    console.error('Error:', error);
+    return res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
 
@@ -167,7 +172,6 @@ exports.getListingById = async (req, res) => {
 exports.updateListing = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     if (!id) {
       return res.status(400).json({ message: "No property ID was provided." });
     }
@@ -249,20 +253,31 @@ exports.GetcityListings = async (req, res) => {
   }
 };
 
-//get my fav
+// getAllFavorite.js
 exports.getAllFavorite = async (req, res) => {
   const { id } = req.user;
   try {
-    const user = await GetUserbyIdallInfoDB(id)
+    const user = await GetUserbyIdallInfoDB(id);
     if (!user) {
-      return res.status(404).send("User not found")
+      return res.status(404).send("User not found");
     }
-    const listings = await getALLListingByUserIdDB(user.watchList.toString())
-    if (!listings) {
-      return res.status(404).send("listings not found")
+
+    if (!Array.isArray(user.watchList)) {
+      user.watchList = [];
     }
-    res.status(200).json({ Message: "listings retrieved with success", Listings: listings });
+
+    console.log('User watchList:', user.watchList);
+
+    const listings = await getALLListingByUserIdDB(user.watchList);
+
+    if (!listings.length) {
+      return res.status(404).send("Listings not found");
+    }
+
+    console.log('Listings found:', listings);
+
+    res.status(200).json({ Message: "Listings retrieved with success", Listings: listings });
   } catch (error) {
-    res.status(500).send(error.message)
+    res.status(500).json({ Message: "Internal Server Error", error: error.message });
   }
-}
+};

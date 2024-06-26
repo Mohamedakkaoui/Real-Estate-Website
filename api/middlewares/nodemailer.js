@@ -29,4 +29,3 @@ exports.mailsender = (email, Function, ...args) => {
   
   main().catch(console.error)
 }
-

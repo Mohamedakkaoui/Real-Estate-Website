@@ -6,7 +6,7 @@ const bookingRoute = express.Router()
 const { isAuthenticated } = require('../middlewares/authMiddlewares')
 
 //defining routes
-const { getBookingById, registerNewBooking, updateBooking, cancelBooking, OwnerPermissionToBook, getBookings, getMyBooking, DeleteBooking, MyListingsBookings, getMyBookingDet } = require('../controllers/booking.Controllers')
+const { getBookingById, registerNewBooking, updateBooking, cancelBooking, OwnerPermissionToBook, getBookings, getMyBooking, DeleteBooking, MyListingsBookings, getMyBookingDet, GetListingsBooking } = require('../controllers/booking.Controllers')
 
 
 //defining routes
@@ -14,10 +14,11 @@ bookingRoute.post('/new', isAuthenticated, registerNewBooking)
 bookingRoute.get("/myBookings", isAuthenticated, getMyBooking)
 bookingRoute.get("/myBookingsDetailed", isAuthenticated, getMyBookingDet)
 bookingRoute.get("/MylistingsBooking", isAuthenticated, MyListingsBookings)
+bookingRoute.get('/AllBookings/:id', isAuthenticated, GetListingsBooking)
 bookingRoute.get('/', isAuthenticated, getBookings)
+bookingRoute.patch('/cancel/:id', isAuthenticated, cancelBooking)
 bookingRoute.get('/:id', isAuthenticated, getBookingById)
 bookingRoute.patch('/:id', isAuthenticated, updateBooking)
-bookingRoute.patch('/:id', isAuthenticated, cancelBooking)
 bookingRoute.delete('/delete/:id', DeleteBooking)
 bookingRoute.post('/:propertyId', isAuthenticated, OwnerPermissionToBook);
 

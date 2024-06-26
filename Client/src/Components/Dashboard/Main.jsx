@@ -9,13 +9,13 @@ function MainDashboard() {
 
   return (
     <>
-      <div className="firsttag mb-9 mt-6">
+      <div className="firsttag mb-9 mt-3">
         <h3>Howdy, {UserProfile.Username}</h3>
         <p>We are glad to see you again!</p>
       </div>
       <UserCards />
-      <div className="flex  w-full m-auto gap-6 mt-9">
-        <div className=" w-[60%]">
+      <div className="flex w-full mx-auto gap-6 mt-9">
+        <div className=" w-[75%]">
           <TableDash />
         </div>
         <div className="w-[40%]">

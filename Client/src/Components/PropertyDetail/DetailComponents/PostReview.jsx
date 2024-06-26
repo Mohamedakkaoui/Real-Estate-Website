@@ -21,9 +21,7 @@ function PostReview() {
   };
   const handleSubmit = async () => {
     const data = { rating: ratingValue, comment, property_id: propertyId }
-    console.log(data);
     const res = await addNewReview(data)
-    console.log(res);
   }
   return (
     <div className="bg-white shadow-lg shadow-t-xl rounded-lg overflow-hidden border p-4 mt-10 mb-10">

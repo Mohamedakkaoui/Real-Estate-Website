@@ -23,7 +23,7 @@ exports.deleteSiteReviewDB = async (id) => {
 // get all reviews
 exports.getAllSiteReviewsDB = async () => {
   try {
-    const Reviews = await SiteReviewSchema.find();
+    const Reviews = await SiteReviewSchema.find().populate("owner", "ProfilePic Username");
     return Reviews;
   } catch (err) {
     throw new Error(err);
