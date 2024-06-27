@@ -21,8 +21,6 @@ exports.saveListingForUser = async (userId, listingId) => {
       throw new Error("User not found");
     }
 
-    console.log('Current watchList before adding:', user.watchList);
-
     if (!user.watchList) {
       user.watchList = [];
     }
@@ -37,13 +35,43 @@ exports.saveListingForUser = async (userId, listingId) => {
     }
 
     user.watchList.push(listingId);
-    console.log('Updated watchList after adding:', user.watchList);
+    console.log("Updated watchList after adding:", user.watchList);
 
     await user.save();
     return user;
   } catch (error) {
-    console.error('Error:', error);
-    throw new Error('Failed to save listing: ' + error.message);
+    console.error("Error:", error);
+    throw new Error("Failed to save listing: " + error.message);
+  }
+};
+
+//Delete saved listing from the user watchlist
+exports.DeleteSavedListingForUser = async (userId, ListingID) => {
+  try {
+    const user = await UserSchema.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    if (!user.watchList) {
+      return;
+    }
+    const listing = await ListingsSchema.findOne({ Object_id: ListingID });
+    if (!listing) {
+      return { error: "Listing not found in the database" };
+    }
+    console.log(user.watchList);
+    if (user.watchList.includes(ListingID)) {
+      const index = user.watchList.indexOf(ListingID);
+      const darft = user.watchList.splice(index, 1);
+      await user.save();
+      console.log(user.watchList);
+      return user;
+    } else {
+      return user;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw new Error("Failed to Unsave listing: " + error.message);
   }
 };
 
@@ -134,4 +162,4 @@ exports.GetMyProfile = async (id) => {
   } catch (error) {
     throw new Error("Couldnt Find User : " + error);
   }
-}
+};
