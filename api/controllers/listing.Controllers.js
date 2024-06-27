@@ -78,7 +78,8 @@ exports.addNewListing = async (req, res) => {
       bathrooms,
       accomodation,
       latitude,
-      longitude
+      longitude,
+      buildYear
     } = req.body;
     const owner = req.user.id;
     const Object_id = generateCustomUUID();
@@ -99,7 +100,8 @@ exports.addNewListing = async (req, res) => {
       bathrooms,
       accomodation,
       latitude,
-      longitude
+      longitude,
+      buildYear
     });
     return res
       .status(201)

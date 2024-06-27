@@ -45,7 +45,7 @@ function SidebarComp() {
               </div>
             </Sidebar.Item>
           </Sidebar.ItemGroup>
-          <p>MANAGE LISTINGS</p>
+          {/* <p>MANAGE LISTINGS</p>
           <Sidebar.ItemGroup className="mb-10">
             <Sidebar.Item
               as={NavLink}
@@ -87,7 +87,7 @@ function SidebarComp() {
                 <h2>Reviews</h2>
               </div>
             </Sidebar.Item>
-          </Sidebar.ItemGroup>
+          </Sidebar.ItemGroup> */}
           <p>MANAGE ACCOUNT</p>
           <Sidebar.ItemGroup>
             <Sidebar.Item

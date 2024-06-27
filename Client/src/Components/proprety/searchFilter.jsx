@@ -12,6 +12,7 @@ const { RangePicker } = DatePicker;
 const SearchFilters = ({ onSearch }) => {
   const [forBuy, setForBuy] = useState(false);
   const [propertyTypeDropdown, setPropertyTypeDropdown] = useState(false);
+  const [propertyAgeDropdown, setPropertyAgeDropdown] = useState(false);
   const [priceRangeDropdown, setPriceRangeDropdown] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [isDragging, setIsDragging] = useState(false);
@@ -19,6 +20,7 @@ const SearchFilters = ({ onSearch }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedPropertyTypes, setSelectedPropertyType] = useState('');
+  const [selectedPropertyAge, setSelectedPropertyAge] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -32,13 +34,6 @@ const SearchFilters = ({ onSearch }) => {
     if (priceRangeDropdown) setPriceRangeDropdown(false);
   };
 
-  const handleDoneButtonClick = () => {
-    if (selectedStatus === 'Vacation') {
-      setShowDatePicker(true);
-    } else {
-      setShowDatePicker(false);
-    }
-  };
 
   const handleRadioChange = (e) => {
     const value = e.target.value;
@@ -61,10 +56,20 @@ const SearchFilters = ({ onSearch }) => {
     if (forBuy) setForBuy(false);
     if (priceRangeDropdown) setPriceRangeDropdown(false);
   };
+  const togglePropertyAgeDropdown = () => {
+    setPropertyAgeDropdown(!propertyAgeDropdown);
+    if (forSale) setForSale(false);
+    if (priceRangeDropdown) setPriceRangeDropdown(false);
+  };
+
 
   const handlePropertyTypeChange = (e) => {
     const value = e.target.value;
     setSelectedPropertyType(value);
+  };
+  const handlePropertyAgeChange = (e) => {
+    const value = JSON.parse(e.target.value);
+    setSelectedPropertyAge(value);
   };
 
   const togglePriceRangeDropdown = () => {
@@ -97,7 +102,9 @@ const SearchFilters = ({ onSearch }) => {
         selectedStatus,
         search,
         startDate: dateRange[0],
-        endDate: dateRange[1]
+        endDate: dateRange[1],
+        ageMin: selectedPropertyAge[0],
+        ageMax: selectedPropertyAge[1]
       };
       onSearch(filterParams);
       setLoading(false);
@@ -267,6 +274,82 @@ const SearchFilters = ({ onSearch }) => {
               </div>
             )}
           </div>
+          <div className="relative">
+            <button
+              type="button"
+              className="open-btn mb15 dropdown-toggle show border border-gray-300 rounded-lg text-[#252836] shadow-sm w-36 h-9 text-lg"
+              onClick={togglePropertyAgeDropdown}
+            >
+              Property Age <i className="fas fa-angle-down ms-2"></i>
+            </button>
+            {propertyAgeDropdown && (
+              <div className="dropdown-menu show absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="widget-wrapper bdrb1 pb-2 pl-2">
+                  <h6 className="list-title font-bold text-[#252836]">Property Age</h6>
+                  <div className="radio-element">
+                    <div className="form-check d-flex align-items-center mb-2">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="propertyType"
+                        value={JSON.stringify([0, 300])}
+                        checked={JSON.stringify(selectedPropertyAge) === JSON.stringify([0, 300])}
+                        onChange={handlePropertyAgeChange}
+                      />
+                      <label className="form-check-label ml-2" htmlFor="All">All</label>
+                    </div>
+                    <div className="form-check d-flex align-items-center mb-2">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="propertyType"
+                        value={JSON.stringify([0, 2])}
+                        checked={JSON.stringify(selectedPropertyAge) === JSON.stringify([0, 2])}
+                        onChange={handlePropertyAgeChange}
+                      />
+                      <label className="form-check-label ml-2" htmlFor="Houses">New</label>
+                    </div>
+                    <div className="form-check d-flex align-items-center mb-2">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="propertyType"
+                        value={JSON.stringify([2, 5])}
+                        checked={JSON.stringify(selectedPropertyAge) === JSON.stringify([2, 5])}
+                        onChange={handlePropertyAgeChange}
+                      />
+                      <label className="form-check-label ml-2" htmlFor="Apartment">older than 2 years</label>
+                    </div>
+                    <div className="form-check d-flex align-items-center mb-2">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="propertyType"
+                        value={JSON.stringify([5, 10])}
+                        checked={JSON.stringify(selectedPropertyAge) === JSON.stringify([5, 10])}
+                        onChange={handlePropertyAgeChange}
+                      />
+                      <label className="form-check-label ml-2" htmlFor="Villa">older than 5 years</label>
+                    </div>
+                    <div className="form-check d-flex align-items-center mb-2">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="propertyType"
+                        value={JSON.stringify([11, 300])}
+                        checked={JSON.stringify(selectedPropertyAge) === JSON.stringify([11, 300])}
+                        onChange={handlePropertyAgeChange}
+                      />
+                      <label className="form-check-label ml-2" htmlFor="Lands">older than 10 years</label>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            )}
+          </div>
+
+
 
           <div className="relative">
             <button

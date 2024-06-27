@@ -13,6 +13,7 @@ import Property from "./Pages/pageProprety";
 import About from "./Pages/About";
 import "./App.css";
 import PrivateRoute from "./Utils/UserRoutes";
+import PropertyCity from "./Pages/PagePropertyCity";
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
             <Route
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
+            ></Route>
+            <Route
+              path="/Properties"
+              element={<Property />}
+            ></Route>
+            <Route
+              path="/Properties/:city"
+              element={<PropertyCity />}
             ></Route>
             <Route path="/Properties" element={<Property />}></Route>
             <Route

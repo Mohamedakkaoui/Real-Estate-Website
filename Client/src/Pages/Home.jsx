@@ -8,19 +8,21 @@ import Categories from "../Components/Home/Categories";
 import Cities from "../Components/Home/Cities";
 import SellingOption from "../Components/Home/SellingOption";
 import ScrollToTopButton from "../Components/Common/ScrollToTopButton";
+import NavBar2 from "../Components/Forum/Navbar2";
 function Home() {
 
   return (
     <>
-      <NavBar/>
-      <Hero/>
-      <AboutUs/>
-      <Featured/>
-      <Categories/>
-      <Cities/>
-      <ScrollToTopButton/>
-      <SellingOption/>
-      <Footer/>
+      {/* <NavBar/> */}
+      <NavBar2 />
+      <Hero />
+      <AboutUs />
+      <Featured />
+      <Categories />
+      <Cities />
+      <ScrollToTopButton />
+      <SellingOption />
+      <Footer />
     </>
   );
 }

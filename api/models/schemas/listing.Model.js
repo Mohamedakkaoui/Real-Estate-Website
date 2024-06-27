@@ -56,7 +56,9 @@ const ListingsSchema = new mongoose.Schema({
   features: {
     type: Array,
   },
-
+  buildYear: {
+    type: Number
+  },
   rating: {
     type: Number,
   },
