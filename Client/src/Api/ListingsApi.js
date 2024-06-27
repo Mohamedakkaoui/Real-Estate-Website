@@ -30,12 +30,15 @@ export function updateListing(id, data) {
 export async function saveListing(id) {
   try {
     const response = await api.put(`/${id}`);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error("Error saving listing:", error);
     throw error;
   }
+}
+
+export function DeleteSaved(id) {
+  return api.put(`/DeleteSaved/${id}`)
 }
 
 export function GetMyListings() {

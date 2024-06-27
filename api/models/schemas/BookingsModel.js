@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const BookingSchema = new mongoose.Schema({
+  Object_id : {
+    type: String
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref : 'Users',
@@ -26,7 +29,7 @@ const BookingSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'cancelled'],
+    enum: ['pending', 'confirmed', 'canceled'],
     default: 'pending'
   },
   owner: {

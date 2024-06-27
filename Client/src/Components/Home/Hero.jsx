@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar";
 
 function Hero() {
   return (
@@ -22,12 +23,13 @@ function Hero() {
             and secure your dream home with us. Your journey to the perfect
             living space begins here.
           </p>
-          <div className="mt-8 flex justify-center gap-x-3 ">
-            <Link to={"/Properties"} className=" opacity-100">
+          <div className="mt-8 flex justify-center gap-x-3">
+            {/* <Link to={"/Properties"} className=" opacity-100">
               <button className="bg-[#FFA920] rounded-md px-6  transition-all duration-300 py-3 text-lg">
                 EXPLORE PROPERTIES
               </button>
-            </Link>
+            </Link> */}
+            <SearchBar/>
           </div>
         </div>
       </div>

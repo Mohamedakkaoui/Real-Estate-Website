@@ -12,9 +12,7 @@ exports.CreateReview = async (req, res) => {
   try {
     const { rating, comment, property_id } = req.body;
     const owner = req.user.id;
-    console.log(req.body);
     const DBproperty_id = await propertyIdSwitch(property_id)
-    console.log(DBproperty_id)
     if (!owner) {
       return res.status(404).send("No user identified");
     }

@@ -13,18 +13,20 @@ const Property = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const propertyType = searchParams.get('propertyType');
-  const status = searchParams.get('status');
+  const propertyType = searchParams.get("propertyType");
+  const status = searchParams.get("status");
+  const search = searchParams.get("search");
 
   useEffect(() => {
     async function fetchProperties() {
       try {
         setLoading(true);
         let response;
-        if (propertyType || status) {
+        if (propertyType || status || search) {
           response = await fetchListingsFilter({
             selectedPropertyTypes: propertyType ? [propertyType] : [],
-            selectedStatus: status || ''
+            selectedStatus: status || "",
+            search : search || ""
           });
         } else {
           response = await fetchListings();
@@ -37,7 +39,7 @@ const Property = () => {
       }
     }
     fetchProperties();
-  }, [propertyType, status]);
+  }, [propertyType, status, search]);
 
   const handleSearch = async ({
     minPrice,
@@ -81,7 +83,10 @@ const Property = () => {
       <div>
         <SearchFilters onSearch={handleSearch} />
         <div className="flex h-screen">
-          <CardWithImageLeft filteredlistings={filteredListings} loading={loading} />
+          <CardWithImageLeft
+            filteredlistings={filteredListings}
+            loading={loading}
+          />
         </div>
       </div>
       <Footer />

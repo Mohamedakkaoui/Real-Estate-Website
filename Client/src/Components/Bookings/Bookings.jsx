@@ -29,7 +29,6 @@ async function fetchBookings() {
   try {
     const response = await MyListingsBokings();
     const bookings = response.data.Bookings;
-    console.log(bookings);
     return bookings;
   } catch (error) {
     console.log("Error fetching users bookings:", error);
@@ -66,7 +65,6 @@ export function Bookings() {
       const endIndex = startIndex + itemsPerPage;
       setTableRows(Bookings.slice(startIndex, endIndex));
     }
-    // console.log('s', Bookings);
   }, [Bookings, curentPage]);
 
   const handlePrevPage = () => {

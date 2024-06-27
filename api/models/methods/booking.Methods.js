@@ -88,7 +88,6 @@ exports.checkListingAvailability = async (listingId, startDate, endDate) => {
 //myBookings
 exports.MyBookingsDB = async (id) => {
   try {
-    console.log('frrfrrfr');
     const myBookings = await bookingSchema.find({ user: id }).populate("listing", "title images price")
     return myBookings
   } catch (error) {
@@ -99,8 +98,7 @@ exports.MyBookingsDB = async (id) => {
 //myBookings detailed
 exports.MyBookingsDBDet = async (id) => {
   try {
-    console.log('frrfrrfr');
-    const myBookings = await bookingSchema.find({ user: id }).populate("listing", "title images price")
+    const myBookings = await bookingSchema.find({ user: id }).populate("listing", "title images price Object_id")
     return myBookings
   } catch (error) {
     throw new error(error);
@@ -135,7 +133,6 @@ exports.MylisitingsBookingsDB = async (id) => {
     // const lisitngsIDs = Listings.map((listing) => listing._id.toString())
 
     const Booking = await bookingSchema.find({ owner: id }).populate('listing', '-_id').populate('user', '-_id')
-    console.log(Booking);
     return Booking
   } catch (error) {
     throw new Error('Failed to get bookings ' + error)
@@ -193,5 +190,17 @@ exports.permissionToBook = async (userId, propertyId, startDate, endDate, totalP
   } catch (err) {
     console.error(err);
     return { status: 500, body: { error: "Internal Server Error" } };
+  }
+}
+
+
+
+//get all bookiing 
+exports.GetListingBookingsDB= async (id) => {
+  try {
+    const Bookings  = await bookingSchema.find({listing : id, status : {$ne : 'canceled'} })
+    return Bookings
+  } catch (error) {
+    throw new Error ('Failed to get all bookings ')
   }
 }

@@ -27,7 +27,6 @@ exports.GetReviewByIdDB = async (id) => {
 exports.GetListingReviewsDB = async (id) => {
   try {
     const response = await ReviewSchema.find({ property_id: id }).populate('owner', 'Username ProfilePic -_id').select('-_id -__v -property_id')
-    console.log(response)
     return response
   } catch (err) {
     throw new Error(err)

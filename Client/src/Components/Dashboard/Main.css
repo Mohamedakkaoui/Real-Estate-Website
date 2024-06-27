@@ -12,3 +12,15 @@
     width: max-content;
     /* background: #cf0f0f; */
 }
+.table-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }

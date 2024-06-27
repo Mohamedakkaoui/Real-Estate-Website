@@ -27,9 +27,16 @@ export function MyListingsBokings() {
   return api.get('/MylistingsBooking')
 }
 
+export function CancelBooking (id) {
+  return api.patch(`/cancel/${id}`)
+}
 
 
 export function AddnewBooking (body) {
   return api.post('/new', body)
 }
+
+export function GetListingsBookings (ID) {
+  return api.get(`/AllBookings/${ID}`)
+} 
 export default api;

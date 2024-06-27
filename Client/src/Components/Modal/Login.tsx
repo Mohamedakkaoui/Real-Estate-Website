@@ -72,7 +72,7 @@ function Login({ show, onClose, onSwitchToSignUp }) {
       closeButtonRef.current.focus();
     }
   }, [show]);
-  //context ~~~~~~
+  //cont
   return (
     <>
       <Modal show={show} size="5xl" popup onClose={onClose}>

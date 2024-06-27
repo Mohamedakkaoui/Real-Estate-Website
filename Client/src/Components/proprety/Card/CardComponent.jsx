@@ -43,7 +43,6 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
 
 
   useEffect(() => {
-    console.log('azertyuio', coordinates);
     if (!coordinates || coordinates.length === 0) {
       return; // Don't initialize the map if coordinates are not available
     }

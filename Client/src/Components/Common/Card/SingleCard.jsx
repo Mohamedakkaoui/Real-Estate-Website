@@ -5,7 +5,6 @@ import CardLabels from "./CardLabel";
 
 const SingleProductCard = ({
   _id,
-
   Object_id,
   title,
   location,
@@ -23,7 +22,7 @@ const SingleProductCard = ({
         } shadow-light dark:border-card-dark border rounded-lg overflow-hidden relative group`}
     >
       <div className="group !opacity-100 overflow-hidden relative">
-        <Link to={`/property-details/${Object_id}`} className="!opacity-100">
+        <Link to={`/PropertyDetails/${Object_id}`} className="!opacity-100">
           <img
             src={propImg}
             alt={title}
@@ -40,7 +39,7 @@ const SingleProductCard = ({
       </div>
       <CardLabels purpose={listingType} />
       <div className="p-3">
-        <Link to={`/property-details/${Object_id}`} className="group-hover:text-primary transition-a">
+        <Link to={`/PropertyDetails/${Object_id}`} className="group-hover:text-primary transition-a">
           <h1 className="text-lg font-bold capitalize">{title}</h1>
         </Link>
         <div className="flex justify-between mt-3">
@@ -66,7 +65,7 @@ const SingleProductCard = ({
 
         <div className="mt-4 flex-center-between">
           <h1 className="text-lg font-semibold text-primary">MAD{price}</h1>
-          <Link to={`/property-details/${Object_id}`}>
+          <Link to={`/PropertyDetails/${Object_id}`}>
             <button className="bg-[#02293e] opacity-80 rounded-lg text-white py-2 px-6">DETAILS</button>
           </Link>
         </div>

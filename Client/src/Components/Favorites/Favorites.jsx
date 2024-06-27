@@ -10,7 +10,6 @@ const Favorites = () => {
   const fetchFavorites = async () => {
     try {
       const data = await getFavorites();
-      console.log('Fetched favorites:', data);
       setFavorites(data.Listings);
     } catch (error) {
       console.error("Error fetching favorite properties:", error);
@@ -23,7 +22,15 @@ const Favorites = () => {
 
   return (
     <div>
-      <div className="flex items-center" style={{ gap: '10px', margin: '25px 10px', borderBottom: '1px grey solid', paddingBottom: '5px' }}>
+      <div
+        className="flex items-center"
+        style={{
+          gap: "10px",
+          margin: "25px 10px",
+          borderBottom: "1px grey solid",
+          paddingBottom: "5px",
+        }}
+      >
         <FiHeart />
         <h4>Favorites</h4>
       </div>

@@ -62,11 +62,13 @@ function Cities() {
                 key={index}
                 className="aspect-ratio w-full h-[300px] overflow-hidden shadow-md rounded-lg relative"
               >
-                <img
-                  className="object-cover brightness-75 w-full h-full hover:brightness-50 hover:cursor-pointer transition-all duration-300"
-                  src={city.Image}
-                  alt={city.CIty}
-                />
+                <a href={`/Properties/${city.CIty}`}>
+                  <img
+                    className="object-cover brightness-75 w-full h-full hover:brightness-50 hover:cursor-pointer transition-all duration-300"
+                    src={city.Image}
+                    alt={city.CIty}
+
+                  /></a>
                 <p className="text-white text-xl font-bold absolute bottom-8 left-2">
                   {city.CIty}
                 </p>
@@ -83,11 +85,14 @@ function Cities() {
                 key={index}
                 className="aspect-ratio w-1/4 h-[300px] overflow-hidden shadow-md rounded-lg relative"
               >
-                <img
-                  className="object-cover brightness-75 hover:brightness-50 hover:cursor-pointer transition-all duration-300"
-                  src={city.Image}
-                  alt={city.CIty}
-                />
+                <a href={`/Properties/${city.CIty}`}>
+
+                  <img
+                    className="object-cover brightness-75 hover:brightness-50 hover:cursor-pointer transition-all duration-300"
+                    src={city.Image}
+                    alt={city.CIty}
+
+                  /></a>
                 <p className="text-white text-xl font-bold absolute bottom-8 left-2">
                   {city.CIty}
                 </p>
@@ -102,8 +107,9 @@ function Cities() {
         <div className="flex items-center justify-center mx-auto mt-20">
           <Loading />
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 
