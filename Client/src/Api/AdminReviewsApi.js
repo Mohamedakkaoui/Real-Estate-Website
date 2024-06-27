@@ -12,9 +12,9 @@ export function getAllSiteReviews() {
   return api.get("/admin/Reviews");
 }
 
-export function AddSiteReview(body) {
-  return api.post('/admin/Reviews', body)
-}
+// export function AddSiteReview(body) {
+//   return api.post('/admin/AllReviews', body)
+// }
 
 export function DeleteSiteAdmin(id) {
   return api.delete(`/admin/Reviews/${id}`)

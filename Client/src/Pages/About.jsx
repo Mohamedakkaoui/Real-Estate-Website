@@ -1,4 +1,4 @@
-import { OverView, Stats,Brands, Reviews, WhatWeDo } from "../Components/about";
+import { OverView, Stats,Brands, Reviews, WhatWeDo,PostReview } from "../Components/about";
 import Team from "../Components/about/Team";
 import Footer from "../Components/Forum/Footer";
 import NavBar from "../Components/Forum/NavBar";
@@ -12,6 +12,7 @@ const About = () => {
       <Brands />
       <Team/>
       <WhatWeDo />
+      <PostReview/>
       <Reviews />
       <Footer/>
     </>
