@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom';
 
 function PropertyDetail() {
   const { propertyId } = useParams();
-
   const [property, setProperty] = useState([null]);
   const [reviews, setReviews] = useState([])
   const [images, setImages] = useState([]);
