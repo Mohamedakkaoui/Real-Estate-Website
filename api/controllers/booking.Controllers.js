@@ -51,20 +51,20 @@ exports.registerNewBooking = async (req, res) => {
       owner,
     };
     const newBooking = await registerBookingDB(data);
-    // mailsender(
-    //   User.Email,
-    //   "ConfirmationForReserve",
-    //   Listing[0].title,
-    //   Listing[0].city,
-    //   startDate,
-    //   endDate,
-    //   totalPrice,
-    //   Object_id,
-    //   Listing[0].location,
-    //   User.Username,
-    //   User.Email,
-    //   User.PhoneNumber
-    // );
+    mailsender(
+      User.Email,
+      "ConfirmationForReserve",
+      Listing[0].title,
+      Listing[0].city,
+      startDate,
+      endDate,
+      totalPrice,
+      Object_id,
+      Listing[0].location,
+      User.Username,
+      User.Email,
+      User.PhoneNumber
+    );
     return res
       .status(201)
       .json({ message: "New booking added!", result: newBooking });
