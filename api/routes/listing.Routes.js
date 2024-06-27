@@ -5,7 +5,7 @@ const ListingRoute = express.Router()
 
 
 //importing controllers & Middlewares
-const { addNewListing, deleteListing, DeleteListingByObject, getListings, getListingById, updateListing, saveListingUser, getMyListings, GetcityListings } = require('../controllers/listing.Controllers')
+const { addNewListing, deleteListing, DeleteListingByObject, getListings, getListingById, updateListing, saveListingUser, getMyListings, GetcityListings, DeleteSavedListingforUser } = require('../controllers/listing.Controllers')
 const { ListingPicsUpload } = require('../middlewares/multer')
 const { isAuthenticated } = require('../middlewares/authMiddlewares')
 const { validateListing } = require('../middlewares/validate/validateListing')
@@ -29,6 +29,7 @@ ListingRoute.post('/add', isAuthenticated,  validateListing, addNewListing)
 ListingRoute.delete('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin), IsOwner, deleteListing)
 ListingRoute.patch('/update/:id', isAuthenticated, IsOwner, updateListing)
 ListingRoute.put('/:listingId', isAuthenticated, saveListingUser)
+ListingRoute.put('/DeleteSaved/:ListingID', isAuthenticated, DeleteSavedListingforUser)
 ListingRoute.get('/NearbyListings/:city', GetcityListings)
 ListingRoute.post('/pics', ListingPicsUpload.array('images', 8), uploadMultiple)
 ListingRoute.delete('/delete/:id', DeleteListingByObject)
