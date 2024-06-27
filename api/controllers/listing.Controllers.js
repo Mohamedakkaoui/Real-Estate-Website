@@ -12,7 +12,7 @@ const {
 } = require("../models/methods/listing.Methods");
 const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
-const { saveListingForUser, GetUserbyIdallInfoDB } = require("../models/methods/user.Methods.js");
+const { saveListingForUser, GetUserbyIdallInfoDB, DeleteSavedListingForUser } = require("../models/methods/user.Methods.js");
 const { GetListingReviewsDB } = require("../models/methods/reviews.Methods.js");
 
 //save listing for user
@@ -24,13 +24,24 @@ exports.saveListingUser = async (req, res) => {
     if (user.error) {
       return res.status(400).json(user);
     }
-    console.log('Updated user:', user);
     return res.status(201).json({ message: 'Listing saved successfully', user });
   } catch (error) {
     console.error('Error:', error);
     return res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
+// Delete saved listing from te use watchlist
+exports.DeleteSavedListingforUser = async(req, res)=> {
+  try {
+    const userId = req.user.id;
+    const ListingID = req.params.ListingID;
+    const response = await DeleteSavedListingForUser( userId, ListingID)
+    return res.status(200).json({Message : "Listing Unsaved with success", response})
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+}
 
 //All listing
 exports.getListings = async (req, res) => {
@@ -264,7 +275,6 @@ exports.getAllFavorite = async (req, res) => {
       user.watchList = [];
     }
 
-    console.log('User watchList:', user.watchList);
 
     const listings = await getALLListingByUserIdDB(user.watchList);
 
@@ -272,7 +282,6 @@ exports.getAllFavorite = async (req, res) => {
       return res.status(404).send("Listings not found");
     }
 
-    console.log('Listings found:', listings);
 
     res.status(200).json({ Message: "Listings retrieved with success", Listings: listings });
   } catch (error) {
