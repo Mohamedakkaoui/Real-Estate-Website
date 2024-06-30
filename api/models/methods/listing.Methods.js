@@ -14,6 +14,16 @@ exports.getListingByIdDB = async (id) => {
   }
 };
 
+//Delete all the listing if te user is deleted
+exports.DeleteAllListingsDB = async (id) => {
+  try {
+    const DeleteResult = await ListingsSchema.deleteMany({owner : id})
+    return DeleteResult
+  } catch (error) {
+    throw new Error("Failed to Delete properties: " + error);
+  }
+}
+
 exports.getALLListingByUserIdDB = async (watchList) => {
   try {
     const listings = await ListingsSchema.find({ Object_id: watchList });
@@ -35,7 +45,7 @@ exports.deleteListingDB = async (id) => {
 
 exports.DeleteListingByobjectId = async (id) => {
   try {
-    const ListingToDelete = await ListingsSchema.deleteOne({ Object_id: id });
+    const ListingToDelete = await ListingsSchema.findOneAndDelete({ Object_id: id });
     return ListingToDelete;
   } catch (error) {
     throw new Error("Failed to delete Listing : " + error);
