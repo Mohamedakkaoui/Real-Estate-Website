@@ -123,7 +123,7 @@ exports.DeleteUserDB = async (id) => {
 //methode to delete user byID
 exports.DeleteUserByOwnerIdDB = async (id) => {
   try {
-    const deleteUser = await UserSchema.deleteOne({ OwnerId: id });
+    const deleteUser = await UserSchema.findOneAndDelete({ OwnerId: id });
     return deleteUser;
   } catch (error) {
     throw new Error("Failed to delete user : " + error);
