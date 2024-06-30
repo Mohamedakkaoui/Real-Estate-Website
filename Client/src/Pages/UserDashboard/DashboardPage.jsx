@@ -12,7 +12,6 @@ import { Myrevs } from "../../Components/Myrevs/Myrevs";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import EditListing from "../../Components/EditListing/EditListing";
 import NavBar from "../../Components/Forum/NavBar";
-import Footer from "../../Components/Forum/Footer";
 
 function DashboardPage() {
   return (
