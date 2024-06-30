@@ -29,16 +29,6 @@ exports.registerNewBooking = async (req, res) => {
     const User = await GetUserbyIdallInfoDB(user);
     const { startDate, endDate,ID, ObjectID, totalPrice } = req.body;
     const Listing = await getALLListingByUserIdDB(ObjectID);
-    // const isAvailable = await checkListingAvailability(
-    //   ID,
-    //   startDate,
-    //   endDate
-    // );
-    // if (!isAvailable) {
-    //   return res
-    //     .status(200)
-    //     .json({ Message: "Listing is not available for the specified dates." });
-    // }
     const owner = Listing[0].owner;
     const Object_id = generateCustomUUID();
     const data = {
