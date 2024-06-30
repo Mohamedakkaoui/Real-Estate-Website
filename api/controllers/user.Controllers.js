@@ -1,9 +1,11 @@
 //importing necessary methods and functions
-const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB, GetMyProfile } = require('../models/methods/user.Methods.js')
+const { DeleteUserDB, getAllUsersDB, GetUserbyIdDB, updateProfileDB, GetMyProfile, DeleteUserByOwnerIdDB } = require('../models/methods/user.Methods.js')
 const { HashPassword, VerifyPassword } = require('../helpers/hashing.js')
 const jwt = require('jsonwebtoken');
 const { bufferAndUpload } = require('../helpers/datauri.js');
-const UserSchema = require('../models/schemas/user.Model.js')
+const UserSchema = require('../models/schemas/user.Model.js');
+const { DeleteAllListingsDB } = require('../models/methods/listing.Methods.js');
+const { DeleteBookingsDB } = require('../models/methods/booking.Methods.js');
 
 //all users
 exports.getAllUsers = async (req, res) => {
@@ -100,14 +102,31 @@ exports.DeleteCurrentUser = async (req, res) => {
   }
 }
 
-//deleteUser by OwnerID
+//deleteUser by OwnerIDb
 exports.DeleteUser = async(req, res) => {
   try {
     const { id } =  req.params
     const deleteUser = await DeleteUserByOwnerIdDB(id)
-    if (deleteUser.deletedCount == 0) {
-      return res.status(404).send('User Not Found')
+    if (!deleteUser) {
+      return res.status(404).json({Message : 'User Not Found'})
     }
+    //delete the user listings
+    const LisitngToDelete = await DeleteAllListingsDB(deleteUser._id)
+    if (LisitngToDelete.deletedCount === 0) {
+      console.log("No listings found for the given OwnerId");
+    }
+    console.log(`${LisitngToDelete.deletedCount} listings deleted`);
+    //delete the Booking the user Booked
+    const BookingstoDelete = await DeleteBookingsDB(deleteUser._id)
+    if (BookingstoDelete.deletedCount === 0) {
+      console.log( "No Bookings found for the given Owner id");
+    }
+    console.log(`${BookingstoDelete.deletedCount} Bookings deleted`);
+    const ReviewstoDelete = await DeleteBookingsDB(deleteUser._id)
+    if (ReviewstoDelete.deletedCount === 0) {
+      console.log( "No Reviews found for the given Owner id");
+    }
+    console.log(`${ReviewstoDelete.deletedCount} Reviews deleted`);
     return res.status(200).json({Message : "User deleted Successfuly", deleteUser})
   } catch (error) {
     return res.status(500).json({ Message: "Error While deleting User", Error: error.message })
