@@ -23,8 +23,9 @@ exports.DBgetFiltredListings = async (minPrice = 0, maxPrice = 1000000, selected
         const queryResult = await ListingsSchema.find({
             $or: [
                 { title: { $regex: new RegExp(search, 'i') } },
-                { description: { $regex: new RegExp(search, 'i') } },
-                { location: { $regex: new RegExp(search, 'i') } }
+                { location: { $regex: new RegExp(search, 'i') } },
+                { city : {$regex : new RegExp(search, 'i')}},
+                { description: { $regex: new RegExp(search, 'i') } }
             ],
             price: { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) },
             category: { $regex: new RegExp(selectedPropertyTypes, 'i') },
