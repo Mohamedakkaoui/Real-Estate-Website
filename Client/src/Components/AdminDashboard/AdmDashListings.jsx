@@ -13,7 +13,7 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-
+import { Toaster, toast } from "sonner";
 import { getAllListings } from "../../Api/Authapi";
 import { Dot, Eye, Trash } from "lucide-react";
 import { DeleteListing } from "../../Api/ListingsApi";
@@ -84,13 +84,22 @@ export function ListingsTable() {
     try {
       const response = await DeleteListing(id);
       if (response.status == 200) {
+        toast.success(response.data.Message, {
+          style: { backgroundColor: "#76C776", color: "white" },
+        });
         SetProperties((prevProperties) =>
           prevProperties.filter((property) => property.Object_id !== id)
         );
       } else {
+        toast.error("Error :Couldnt Delete Property", {
+          style: { backgroundColor: "#FF7F7F", color: "white" },
+        });
         console.log("couldnt delete Property");
       }
     } catch (error) {
+      toast.error(error.message, {
+        style: { backgroundColor: "#FF7F7F", color: "white" },
+      });
       console.log(error, error.message);
     }
   };
@@ -285,6 +294,7 @@ export function ListingsTable() {
         </div>
       </CardFooter>
     </Card>
+    <Toaster position="top-center" />
     </>
   );
 }
