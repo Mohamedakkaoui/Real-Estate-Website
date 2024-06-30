@@ -112,7 +112,7 @@ const CardWithImageLeft = ({ filteredlistings, loading }) => {
                     price={listing.price}
                     images={listing.images}
                     listingType={listing.listingType}
-                    location={listing.location}
+                    location={listing.city}
                   />
                 </div>
               ))
