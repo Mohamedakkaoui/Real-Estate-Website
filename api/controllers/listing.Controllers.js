@@ -14,6 +14,7 @@ const { bufferAndUploadMultiple } = require("../helpers/datauri");
 const generateCustomUUID = require("../Utils/customUuidGenerator.js");
 const { saveListingForUser, GetUserbyIdallInfoDB, DeleteSavedListingForUser } = require("../models/methods/user.Methods.js");
 const { GetListingReviewsDB } = require("../models/methods/reviews.Methods.js");
+const { DeleteBookingslDB } = require("../models/methods/booking.Methods.js");
 
 //save listing for user
 exports.saveListingUser = async (req, res) => {
@@ -119,9 +120,14 @@ exports.deleteListing = async (req, res) => {
     const { id } = req.params;
     const ListingtoDelete = await deleteListingDB(id);
     if (!ListingtoDelete) {
-      return res.status(400).json({ message: "Error while deleting Listing" });
+      return res.status(400).json({ message: "Error while deleting Property" });
     }
-    return res.status(200).json("Listing has been deleted!");
+    const BookingsDeleted = await DeleteBookingslDB(ListingtoDelete._id)
+    if (BookingsDeleted.deletedCount === 0) {
+      console.log('No Bookings found for the given ID')
+    }
+    console.log(`${BookingsDeleted.deletedCount} Bookigs deleted`)
+    return res.status(200).json({Message : "Property has been deleted!", Bookings : BookingsDeleted, Listing : ListingtoDelete});
   } catch (err) {
     return res
       .status(404)
@@ -134,9 +140,14 @@ exports.DeleteListingByObject = async (req, res) => {
   try {
     const { id } = req.params;
     const Listingtodelete = await DeleteListingByobjectId(id);
-    if (Listingtodelete.deletedCount == 0) {
-      return res.status(404).send("Property Not Found");
+    if (!Listingtodelete) {
+      return res.status(400).json({ Message: "Error while deleting Property" });
     }
+    const BookingsDeleted = await DeleteBookingslDB(Listingtodelete._id)
+    if (BookingsDeleted.deletedCount === 0) {
+      console.log('No Bookings found for the given ID')
+    }
+    console.log(`${BookingsDeleted.deletedCount} Bookings deleted`)
     return res.status(200).json({
       Message: "Property deleted with success",
       Result: Listingtodelete,
@@ -144,7 +155,7 @@ exports.DeleteListingByObject = async (req, res) => {
   } catch (error) {
     return res
       .status(404)
-      .json({ message: "Unable to Delete property", Error: err.message });
+      .json({ message: "Unable to Delete property", Error: error.message });
   }
 };
 
