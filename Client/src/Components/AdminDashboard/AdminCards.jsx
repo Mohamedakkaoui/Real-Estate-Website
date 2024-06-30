@@ -5,11 +5,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { BsCalendar2Date } from "react-icons/bs";
 
-function AdminCards({Users, Bookings, Listings, Reviews}) {
+function AdminCards({Users, Bookings, Listings, Reviews, CardClickEvent}) {
 
   return (
-    <div className="flex  justify-between gap-5">
-      <div
+    <div  className="flex  justify-between gap-5">
+      <div onClick={()=> CardClickEvent("users")}
         className="transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300 flex justify-between shadow-md bg-white p-4 rounded-lg h-[150px]"
         style={{ width: "49%" }}
       >
@@ -18,7 +18,7 @@ function AdminCards({Users, Bookings, Listings, Reviews}) {
             Total Users
           </div>
           <div className="title text-4xl font-bold mt-2 text-gray-400">{Users.length}</div>
-          <div className="text-sm mt-4"> +2 newly added listings</div>
+          <div className="text-sm mt-4"> +2 newly added Users</div>
         </div>
         <div className="icon text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-[#FFA920] rounded-full">
@@ -26,12 +26,12 @@ function AdminCards({Users, Bookings, Listings, Reviews}) {
           </div>
         </div>
       </div>
-      <div
+      <div onClick={()=> CardClickEvent("listings")}
         className="transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300 flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
         style={{ width: "49%" }}
       >
-        <div className="details">
-          <div className="text text-lg font-medium text-[#02293e]">
+        <div  className="details">
+          <div  className="text text-lg font-medium text-[#02293e]">
             Total Listings
           </div>
           <div className="title text-4xl font-bold mt-2 text-gray-400">{Listings.length}</div>
@@ -43,7 +43,7 @@ function AdminCards({Users, Bookings, Listings, Reviews}) {
           </div>
         </div>
       </div>
-      <div
+      <div onClick={()=> CardClickEvent("bookings")}
         className="transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300 flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
         style={{ width: "49%" }}
       >
@@ -60,7 +60,7 @@ function AdminCards({Users, Bookings, Listings, Reviews}) {
           </div>
         </div>
       </div>
-      <div
+      <div onClick={()=> CardClickEvent("reviews")}
         className="transform hover:translate-y-[-5px] cursor-pointer transition-all duration-300 flex justify-between bg-white p-4 rounded-lg shadow-md h-[150px]"
         style={{ width: "49%" }}
       >
