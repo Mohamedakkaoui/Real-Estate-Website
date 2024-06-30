@@ -40,14 +40,8 @@ function App() {
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
             ></Route>
-            <Route
-              path="/Properties"
-              element={<Property />}
-            ></Route>
-            <Route
-              path="/Properties/:city"
-              element={<PropertyCity />}
-            ></Route>
+            <Route path="/Properties" element={<Property />}></Route>
+            <Route path="/Properties/:city" element={<PropertyCity />}></Route>
             <Route path="/Properties" element={<Property />}></Route>
             <Route
               path="/users/auth/password-reset"
