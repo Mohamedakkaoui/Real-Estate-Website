@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Toaster, toast } from "sonner";
 import {
   Card,
   CardHeader,
@@ -16,11 +16,11 @@ import { MdOutlineEmail, MdOutlinePhone } from "react-icons/md";
 import { getAllUsers } from "../../Api/Authapi";
 import { Dot, Trash } from "lucide-react";
 import { DeleteUser } from "../../Api/UserApi";
+import Loading from "../Common/Loading";
 
 const TABLE_HEAD = ["Member", "Contact", "Role", "Status", "joined", "Actions"];
 
 async function fetchUsers() {
-
   try {
     const response = await getAllUsers();
     const users = response.data;
@@ -34,13 +34,11 @@ export function MembersTable() {
   const defaultAvatar =
     "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1716681600&semt=ais_user";
 
-
   const [tableRows, setTableRows] = useState([]);
   const [curentPage, setCurrentPage] = useState(1);
   const [totalPages, SetTotalPages] = useState(1);
   const [Users, SetUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
 
   const openModal = () => {
     setShowModal(true);
@@ -85,13 +83,22 @@ export function MembersTable() {
     try {
       const users = await DeleteUser(id);
       if (users.status == 200) {
+        toast.success("User Deleted with Success", {
+          style: { backgroundColor: "#76C776", color: "white" },
+        });
         SetUsers((prevUsers) =>
           prevUsers.filter((user) => user.OwnerId !== id)
         );
       } else {
+        toast.error("Error :Couldnt Delete User", {
+          style: { backgroundColor: "#FF7F7F", color: "white" },
+        });
         console.log("couldnt delete  user");
       }
     } catch (error) {
+      toast.error(error.message, {
+        style: { backgroundColor: "#FF7F7F", color: "white" },
+      });
       console.log(error, error.message);
     }
   };
@@ -100,14 +107,11 @@ export function MembersTable() {
     <>
       {!tableRows.length == 0 ? (
         <Card className="h-full w-full">
-
           <CardHeader floated={false} shadow={false} className="rounded-none">
             <div className="flex justify-center items-center text-center mb-4">
               <div>
                 <Typography variant="h4" color="blue-gray">
                   Members list
-
-
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
                   See informations about all members
@@ -146,7 +150,7 @@ export function MembersTable() {
                         ProfilePic,
                         isActive,
                         OwnerId,
-                        Role
+                        Role,
                       },
                       index
                     ) => {
@@ -243,7 +247,6 @@ export function MembersTable() {
                           <td className={classes}>
                             <div className="flex justify-center gap-4">
                               {" "}
-                             
                               <Tooltip
                                 content="Delete User"
                                 className="bg-red-300 text-white font-semibold border rounded-lg"
@@ -300,10 +303,11 @@ export function MembersTable() {
           </CardFooter>
         </Card>
       ) : (
-        <div>no users are found</div>
+        <div className="h-full w-full flex justify-center flex-align-center">
+          <Loading />
+        </div>
       )}
-
+      <Toaster position="top-center" />
     </>
   );
-
 }
