@@ -175,6 +175,7 @@ function AdminHeader() {
               bookings={TotalBookings}
               listings={TotalListings}
               reviews={TotalReviews}
+              onCardClick={handleTabClick}
             />
           )}
           {mainContent === "newListing" && <AddListing />}
