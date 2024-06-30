@@ -22,6 +22,15 @@ exports.GetReviewByIdDB = async (id) => {
   }
 };
 
+//Delete Reviews is the user is deleted
+exports.DeleteReviewsDB = async (id) => {
+  try {
+    const Deleted = await ReviewSchema.deleteMany({owner : id})
+    return Deleted
+  } catch (error) {
+    throw new Error(err)
+  }
+}
 
 //get listing reviews
 exports.GetListingReviewsDB = async (id) => {
