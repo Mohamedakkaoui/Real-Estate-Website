@@ -4,7 +4,7 @@ import RatingDashCard from "./RatingCard";
 import Table2 from "../Common/Table2/table";
 import StatsDash from "./StatsDash";
 
-function AdmDashMain({ users, bookings, listings, reviews }) {
+function AdmDashMain({ users, bookings, listings, reviews, onCardClick }) {
   const [ReviewsState, SetReviews] = useState([]);
   const [UsersState, SetUsers] = useState([]);
   const [BookingsState, SetBookings] = useState([]);
@@ -23,6 +23,7 @@ function AdmDashMain({ users, bookings, listings, reviews }) {
           Reviews={ReviewsState}
           Bookings={BookingsState}
           Listings={ListingsState}
+          CardClickEvent={onCardClick}
         />
       </div>
       <div className="flex w-full mx-auto m-auto gap-6 mt-9">
