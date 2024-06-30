@@ -29,8 +29,9 @@ function Cities() {
         const res = await GetAllListings();
         const allListings = res.data.Listings;
         cities.forEach((option) => {
+          const regex = new RegExp(option.CIty, "i")
           const citiyandlistings = allListings.filter(
-            (el) => el.city == option.CIty
+            (el) => regex.test(el.city)
           );
           listingswithcities.push({
             city: option,
