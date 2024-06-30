@@ -13,6 +13,27 @@ exports.registerBookingDB = async (data) => {
   }
 };
 
+//Delete the Bookking after the user is deleted 
+exports.DeleteBookingsDB = async (id) => {
+  try {
+    const Bookings = await bookingSchema.deleteMany({user : id})
+    return Bookings
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+
+//Delete Booking after the listing is deleted
+exports.DeleteBookingslDB = async (id) => {
+  try {
+    const Bookings = await bookingSchema.deleteMany({listing : id})
+    return Bookings
+  } catch (error) {
+    throw new Error (error)
+  }
+}
+
 //update booking
 exports.UpdateBooking = async (id, data) => {
   try {
