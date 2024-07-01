@@ -14,6 +14,7 @@ import About from "./Pages/About";
 import "./App.css";
 import PrivateRoute from "./Utils/UserRoutes";
 import PropertyCity from "./Pages/PagePropertyCity";
+import AdminRoute from "./Utils/AdminRoute";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             <Route path="/users/auth/verify" element={<CheckEmail />} />
             <Route
               path="/Admin-Dashboard"
-              element={<PrivateRoute element={AdminDashboard} />}
+              element={<AdminRoute element={AdminDashboard} />}
             ></Route>
             <Route
               path="/User-Dashboard/*"
@@ -40,7 +41,6 @@ function App() {
               path="/users/auth/reset-password-email"
               element={<ResetPassword />}
             ></Route>
-            <Route path="/Properties" element={<Property />}></Route>
             <Route path="/Properties/:city" element={<PropertyCity />}></Route>
             <Route path="/Properties" element={<Property />}></Route>
             <Route
