@@ -17,26 +17,25 @@ const verifyRoles = require("../middlewares/roles.js");
 
 
 
-ReviewRoute.get("/ListingReviews", GetListingReviews);
+// ReviewRoute.get("/ListingReviews", GetListingReviews);
 
-ReviewRoute.get("/userReviews", isAuthenticated, getUserReviews);
+// ReviewRoute.get("/userReviews", isAuthenticated, getUserReviews);
 
-ReviewRoute.post("/add", isAuthenticated, CreateReview);
+// ReviewRoute.post("/add", isAuthenticated, CreateReview);
 ReviewRoute.get('/', isAuthenticated, getAlltheReviews)
-ReviewRoute.get('/userReviews', isAuthenticated, getUserReviews)
-ReviewRoute.post('/add', isAuthenticated, CreateReview)
-// ReviewRoute.get('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin), IsOwner, GetReviewById)
+// ReviewRoute.get('/userReviews', isAuthenticated, getUserReviews)
+// // ReviewRoute.get('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin), IsOwner, GetReviewById)
 
-// ReviewRoute.put('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User), IsOwner, updateReview)
+// // ReviewRoute.put('/:id', isAuthenticated, verifyRoles(ROLES_LIST.User), IsOwner, updateReview)
 
-ReviewRoute.get("/MylistingReviews", isAuthenticated, GetMyListingsReviews);
-ReviewRoute.delete('/delete/:id', isAuthenticated, deleteReview)
-ReviewRoute.delete('/admin/delete/:id', isAuthenticated, DeleteReviewsAdmin)//add role fro admin 
-ReviewRoute.get("/:userID", isAuthenticated, getReviewUserAddTop);
+// ReviewRoute.get("/MylistingReviews", isAuthenticated, GetMyListingsReviews);
+// ReviewRoute.delete('/delete/:id', isAuthenticated, deleteReview)
+// ReviewRoute.delete('/admin/delete/:id', isAuthenticated, DeleteReviewsAdmin)//add role fro admin 
+// ReviewRoute.get("/:userID", isAuthenticated, getReviewUserAddTop);
 
 
 //Admin reviews
-ReviewRoute.post('/admin/Reviews', isAuthenticated, CreateSiteReview)
+ReviewRoute.post('/admin/AllReviews', isAuthenticated, CreateSiteReview)
 ReviewRoute.delete('/admin/Reviews/:id', isAuthenticated, deleteSiteReview)
 ReviewRoute.get('/admin/Reviews', isAuthenticated, getAllSiteReviews)
 module.exports = ReviewRoute;

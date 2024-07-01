@@ -8,9 +8,9 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export function getAllReviews() {
-  return api.get("/");
-}
+// export function getAllReviews() {
+//   return api.get("/");
+// }
 
 export function GetMYlistingReviews() {
   return api.get('/MylistingReviews')
@@ -22,7 +22,10 @@ export function addNewReview(data) {
   return api.post('/add', data)
 }
 
-
+// post review of our website
+export const postReview = (data) => {
+  return api.post('/admin/AllReviews', data);
+};
 
 
 export function DeleteReviewForAdmin(id) {

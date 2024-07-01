@@ -80,17 +80,17 @@ function NavBar2() {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/Home" className="text-black hover:text-[#FFA920]" onClick={toggleSidebar}>
+                                                <Link to="/Properties?status=buy" className="text-black hover:text-[#FFA920]" onClick={toggleSidebar}>
                                                     Buy
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/Home" className="text-black hover:text-[#FFA920]" onClick={toggleSidebar}>
+                                                <Link to="/Properties?status=rent" className="text-black hover:text-[#FFA920]" onClick={toggleSidebar}>
                                                     Rent
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/Home" className="text-black hover:text-[#FFA920]" onClick={toggleSidebar}>
+                                                <Link to="/Properties?status=vacation" className="text-black hover:text-[#FFA920]" onClick={toggleSidebar}>
                                                     Vacation
                                                 </Link>
                                             </li>
