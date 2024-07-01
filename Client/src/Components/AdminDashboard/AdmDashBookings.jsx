@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -17,8 +16,9 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { getAllBookings } from "../../Api/Authapi";
-import {DeleteBooking} from '../../Api/BookingApi'
-import { Dot,Trash } from "lucide-react";
+import { DeleteBooking } from "../../Api/BookingApi";
+import { Dot, Trash, TicketCheck } from "lucide-react";
+import ModalDashboard from "../Modal/ModalDashboard";
 
 const TABLE_HEAD = [
   "Property",
@@ -48,7 +48,8 @@ export function BookingsTable() {
   const [curentPage, setCurrentPage] = useState(1);
   const [totalPages, SetTotalPages] = useState(1);
   const [Bookings, SetBookings] = useState([]);
-
+  const [ShowModal, SetshowModal] = useState(false);
+  const [bookingDetails, setBookingDetails] = useState(null);
   useEffect(() => {
     async function getTableRows() {
       try {
@@ -60,7 +61,7 @@ export function BookingsTable() {
     }
 
     getTableRows();
-  }, []);
+  }, [bookingDetails]);
 
   useEffect(() => {
     if (Bookings.length > 0) {
@@ -76,7 +77,6 @@ export function BookingsTable() {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
@@ -87,235 +87,283 @@ export function BookingsTable() {
 
   const handleBooking = async (id) => {
     try {
-      const response = await DeleteBooking(id)
-      if(response.status == 200) {
-        SetBookings((prevBookings) => prevBookings.filter((Booking) => Booking._id !== id))
+      const response = await DeleteBooking(id);
+      if (response.status == 200) {
+        SetBookings((prevBookings) =>
+          prevBookings.filter((Booking) => Booking._id !== id)
+        );
       } else {
         console.log("couldnt delete Property");
       }
     } catch (error) {
       console.log(error, error.message);
     }
-  }
+  };
+
+  const OpenModal = (details) => {
+    setBookingDetails(details);
+    SetshowModal(true);
+  };
+  const CloseModal = () => {
+    SetshowModal(false);
+    setBookingDetails(null);
+  };
   return (
-    <Card className="h-full w-full">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
-        <div className="flex justify-center items-center text-center mb-4">
-          <div>
-            <Typography variant="h4" color="blue-gray">
-              Bookings list
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              See information about all the Bookings made by users.
-            </Typography>
+    <>
+      <Card className="h-full w-full">
+        <CardHeader floated={false} shadow={false} className="rounded-none">
+          <div className="flex justify-center items-center text-center mb-4">
+            <div>
+              <Typography variant="h4" color="blue-gray">
+                Bookings list
+              </Typography>
+              <Typography color="gray" className="mt-1 font-normal">
+                See information about all the Bookings made by users.
+              </Typography>
+            </div>
           </div>
-        </div>
-      </CardHeader>
-      <CardBody className="overflow-scroll px-0">
-        <table className="mt-4 w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th key={head} className="bg-[#ffa9202a] p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal text-center text-[#FFA920] leading-none opacity-70"
-                    style={{ fontWeight: "bold" }}
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {tableRows.map(
-              (
-                {
-                  user,
-                  createdAt,
-                  endDate,
-                  listing,
-                  startDate,
-                  status,
-                  totalPrice,
-                  _id
-                },
-                index
-              ) => {
-                const isLast = index === tableRows.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+        </CardHeader>
+        <CardBody className="overflow-scroll px-0">
+          <table className="mt-4 w-full min-w-max table-auto text-left">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head) => (
+                  <th key={head} className="bg-[#ffa9202a] p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal text-center text-[#FFA920] leading-none opacity-70"
+                      style={{ fontWeight: "bold" }}
+                    >
+                      {head}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows.map(
+                (
+                  {
+                    user,
+                    createdAt,
+                    endDate,
+                    listing,
+                    startDate,
+                    status,
+                    totalPrice,
+                    location,
+                    _id,
+                  },
+                  index
+                ) => {
+                  const isLast = index === tableRows.length - 1;
+                  const classes = isLast
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
+                  const bookingDetails = {
+                    user,
+                    createdAt,
+                    endDate,
+                    listing,
+                    startDate,
+                    status,
+                    location,
+                    totalPrice,
+                    _id,
+                  };
 
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-4">
-                        <Avatar
-                          src={listing.images[0].url}
-                          alt={name}
-                          style={{ width: "150px", height: "120px" }}
-                        />
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal mb-4"
-                          >
-                            {listing.title}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-bold	"
-                          >
-                            {listing.price} MAD
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex items-center gap-4">
-                        <Avatar src={user.ProfilePic} alt={name} size="8" />
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {user.FirstName} {user.LastName}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {user.Email}
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="mx-auto w-max">
-                        <div className="flex ">
-                          <Dot
-                            className={`${
-                              status === "confirmed"
-                                ? "text-green-400"
-                                : status === "pending"
-                                ? "text-yellow-400"
-                                : "text-red-500"
-                            } size-8`}
+                  return (
+                    <tr key={name}>
+                      <td className={classes}>
+                        <div className="flex items-center gap-4">
+                          <Avatar
+                            src={listing.images[0].url}
+                            alt={name}
+                            style={{ width: "150px", height: "120px" }}
                           />
-                          <Chip
-                            variant="ghost"
-                            size="sm"
-                            value={
-                              status === "confirmed"
-                                ? "confirmed"
-                                : status === "pending"
-                                ? "pending"
-                                : "cancelled"
-                            }
-                            className={`${
-                              status === "confirmed"
-                                ? "text-green-400"
-                                : status === "pending"
-                                ? "text-yellow-400"
-                                : "text-red-500"
-                            } pl-0`}
-                          />
+                          <div className="flex flex-col">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-semibold mb-4 text-md"
+                            >
+                              {listing.title}
+                            </Typography>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-semibold	"
+                            >
+                              <span className="font-bold text-lg text-[#FFA920]">
+                                {listing.price}
+                              </span>{" "}
+                              MAD /night
+                            </Typography>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal text-center"
-                      >
-                        {new Date(startDate).toLocaleDateString()}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal text-center"
-                      >
-                        {new Date(endDate).toLocaleDateString()}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal text-center"
-                      >
-                        {totalPrice}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal text-center"
-                      >
-                        {new Date(createdAt).toLocaleDateString()}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Tooltip
-                        content="Delete Booking"
-                        className="bg-red-300 text-white font-semibold border rounded-lg"
-                      >
-                        <IconButton variant="text">
-                          <Trash className="h-6 w-6 text-red-500 ml-5" onClick={()=>handleBooking(_id)}/>
-                        </IconButton>
-                      </Tooltip>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
-          </tbody>
-        </table>
-      </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <div>
-          {[...Array(totalPages)].map((_, index) => (
-            <IconButton
-              key={index}
-              variant={curentPage === index + 1 ? "outlined" : "text"}
+                      </td>
+                      <td className={classes}>
+                        <div className="flex items-center gap-4">
+                          <Avatar src={user.ProfilePic} alt={name} size="8" />
+                          <div className="flex flex-col">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {user.FirstName} {user.LastName}
+                            </Typography>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {user.Email}
+                            </Typography>
+                          </div>
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <div className="mx-auto w-max">
+                          <div className="flex ">
+                            <Dot
+                              className={`${
+                                status === "confirmed"
+                                  ? "text-green-400"
+                                  : status === "pending"
+                                  ? "text-yellow-400"
+                                  : "text-red-500"
+                              } size-8`}
+                            />
+                            <Chip
+                              variant="ghost"
+                              size="sm"
+                              value={
+                                status === "confirmed"
+                                  ? "confirmed"
+                                  : status === "pending"
+                                  ? "pending"
+                                  : "cancelled"
+                              }
+                              className={`${
+                                status === "confirmed"
+                                  ? "text-green-400"
+                                  : status === "pending"
+                                  ? "text-yellow-400"
+                                  : "text-red-500"
+                              } pl-0`}
+                            />
+                          </div>
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal text-center"
+                        >
+                          {new Date(startDate).toLocaleDateString()}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal text-center"
+                        >
+                          {new Date(endDate).toLocaleDateString()}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal text-center"
+                        >
+                          <span className="font-semibold">{totalPrice}</span>{" "}
+                          MAD
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal text-center"
+                        >
+                          {new Date(createdAt).toLocaleDateString()}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Tooltip
+                          content="Delete Booking"
+                          className="bg-red-300 text-white font-semibold border rounded-lg"
+                        >
+                          <IconButton variant="text">
+                            <Trash
+                              className="h-6 w-6 text-red-500"
+                              onClick={() => handleBooking(_id)}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                          content="Confirm Booking"
+                          className="bg-green-300 text-white font-semibold border rounded-lg"
+                        >
+                          <IconButton variant="text">
+                            <TicketCheck
+                              className="h-6 w-6 text-green-500 "
+                              onClick={() => OpenModal(bookingDetails)}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
+            </tbody>
+          </table>
+        </CardBody>
+        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+          <div>
+            {[...Array(totalPages)].map((_, index) => (
+              <IconButton
+                key={index}
+                variant={curentPage === index + 1 ? "outlined" : "text"}
+                size="sm"
+                onClick={() => handlePageClick(index + 1)}
+              >
+                {index + 1}
+              </IconButton>
+            ))}
+          </div>
+
+          <div className="flex gap-2">
+            <Button
+              variant="outlined"
               size="sm"
-              onClick={() => handlePageClick(index + 1)}
+              disabled={curentPage == 1}
+              onClick={handlePrevPage}
             >
-              {index + 1}
-            </IconButton>
-          ))}
-        </div>
-
-        <div className="flex gap-2">
-          <Button
-            variant="outlined"
-            size="sm"
-            disabled={curentPage == 1}
-            onClick={handlePrevPage}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outlined"
-            size="sm"
-            disabled={curentPage == totalPages}
-            onClick={handleNextPage}
-          >
-            Next
-          </Button>
-        </div>
-      </CardFooter>
-    </Card>
+              Previous
+            </Button>
+            <Button
+              variant="outlined"
+              size="sm"
+              disabled={curentPage == totalPages}
+              onClick={handleNextPage}
+            >
+              Next
+            </Button>
+          </div>
+        </CardFooter>
+      </Card>
+      { ShowModal && <ModalDashboard
+        show={ShowModal}
+        onClose={CloseModal}
+        BookingDetails={bookingDetails}
+      />}
+    </>
   );
 }
