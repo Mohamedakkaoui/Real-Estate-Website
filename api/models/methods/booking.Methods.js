@@ -130,7 +130,7 @@ exports.MyBookingsDBDet = async (id) => {
 //get all bookings
 exports.getBookingsDB = async () => {
   try {
-    const bookings = await bookingSchema.find().select('-owner').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images -_id')
+    const bookings = await bookingSchema.find().select('-owner').populate('user', 'FirstName LastName Email ProfilePic -_id').populate('listing', 'title price images location -_id')
     return bookings
 
   } catch (error) {
