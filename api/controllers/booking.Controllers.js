@@ -13,7 +13,7 @@ const {
   MylisitingsBookingsDB,
   permissionToBook,
   MyBookingsDBDet,
-  GetListingBookingsDB
+  GetListingBookingsDB,
 } = require("../models/methods/booking.Methods");
 const {
   getListingByIdDB,
@@ -27,7 +27,7 @@ exports.registerNewBooking = async (req, res) => {
   try {
     const user = req.user.id;
     const User = await GetUserbyIdallInfoDB(user);
-    const { startDate, endDate,ID, ObjectID, totalPrice } = req.body;
+    const { startDate, endDate, ID, ObjectID, totalPrice } = req.body;
     const Listing = await getALLListingByUserIdDB(ObjectID);
     const owner = Listing[0].owner;
     const Object_id = generateCustomUUID();
@@ -137,16 +137,48 @@ exports.cancelBooking = async (req, res) => {
       return res.status(404).json({ error: "Booking not found" });
     }
     if (booking.status == "canceled") {
-      return res.status(406).json({message : "Booking already canceled"})
+      return res.status(406).json({ message: "Booking already canceled" });
     }
     booking.status = "canceled";
     await booking.save();
     return res.status(200).json({ message: "Booking canceled successfully" });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error", message  :  "Booking couldnt be canceled" });
+    return res
+      .status(500)
+      .json({
+        error: "Internal Server Error",
+        message: "Booking couldnt be canceled",
+      });
   }
 };
 
+//Confirm Booking by the admin
+exports.ConfirmBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await getBookingByIdDB(id);
+    if (!response) {
+      return res.status(404).json({ Message: "Booking not found" });
+    }
+    if (response.status == "confirmed") {
+      return res.status(406).json({ Message: "Booking already Confirmed" });
+    }
+    if (response.status == "canceled") {
+      return res
+        .status(406)
+        .json({ Message: "Can Not Confirm Booking as it is Canceled" });
+    }
+    response.status = "confirmed";
+    await response.save();
+    return res
+      .status(202)
+      .json({ Message: "Booking Confirmed with success", Booking: response });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Internal server Error ", Message: err.data.message });
+  }
+};
 // get owner's permission to book a proprety
 exports.OwnerPermissionToBook = async (req, res) => {
   try {
@@ -272,18 +304,20 @@ exports.OwnerPermissionToBook = async (req, res) => {
   }
 };
 
-
-//Get all booking controllers 
+//Get all booking controllers
 exports.GetListingsBooking = async (req, res) => {
   try {
-    const { id } = req.params
-    const bookings = await GetListingBookingsDB(id)
+    const { id } = req.params;
+    const bookings = await GetListingBookingsDB(id);
     if (!bookings) {
-      return res.status(404).json({Message : "No booking were found"})
+      return res.status(404).json({ Message: "No booking were found" });
     }
-    return res.status(200).json({Message : "Booking retrieved with success", Bookings : bookings})
+    return res
+      .status(200)
+      .json({ Message: "Booking retrieved with success", Bookings: bookings });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({error  :"Internal server Error " , Message : err.data.message})
+    res
+      .status(500)
+      .json({ error: "Internal server Error ", Message: err.data.message });
   }
-}
+};
