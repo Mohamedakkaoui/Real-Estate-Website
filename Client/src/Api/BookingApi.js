@@ -31,6 +31,10 @@ export function CancelBooking (id) {
   return api.patch(`/cancel/${id}`)
 }
 
+export function ConfirmBooking(id) {
+  return api.patch(`/Confirm/${id}`)
+}
+
 
 export function AddnewBooking (body) {
   return api.post('/new', body)
